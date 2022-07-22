@@ -1,16 +1,12 @@
-import logo from './logo.jpg'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Login from './components/Login/Login';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to Yuumy App 😍😍😍
-        </p>
-
-      </header>
+      <Login />
     </div>
   );
 }
