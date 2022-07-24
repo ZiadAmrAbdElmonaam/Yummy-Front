@@ -1,0 +1,15 @@
+.kitchen-cover {
+    width: 100%;
+    text-align: center;
+}
+.respnsiveImg {
+ border-radius: 50%;
+ width: 100%;
+ border: 0px;
+
+}
+.contain-kitchen-name span{
+    padding-left: 1rem;
+    font-size: 1.8rem;
+    text-decoration: underline;
+}

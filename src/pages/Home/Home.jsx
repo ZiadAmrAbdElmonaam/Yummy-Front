@@ -2,19 +2,20 @@ import React from "react";
 // import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-// import CardComponent from "../component/Card";
+import CardComponent from "../../components/Card/Card";
 // import { Link } from "react-router-dom";
 // import Loading from "./../component/Loading";
 
 import axiosInstance from "../../Network/Config";
 export default function Home() {
-  const [menus, setMenu] = useState([]);
+  const [kitchens, setKitchens] = useState([]);
+
   let [load, setLoad] = useState(true);
   useEffect(() => {
     axiosInstance
-      .get("/menu")
+      .get("/kitchen")
       .then((res) => {
-        // setUsers(res.data);
+        setKitchens(res.data);
         console.log(res.data);
         setLoad(false);
       })
@@ -22,7 +23,6 @@ export default function Home() {
         console.log(err);
       });
   }, []);
-
   // let handelClick = (e) =>{
   //     <Link to={"/user-details:id"}></Link>
   // }
@@ -32,11 +32,17 @@ export default function Home() {
       <h1>Hello from home page </h1>
       <h6>Menu</h6>
 
-      {/* {load ? (
-        <Loading />
-      ) : (
-          )} */}
-      <div className="row">{/* <CardComponent user={user} /> */}</div>
+      <div className="row row-cols-1 row-cols-md-4 g-0 ">
+        {kitchens.map((kitchen) => {
+          return (
+            <div className="col">
+              <div className="m-2">
+                <CardComponent kitchen={kitchen} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
