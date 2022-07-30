@@ -16,7 +16,7 @@ export default function Home() {
       .get("/kitchen")
       .then((res) => {
         setKitchens(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setLoad(false);
       })
       .catch((err) => {
@@ -35,7 +35,7 @@ export default function Home() {
       <div className="row row-cols-1 row-cols-md-4 g-0 ">
         {kitchens.map((kitchen) => {
           return (
-            <div className="col">
+            <div className="col" key={kitchen._id}>
               <div className="m-2">
                 <CardComponent kitchen={kitchen} />
               </div>

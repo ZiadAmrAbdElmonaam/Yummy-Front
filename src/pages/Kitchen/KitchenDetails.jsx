@@ -5,26 +5,29 @@ import { Params, useParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import axiosInstance from "../../Network/Config";
 import Menu from "../../components/Menu/Menu";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 export default function KitchenDetails() {
   const [userD, setUserD] = useState({});
-
+  const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
 
   let params = useParams();
-  console.log("params", params);
+  // console.log("params", params);
   useEffect(() => {
     axiosInstance
       .get(`/kitchen/${params.id}`)
       .then((res) => {
         setUserD(res.data);
-        console.log(res.data);
         setIsLoad(false);
+        setItem(res.data.menuId.menuItems);
       })
       .catch((err) => {
         setIsLoad(false);
       });
   }, []);
+  console.log("nnn", item);
+
   return (
     <div>
       {isload ? (
@@ -69,10 +72,21 @@ export default function KitchenDetails() {
               </div>
               <hr />
             </div>
+            {/* //end of row */}
           </div>
-          {/* end of kitchen header */}
-          {/* start of kitchen munu */}
-          {/* <Menu /> */}
+
+          {/* items */}
+          <div className="row row-cols-1 row-cols-md-4 g-0 ">
+            {item.map((item) => {
+              return (
+                <div className="col" key={item._id}>
+                  <div className="m-2">
+                    <ItemCard item={item} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div> //end of container
       )}
     </div>
