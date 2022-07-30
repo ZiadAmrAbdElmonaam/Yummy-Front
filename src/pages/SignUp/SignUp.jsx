@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import axios from "axios";
 
 export default function SignUp() {
   // start of states
@@ -95,9 +96,25 @@ export default function SignUp() {
   };
 
   //  on Submit
-  const handelSubmit = (event) => {
-    event.preventDefault();
-  };
+  const handelSubmit = async (event) => {
+    event.preventDefault()
+    try{
+      const url = "http//:localhost:8080/kitchen" 
+      const {user :res} =  await axios.post(url,user);
+      localStorage.setItem("token",res.user)
+      console.log(res.message)
+        }
+    catch(error){
+if(error.response&&
+  error.response.status>=400&&
+  error.response.status<=500
+  ){
+    setUserError(error.response.user.message)
+  
+}
+    }
+    
+  }
   return (
     <>
       <div className="container">
