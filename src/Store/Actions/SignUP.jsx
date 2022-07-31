@@ -1,8 +1,8 @@
 import axiosInstance from "./../../Network/Config";
 
-export const SignUPThunk = () => (dispatch) => {
+export const SignUPThunk = (object) => (dispatch) => {
   return axiosInstance
-    .post("/kitchen")
+    .post("/kitchen", object)
     .then((res) => {
       dispatch({
         type: "POST_THUNK_DATA",

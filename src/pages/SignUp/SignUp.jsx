@@ -93,7 +93,7 @@ export default function SignUp() {
   //  on Submit
   const HandelSubmit = (event) => {
     event.preventDefault();
-    flag = true;
+    dispatch(SignUPThunk(user));
     // try {
     //   const url = "http://localhost:8080/kitchen";
     //   const { user: res } = await axios.post(url, user);
@@ -106,9 +106,7 @@ export default function SignUp() {
     //   }
     // }
   };
-  useEffect(() => {
-    dispatch(SignUPThunk());
-  }, [flag]);
+
   return (
     <>
       <div className="container">
