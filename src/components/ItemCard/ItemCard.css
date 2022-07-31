@@ -1,0 +1,18 @@
+img {
+  width: 90% !important;
+  height: 90%;
+  object-fit: contain;
+}
+.status {
+  font-size: 1rem;
+}
+.item-price {
+  /* text-decoration: underline; */
+  color: #ff5a00;
+  font-weight: 800;
+  
+}
+.item-price:hover {
+  color: #b84406;
+  cursor: pointer;
+}

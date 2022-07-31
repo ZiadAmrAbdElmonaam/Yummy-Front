@@ -76,11 +76,11 @@ export default function KitchenDetails() {
           </div>
 
           {/* items */}
-          <div className="row row-cols-1 row-cols-md-4 g-0 ">
+          <div className="row row-cols-12 row-cols-md-12 g-0 ">
             {item.map((item) => {
               return (
                 <div className="col" key={item._id}>
-                  <div className="m-2">
+                  <div className="m-2 item">
                     <ItemCard item={item} />
                   </div>
                 </div>
