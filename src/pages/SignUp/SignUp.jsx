@@ -8,9 +8,23 @@ import { SignUPThunk } from "../../Store/Actions/SignUP";
 export default function SignUp() {
   // start of states
   const [user, setUser] = useState({
-    kitchenEmail: "",
-    kitchenName: "",
-    kitchenPassword: "",
+    userEmail: "",
+    userFullName: "",
+    userPassword: "",
+    userPhone:"",
+    role:"user",
+    userAddress:{
+      street:"",
+      zone:"",
+      city:"",
+      building:""
+    }
+    
+
+
+
+
+
     // kitchenConfirmPassword: "",
   });
   // handel validation error state
@@ -94,6 +108,37 @@ export default function SignUp() {
   const HandelSubmit = (event) => {
     event.preventDefault();
     dispatch(SignUPThunk(user));
+    if(user.role === "user"){
+      fetch("http://localhost:8080/user/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
+      }).then((res) => {
+        return res.json();
+      }).then((data) => {
+        console.log(data);
+      });
+    } else if(user.role === "kitchen"){
+      alert("KITCHENNN");
+      const kitchen = {
+        kitchenName:  user.userFullName,
+        kitchenEmail: user.userEmail,
+        kitchenPhone: user.userPhone,
+      }
+      fetch("http://localhost:8080/kitchen/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(kitchen)
+      }).then((res) => {
+        return res.json();
+      }).then((data) => {
+        console.log(data);
+      });
+    }
     // try {
     //   const url = "http://localhost:8080/kitchen";
     //   const { user: res } = await axios.post(url, user);
@@ -122,8 +167,8 @@ export default function SignUp() {
             <Form.Control
               type="email"
               placeholder="Enter email"
-              value={user.kitchenEmail}
-              name="kitchenEmail"
+              value={user.userEmail}
+              name="userEmail"
               onChange={(e) => handelUserChange(e)}
             />
             <Form.Text className="d-block text-danger mb-2">
@@ -137,8 +182,8 @@ export default function SignUp() {
             <Form.Control
               type="text"
               placeholder="Enter User Name"
-              value={user.kitchenName}
-              name="kitchenName"
+              value={user.userFullName}
+              name="userFullName"
               onChange={(e) => handelUserChange(e)}
             />
             <Form.Text className="d-block text-danger mb-2">
@@ -153,13 +198,42 @@ export default function SignUp() {
               placeholder="Password"
               type="password"
               value={user.userPassword}
-              name="kitchenPassword"
+              name="userPassword"
               onChange={(e) => handelUserChange(e)}
             />
             <Form.Text className="d-block text-danger mb-2">
               {userError.kitchenPasswordError}
             </Form.Text>
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>User Phone</Form.Label>
+            <Form.Control
+              placeholder="User Phone"
+              type="text"
+              value={user.userPhone}
+              name="userPhone"
+              onChange={(e) => handelUserChange(e)}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.kitchenPasswordError}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>street</Form.Label>
+            <Form.Control
+              placeholder="Street"
+              type="text"
+              value={user.userAddress.street}
+              name="userStreet"
+              onChange={(e) => handelUserChange(e)}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.kitchenPasswordError}
+            </Form.Text>
+          </Form.Group>
+          
+
 
           {/* confirm password */}
           {/* <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
@@ -176,20 +250,16 @@ export default function SignUp() {
             </Form.Text>
           </Form.Group> */}
           <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle mb-3"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+            <select
+            value={user.role}
+            name="role"
+            onChange={(e) => handelUserChange(e)}
             >
-              choose Role
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li className="dropdown-item">user</li>
-              <li className="dropdown-item">kitchen</li>
-              <li className="dropdown-item">pilot</li>
-            </ul>
+              <option value="user">User</option>
+              <option value="kitchen">Kitchen</option>
+              <option value="pilot">Pilot</option>
+            </select>
+
           </div>
           <Button variant="primary" type="submit">
             Submit
