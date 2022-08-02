@@ -1,0 +1,32 @@
+.form {
+  width: 55%;
+  margin: 3rem auto;
+}
+h6 {
+  text-align: center;
+  color: orange;
+  font-size: 2rem;
+  margin: 2rem auto;
+}
+.select-category {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.sub-btn {
+  background-color: #ff5a00;
+  color: #fff;
+  border: 0px solid;
+  border-radius: 5px;
+  border: 1px solid #ff5a00;
+
+  padding: 0.5rem 2rem;
+  font-size: 1.3rem;
+  margin: 1rem auto;
+  width: 40%;
+  display: block;
+}
+.sub-btn:hover {
+  background-color: #fff;
+  border: 1px solid #ff5a00;
+  color: #ff5a00;
+}
