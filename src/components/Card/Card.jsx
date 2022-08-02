@@ -10,7 +10,7 @@ function CardComponent({
   return (
     <>
       <div className="card h-100 w-100">
-        <img src="../../../../Yummy-Graduation/avatars/images/1659025147767.jpg" />
+        {/* <img src="../../../../Yummy-Graduation/avatars/images/1659025147767.jpg" /> */}
         <img
           src={imgUrl + kitchenImage}
           className="card-img-top responsive-img"
