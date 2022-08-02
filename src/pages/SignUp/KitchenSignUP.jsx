@@ -11,12 +11,12 @@ export default function JoinUS() {
     kitchenName: "",
     kitchenEmail: "",
     kitchenPassword: "",
-    kitchenPhone: "",
+    kitchenPhone: 0,
     kitchenCategeory: "",
-    kitchenAddress: {
+    kitchenAddress:{
       zone: "",
       street: "",
-      buildingNumber: "",
+      buildingNumber: 0,
     },
   });
 
@@ -26,7 +26,7 @@ export default function JoinUS() {
     kitchenEmailError: "",
     kitchenPasswordError: "",
     kitchenPhoneError: "",
-    kitchenCategeory: "",
+    kitchenCategeoryError: "",
 
     kitchenAddressError: {
       zoneError: "",
@@ -37,14 +37,19 @@ export default function JoinUS() {
   // functions
   // handel kitchen change
   const handleKitchenChange = (event) => {
-    // if (event.target.name == "kitchenAddress.zone") {
-    //   console.log(event.target.name, event.target.value);
-    // }
+    if (event.target.name == "zone") {
+      // event.target.value=kitchen.kitchenAddress.zone
+      setKitchen({
+        ...kitchen,
+        [event.target.name]: event.target.value,
+      });
+      console.log(event.target.name, event.target.value);
+    }
     setKitchen({
       ...kitchen,
       [event.target.name]: event.target.value,
     });
-
+    console.log(event.target.name, event.target.value);
     handelValidationError(event.target.name, event.target.value);
   };
 
@@ -110,7 +115,7 @@ export default function JoinUS() {
       })
       .then((data) => {
         console.log(data);
-        window.location = "/login";
+        // window.location = "/login";
       });
   };
 
@@ -202,10 +207,10 @@ export default function JoinUS() {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label> kitchen street</Form.Label>
                 <Form.Control
-                  placeholder="zone"
+                  placeholder="street"
                   type="text"
-                  value={kitchen.kitchenAddress.street}
-                  name="kitchenAddress.street"
+                  value={kitchen.street}
+                  name="street"
                   onChange={(e) => handleKitchenChange(e)}
                 />
                 <Form.Text className="d-block text-danger mb-2">
@@ -217,10 +222,10 @@ export default function JoinUS() {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label> building number </Form.Label>
                 <Form.Control
-                  placeholder="zone"
+                  placeholder="buliding number"
                   type="number"
-                  value={kitchen.kitchenAddress.buildingNumber}
-                  name="kitchenAddress.buildingNumber"
+                  value={kitchen.buildingNumber}
+                  name="buildingNumber"
                   onChange={(e) => handleKitchenChange(e)}
                 />
                 <Form.Text className="d-block text-danger mb-2">
