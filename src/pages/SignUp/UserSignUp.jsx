@@ -26,6 +26,13 @@ export default function SignUp() {
     userNameError: "",
     userPasswordError: "",
     // kitchenConfirmPassword: "",
+    userPhoneError: "",
+    userAddressError: {
+      street: "",
+      zone: "",
+      city: "",
+      building: "",
+    },
   });
   // functions
   // handel user change
@@ -41,10 +48,10 @@ export default function SignUp() {
   // validation
   const handelValidationError = (field, value) => {
     switch (field) {
-      case "kitchenEmail":
+      case "userEmail":
         setUserError({
           ...userError,
-          kitchenEmailError:
+          userEmailError:
             value.length === 0
               ? "this field is required "
               : /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value) === false
@@ -52,18 +59,18 @@ export default function SignUp() {
               : "",
         });
         break;
-      case "kitchenName":
+      case "userFullName":
         setUserError({
           ...userError,
           userNameError:
             value.length === 0
               ? "this field is required "
-              : /^\S*$/.test(value) == false
-              ? "kitchenName can not contain spaces"
+              : /^\S*$/.test(value) === false
+              ? "username can not contain spaces"
               : "",
         });
         break;
-      case "kitchenPassword":
+      case "userPassword":
         setUserError({
           ...userError,
           userPasswordError:
@@ -76,17 +83,52 @@ export default function SignUp() {
               : "",
         });
         break;
-      case "kitchenConfirmPassword":
+      case "userPhone":
         setUserError({
           ...userError,
-          userConfirmPasswordError:
+          userPhoneError:
             value.length === 0
               ? "this field is required"
-              : value !== user.kitchenPassword
-              ? "Password Not Matched"
+              : value.length !== 11
+              ? "phone number must be 11 digits"
               : "",
         });
         break;
+      case "userAddress.street":
+        setUserError({
+          ...userError,
+          userAddressError: value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      case "userAddress.zone":
+        setUserError({
+          ...userError,
+          userAddressError: value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      case "userAddress.city":
+        setUserError({
+          ...userError,
+          userAddressError: value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      case "userAddress.building":
+        setUserError({
+          ...userError,
+          userAddressError: value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      // case "kitchenConfirmPassword":
+      //   setUserError({
+      //     ...userError,
+      //     userConfirmPasswordError:
+      //       value.length === 0
+      //         ? "this field is required"
+      //         : value !== user.kitchenPassword
+      //         ? "Password Not Matched"
+      //         : "",
+      //   });
+      //   break;
       default:
         setUserError({
           ...userError,
@@ -100,21 +142,32 @@ export default function SignUp() {
   const HandelSubmit = (event) => {
     event.preventDefault();
 
-    
-      fetch("http://localhost:8080/user/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
+    if (
+      (userError.userNameError &&
+        userError.userEmailError &&
+        userError.userPasswordError &&
+        userError.userPhoneError &&
+        userError.userAddressError.building &&
+        userError.userAddressError.city &&
+        userError.userAddressError.street &&
+        userError.userAddressError.zone) === ""
+    ) {
+      console.log("error Validation")
+    }
+    fetch("http://localhost:8080/user/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        return res.json();
       })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          window.location = "/login";
-        });
+      .then((data) => {
+        console.log(data);
+        // window.location = "/login";
+      });
   };
 
   return (
@@ -176,13 +229,13 @@ export default function SignUp() {
             <Form.Label>User Phone</Form.Label>
             <Form.Control
               placeholder="User Phone"
-              type="text"
+              type="number"
               value={user.userPhone}
               name="userPhone"
               onChange={(e) => handelUserChange(e)}
             />
             <Form.Text className="d-block text-danger mb-2">
-              {userError.userPasswordError}
+              {userError.userPhoneError}
             </Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicStreet">
@@ -191,11 +244,50 @@ export default function SignUp() {
               placeholder="Street"
               type="text"
               value={user.userAddress.street}
-              name="userStreet"
+              name="userAddress.street"
               onChange={(e) => handelUserChange(e)}
             />
             <Form.Text className="d-block text-danger mb-2">
-              {userError.userPasswordError}
+              {userError.userAddressError.street}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasiczone">
+            <Form.Label>zone</Form.Label>
+            <Form.Control
+              placeholder="zone"
+              type="text"
+              value={user.userAddress.zone}
+              name="userAddress.zone"
+              onChange={(e) => handelUserChange(e)}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.userAddressError.zone}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasiccity">
+            <Form.Label>city</Form.Label>
+            <Form.Control
+              placeholder="city"
+              type="text"
+              value={user.userAddress.city}
+              name="userAddress.city"
+              onChange={(e) => handelUserChange(e)}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.userAddressError.city}
+            </Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicbuilding">
+            <Form.Label>building</Form.Label>
+            <Form.Control
+              placeholder="building"
+              type="text"
+              value={user.userAddress.building}
+              name="userAddress.building"
+              onChange={(e) => handelUserChange(e)}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.userAddressError.building}
             </Form.Text>
           </Form.Group>
 
@@ -203,7 +295,7 @@ export default function SignUp() {
           {/* <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
-              placeholder="confirm Password"
+              place holder="confirm Password"
               type="password"
               value={user.kitchenConfirmPassword}
               name="kitchenConfirmPassword"

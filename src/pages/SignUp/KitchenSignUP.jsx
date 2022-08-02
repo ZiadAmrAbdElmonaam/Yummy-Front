@@ -13,7 +13,7 @@ export default function JoinUS() {
     kitchenPassword: "",
     kitchenPhone: 0,
     kitchenCategeory: "",
-    kitchenAddress:{
+    kitchenAddress: {
       zone: "",
       street: "",
       buildingNumber: 0,
@@ -37,7 +37,7 @@ export default function JoinUS() {
   // functions
   // handel kitchen change
   const handleKitchenChange = (event) => {
-    if (event.target.name == "zone") {
+    if (event.target.name === "zone") {
       // event.target.value=kitchen.kitchenAddress.zone
       setKitchen({
         ...kitchen,
@@ -91,6 +91,38 @@ export default function JoinUS() {
               : "",
         });
         break;
+      case "kitchenPhone":
+        setKitchenError({
+          ...kitchenError,
+          kitchenPhoneError:
+            value.length === 0
+              ? "this field is required"
+              : value.length !== 11
+              ? "phone number must be 11 numbers "
+              : "",
+        });
+        break;
+      case "kitchenAddress.zone":
+        setKitchenError({
+          ...kitchenError,
+          kitchenAddressError:
+            value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      case "kitchenAddress.street":
+        setKitchenError({
+          ...kitchenError,
+          kitchenAddressError:
+            value.length === 0 ? "this field is required" : "",
+        });
+        break;
+      case "kitchenAddress.building":
+        setKitchenError({
+          ...kitchenError,
+          kitchenAddressError:
+            value.length === 0 ? "this field is required" : "",
+        });
+        break;
       default:
         setKitchenError({
           ...kitchenError,
@@ -102,21 +134,33 @@ export default function JoinUS() {
   //  on Submit
   const HandelSubmit = (event) => {
     event.preventDefault();
-
-    fetch("http://localhost:8080/kitchen/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(kitchen),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        // window.location = "/login";
-      });
+    // handelValidationError();
+    for (const key in kitchenError) {
+      if (
+        kitchenError[key] === "" &&
+        kitchenError.kitchenAddressError[key] === ""
+      ) {
+        console.log(kitchenError[key]);
+        console.log(key);
+        fetch("http://localhost:8080/kitchen/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(kitchen),
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            // window.location = "/login";
+          });
+      } else {
+        console.log("sdsd");
+        //  return
+      }
+    }
   };
 
   return (
@@ -178,7 +222,7 @@ export default function JoinUS() {
             <Form.Label>kitchen Phone</Form.Label>
             <Form.Control
               placeholder="kitchen Phone"
-              type="text"
+              type="number"
               value={kitchen.kitchenPhone}
               name="kitchenPhone"
               onChange={(e) => handleKitchenChange(e)}
@@ -194,7 +238,7 @@ export default function JoinUS() {
                 <Form.Control
                   placeholder="zone"
                   type="text"
-                  value={kitchen.kitchenAddress.zone}
+                  value={kitchen.zone}
                   name="kitchenAddress.zone"
                   onChange={(e) => handleKitchenChange(e)}
                 />
@@ -241,10 +285,10 @@ export default function JoinUS() {
               className="select-category"
               onChange={(e) => handleKitchenChange(e)}
             >
+              <option value="all">all</option>
               <option value="vegetarian">Vegetarian</option>
               <option value="non-vegetarian">non-vegetarian</option>
               <option value="frozen">frozen</option>
-              <option value="all">all</option>
             </select>
           </div>
           <button type="submit" className="sub-btn">
