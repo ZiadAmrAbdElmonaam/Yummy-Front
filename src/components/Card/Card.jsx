@@ -6,16 +6,15 @@ import "./Card.css";
 function CardComponent({
   kitchen: { kitchenImage, kitchenName, kitchenStatus, _id },
 }) {
-  let imgUrl = "../../../../Yummy-Graduation";
   return (
     <>
       <div className="card h-100 w-100">
-        {/* <img src="../../../../Yummy-Graduation/avatars/images/1659025147767.jpg" /> */}
         <img
-          src={imgUrl + kitchenImage}
+          src={kitchenImage}
           className="card-img-top responsive-img"
           alt="..."
         />
+        <hr />
         <div className="card-body">
           <h5 className="card-title">{kitchenName}</h5>
           <p className="card-text">{kitchenStatus}</p>

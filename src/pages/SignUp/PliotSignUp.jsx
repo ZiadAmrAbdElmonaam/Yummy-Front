@@ -84,7 +84,6 @@ export default function PilotSignUP() {
       .then((data) => {
         console.log(data);
         window.location = "/login";
-
       });
   };
 

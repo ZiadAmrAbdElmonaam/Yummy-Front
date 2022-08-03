@@ -17,7 +17,11 @@ function CardComponent(props) {
           </p>
         </div>
         <div className="col-md-2">
-          <img src={props.item.itemImage} className="card-img-top" alt="..." />
+          <img
+            src={props.item.itemImage}
+            className="card-img-top cardImg"
+            alt="..."
+          />
         </div>
       </div>
     </>

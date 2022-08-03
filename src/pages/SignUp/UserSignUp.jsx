@@ -100,21 +100,20 @@ export default function SignUp() {
   const HandelSubmit = (event) => {
     event.preventDefault();
 
-    
-      fetch("http://localhost:8080/user/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
+    fetch("http://localhost:8080/user/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        return res.json();
       })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          window.location = "/login";
-        });
+      .then((data) => {
+        console.log(data);
+        window.location = "/login";
+      });
   };
 
   return (

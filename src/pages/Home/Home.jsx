@@ -36,7 +36,7 @@ export default function Home() {
         {kitchens.map((kitchen) => {
           return (
             <div className="col" key={kitchen._id}>
-              <div className="m-2">
+              <div className="m-3">
                 <CardComponent kitchen={kitchen} />
               </div>
             </div>
