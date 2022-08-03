@@ -15,10 +15,11 @@ export default function PilotSignUP() {
 
   // handel validation error state
   const [pilotError, setPilotError] = useState({
-    pilotNameError: "",
-    nationalIDError: "",
-    pilotPasswordError: "",
-    pilotNumberError: "",
+    pilotNameError: " ",
+    nationalIDError: " ",
+    pilotPasswordError: " ",
+    pilotNumberError: " ",
+    formValidationError:" "
   });
   // functions
   // handel pilot change
@@ -59,6 +60,28 @@ export default function PilotSignUP() {
               : "",
         });
         break;
+      case "nationalID":
+        setPilotError({
+          ...pilotError,
+          nationalIDError:
+            value.length === 0
+              ? "this field is required"
+              : value.length !== 14
+              ? "National Id must be 14 numbers"
+              : "",
+        });
+        break;
+      case "pilotNumber":
+        setPilotError({
+          ...pilotError,
+          pilotNumberError:
+            value.length === 0
+              ? "this field is required"
+              : value.length !== 11
+              ? "Phone number must be 11 numbers"
+              : "",
+        });
+        break;
       default:
         setPilotError({
           ...pilotError,
@@ -70,21 +93,41 @@ export default function PilotSignUP() {
   //  on Submit
   const HandelSubmit = (event) => {
     event.preventDefault();
-
-    fetch("http://localhost:8080/pilot/signUp/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pilot),
-    })
-      .then((res) => {
-        return res.json();
+    if (
+      pilotError.nationalIDError === "" &&
+      pilotError.pilotNameError === "" &&
+      pilotError.pilotNumberError === "" &&
+      pilotError.pilotPasswordError === ""
+    ) {
+      fetch("http://localhost:8080/pilot/signUp/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pilot),
       })
+<<<<<<< HEAD
       .then((data) => {
         console.log(data);
         window.location = "/login";
+=======
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          window.location = "/login";
+        });
+    } else {
+      console.log("error validation");
+      setPilotError({
+        ...pilotError,
+        formValidationError:
+         "complete ur data"
+>>>>>>> 2da43f349611422505e77eca383bce2b90c5d559
       });
+
+    }
   };
 
   return (
@@ -117,7 +160,7 @@ export default function PilotSignUP() {
             <Form.Label> national ID </Form.Label>
             <Form.Control
               placeholder="pilot national ID"
-              type="text"
+              type="number"
               value={pilot.nationalID}
               name="nationalID"
               onChange={(e) => handlepilotChange(e)}
@@ -146,7 +189,7 @@ export default function PilotSignUP() {
             <Form.Label> Phone Number</Form.Label>
             <Form.Control
               placeholder="pilot phone Number"
-              type="text"
+              type="number"
               value={pilot.pilotNumber}
               name="pilotNumber"
               onChange={(e) => handlepilotChange(e)}
@@ -155,6 +198,9 @@ export default function PilotSignUP() {
               {pilotError.pilotNumberError}
             </Form.Text>
           </Form.Group>
+          <Form.Text className="d-block text-danger m-auto d-flex justify-content-center  ">
+              {pilotError.formValidationError}
+            </Form.Text>
           <button type="submit" className="sub-btn">
             Submit
           </button>
