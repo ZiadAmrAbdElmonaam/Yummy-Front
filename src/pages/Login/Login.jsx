@@ -3,6 +3,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./Login.css";
 import { useState } from "react";
+import { LoginThunk } from "../../Store/Actions/Login";
+import { useDispatch } from "react-redux";
+import axiosInstance from "../../Network/Config";
+
+
+
 
 function Login() {
   const [user, setUser] = useState({
@@ -58,9 +64,12 @@ function Login() {
   };
 
   //  on Submit
+const dispatch = useDispatch()
+
   const handelSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:8080/login/", {
+    
+     fetch("http://localhost:8080/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,6 +82,7 @@ function Login() {
       .then((data) => {
         localStorage.setItem("token", data.token);
         
+        
         console.log(data.token);
         if (data.token == undefined) {
           throw new Error();
@@ -81,9 +91,12 @@ function Login() {
             ...userError,
             loginError: "",
           });
-          window.location = "/";
+          // window.location = "/";
         }
       })
+      .then(dispatch(LoginThunk ()))
+      
+    
       .catch((error) => {
         // console.log(error);
         if (error) {
