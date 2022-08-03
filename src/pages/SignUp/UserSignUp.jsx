@@ -142,8 +142,6 @@ export default function SignUp() {
   const HandelSubmit = (event) => {
     event.preventDefault();
 
-<<<<<<< HEAD
-=======
     if (
       (userError.userNameError &&
         userError.userEmailError &&
@@ -154,9 +152,8 @@ export default function SignUp() {
         userError.userAddressError.street &&
         userError.userAddressError.zone) === ""
     ) {
-      console.log("error Validation")
+      console.log("error Validation");
     }
->>>>>>> 2da43f349611422505e77eca383bce2b90c5d559
     fetch("http://localhost:8080/user/", {
       method: "POST",
       headers: {
@@ -169,11 +166,7 @@ export default function SignUp() {
       })
       .then((data) => {
         console.log(data);
-<<<<<<< HEAD
-        window.location = "/login";
-=======
         // window.location = "/login";
->>>>>>> 2da43f349611422505e77eca383bce2b90c5d559
       });
   };
 

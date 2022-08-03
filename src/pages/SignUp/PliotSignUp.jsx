@@ -19,7 +19,7 @@ export default function PilotSignUP() {
     nationalIDError: " ",
     pilotPasswordError: " ",
     pilotNumberError: " ",
-    formValidationError:" "
+    formValidationError: " ",
   });
   // functions
   // handel pilot change
@@ -106,11 +106,6 @@ export default function PilotSignUP() {
         },
         body: JSON.stringify(pilot),
       })
-<<<<<<< HEAD
-      .then((data) => {
-        console.log(data);
-        window.location = "/login";
-=======
         .then((res) => {
           return res.json();
         })
@@ -122,11 +117,8 @@ export default function PilotSignUP() {
       console.log("error validation");
       setPilotError({
         ...pilotError,
-        formValidationError:
-         "complete ur data"
->>>>>>> 2da43f349611422505e77eca383bce2b90c5d559
+        formValidationError: "complete ur data",
       });
-
     }
   };
 
@@ -199,8 +191,8 @@ export default function PilotSignUP() {
             </Form.Text>
           </Form.Group>
           <Form.Text className="d-block text-danger m-auto d-flex justify-content-center  ">
-              {pilotError.formValidationError}
-            </Form.Text>
+            {pilotError.formValidationError}
+          </Form.Text>
           <button type="submit" className="sub-btn">
             Submit
           </button>
