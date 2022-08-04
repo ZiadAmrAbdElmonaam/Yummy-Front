@@ -17,7 +17,9 @@ export default function Pilot() {
           setPilot(res.data);
           setIsLoad(false);
         //   setItem(res.data.menuId.menuItems);
-        })
+        }
+        
+        )
         .catch((err) => {
           setIsLoad(false);
         });
