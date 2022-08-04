@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/UserSignUp";
 import JoinUS from "./pages/SignUp/KitchenSignUP";
 import PilotSignUP from "./pages/SignUp/PliotSignUp";
+import Pilot from "./pages/Pilot/Pilot";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/kitchenSignUP" component={JoinUS} />
         <Route path="/PilotSignUp" component={PilotSignUP} />
         <Route path="/userSignUp" component={SignUp} />
+        <Route path="/pilot/:id" component={Pilot} />
         <Route path="/" exact component={Home} />
         {/* <Route path="*" exact component={NotFound}/> */}
       </Switch>

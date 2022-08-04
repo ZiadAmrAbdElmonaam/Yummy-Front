@@ -2,9 +2,12 @@ import Button from "react-bootstrap/Button";
 // import Container from "react-bootstrap"
 import Form from "react-bootstrap/Form";
 import "./Login.css";
-import { useState } from "react";
+import { useState} from "react";
+import {useHistory } from "react-router-dom";
+
 
 function Login() {
+  const history= useHistory()
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -81,7 +84,9 @@ function Login() {
             ...userError,
             loginError: "",
           });
-          window.location = "/";
+          if(user.role==="pilot"){
+            history.push(`/pilot/${user.email}`)
+          }
         }
       })
       .catch((error) => {
