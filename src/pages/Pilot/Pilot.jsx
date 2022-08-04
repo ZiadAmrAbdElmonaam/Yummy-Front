@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import axiosInstance from "../../Network/Config";
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
+import "./Pilot.css"
 
 export default function Pilot() {
     const [pilot, setPilot] = useState({});
@@ -12,13 +13,13 @@ export default function Pilot() {
     console.log("params", params);
     useEffect(() => {
       axiosInstance
-        .get(`/pilot/${params.id}`)
+        .get(`/pilotOrders/${params.id}`)
         .then((res) => {
           setPilot(res.data);
           setIsLoad(false);
         //   setItem(res.data.menuId.menuItems);
         }
-        
+
         )
         .catch((err) => {
           setIsLoad(false);
@@ -31,7 +32,18 @@ export default function Pilot() {
      {isload ? (
         <Loader />
       ) : (
-        <div>{pilot.pilotName}</div>
+      <>
+      <div className="row">
+      
+      <div className="col-12 ">
+        <h2 className="pilotHeader">
+        Welcome {pilot.pilotName}
+        </h2>
+      </div>
+      {/* <div className="row">0{pilot.pilotNumber}</div> */}
+      <div></div>
+      </div>
+      </>
 
       )}
     </>
