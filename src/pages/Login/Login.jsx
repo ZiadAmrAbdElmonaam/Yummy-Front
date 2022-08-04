@@ -2,8 +2,17 @@ import Button from "react-bootstrap/Button";
 // import Container from "react-bootstrap"
 import Form from "react-bootstrap/Form";
 import "./Login.css";
+<<<<<<< HEAD
 import { useState} from "react";
 import {useHistory } from "react-router-dom";
+=======
+import { useState } from "react";
+import { LoginThunk } from "../../Store/Actions/Login";
+import { useDispatch } from "react-redux";
+import axiosInstance from "../../Network/Config";
+
+
+>>>>>>> d6cffdcf365f48dd633527d3791ff2700cb4a721
 
 
 function Login() {
@@ -61,9 +70,12 @@ function Login() {
   };
 
   //  on Submit
+const dispatch = useDispatch()
+
   const handelSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:8080/login/", {
+    
+     fetch("http://localhost:8080/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,6 +88,7 @@ function Login() {
       .then((data) => {
         localStorage.setItem("token", data.token);
         
+        
         console.log(data.token);
         if (data.token == undefined) {
           throw new Error();
@@ -84,11 +97,18 @@ function Login() {
             ...userError,
             loginError: "",
           });
+<<<<<<< HEAD
           if(user.role==="pilot"){
             history.push(`/pilot/${user.email}`)
           }
+=======
+          // window.location = "/";
+>>>>>>> d6cffdcf365f48dd633527d3791ff2700cb4a721
         }
       })
+      .then(dispatch(LoginThunk ()))
+      
+    
       .catch((error) => {
         // console.log(error);
         if (error) {
