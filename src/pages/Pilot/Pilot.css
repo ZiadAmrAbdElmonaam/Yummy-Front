@@ -1,0 +1,32 @@
+.pilotHeader {
+  text-align: center;
+  color: #ff5a00;
+  font-weight: 700;
+}
+.cover-info {
+  position: absolute;
+  top: 40%;
+  text-align: center;
+}
+.cover-info p {
+  text-align: center;
+  color: #000;
+  width: 75%;
+  margin: 1rem auto;
+}
+.cover {
+  background-image: url(../../../public/images/pilot.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 92vh;
+  width: 100%;
+  margin: 0;
+}
+.orders-head {
+  margin-top: 5rem;
+  text-decoration: underline;
+  color: #ff5a00;
+  font-weight: 700;
+  /* text-align: center; */
+}

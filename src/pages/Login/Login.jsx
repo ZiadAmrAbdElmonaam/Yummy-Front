@@ -2,15 +2,21 @@ import Button from "react-bootstrap/Button";
 // import Container from "react-bootstrap"
 import Form from "react-bootstrap/Form";
 import "./Login.css";
-import { useState } from "react";
+// <<<<<<< HEAD
+// import { useState } from "react";
+// import { useDispatch } from "react-redux";
 import { LoginThunk } from "../../Store/Actions/Login";
-import { useDispatch } from "react-redux";
  import axiosInstance from "../../Network/Config";
 import axios from "axios"
 
+import { useState,useDispatch} from "react";
+import {useHistory } from "react-router-dom";
+// =======
+// >>>>>>> af9b5bb57eb21eb51c2fe62ef3e7d243dad9a46f
 
 
 function Login() {
+  const history= useHistory()
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -62,17 +68,19 @@ function Login() {
               : "",
         });
         break;
+        default:
         setUserError({
           ...userError,
         });
+       
+
     }
   };
 
   //  on Submit
-const dispatch = useDispatch()
-
   const handelSubmit = (event) => {
     event.preventDefault();
+// <<<<<<< HEAD
     // axios.post("http://localhost:8080/login/",JSON.stringify(user))
     axiosInstance.post("/login", JSON.stringify(user))
     //  fetch("http://localhost:8080/login/", {
@@ -82,27 +90,43 @@ const dispatch = useDispatch()
     //   },
     //   body: JSON.stringify(user),
     // })
+
+    
+// =======
+//     fetch("http://localhost:8080/login/", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(user),
+//     })
+// >>>>>>> af9b5bb57eb21eb51c2fe62ef3e7d243dad9a46f
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
         
-        
         console.log(data.token);
-        if (data.token == undefined) {
+        if (data.token === undefined) {
           throw new Error();
         }else {
           setUserError({
             ...userError,
             loginError: "",
           });
-          // window.location = "/";
+          if(user.role==="pilot"){
+            history.push(`/pilot/${user.email}`)
+            // window.location = `/pilot/${user.email}`;
+          }
+          else if(user.role==="user"){
+            history.push(`/user/${user.email}`)
+          }
+          else if(user.role==="kitchen"){
+            history.push(`/kitchen/${user.email}`)
+          }
         }
       })
-      .then(dispatch(LoginThunk ()))
-      
-    
       .catch((error) => {
         // console.log(error);
         if (error) {
@@ -134,6 +158,7 @@ const dispatch = useDispatch()
             value={user.role}
             onChange={(e) => handelUserChange(e)}
           >
+            <option value="select role">select role</option>
             <option value="user">user</option>
             <option value="kitchen">Kitchen</option>
             <option value="pilot">Pilot</option>
