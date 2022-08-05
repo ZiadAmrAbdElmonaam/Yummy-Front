@@ -5,8 +5,8 @@ import "./Login.css";
 import { useState } from "react";
 import { LoginThunk } from "../../Store/Actions/Login";
 import { useDispatch } from "react-redux";
-import axiosInstance from "../../Network/Config";
-
+ import axiosInstance from "../../Network/Config";
+import axios from "axios"
 
 
 
@@ -15,7 +15,10 @@ function Login() {
     email: "",
     password: "",
     role: "",
+    
   });
+
+
   // handel validation error state
   const [userError, setUserError] = useState({
     emailError: "",
@@ -30,6 +33,8 @@ function Login() {
       ...user,
       [event.target.name]: event.target.value,
     });
+
+ 
     handelValidationError(event.target.name, event.target.value);
   };
   // validation
@@ -68,14 +73,15 @@ const dispatch = useDispatch()
 
   const handelSubmit = (event) => {
     event.preventDefault();
-    
-     fetch("http://localhost:8080/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    // axios.post("http://localhost:8080/login/",JSON.stringify(user))
+    axiosInstance.post("/login", JSON.stringify(user))
+    //  fetch("http://localhost:8080/login/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // })
       .then((res) => {
         return res.json();
       })

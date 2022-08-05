@@ -9,7 +9,61 @@ import { Provider } from "react-redux";
 import Store from "./Store/Store";
 
 
+// import axios from "axios";
+// import { useSelector, useDispatch } from "react-redux";
+// import { isConditionalExpression } from "typescript";
 
+
+
+
+
+
+// axios.interceptors.request.use( (request) => {
+
+//   console.log(55555555555555)
+
+// const token = useSelector((state) => state.login.token);
+
+//   request.headers.token = token ;
+//   return request
+
+// });
+
+// if (token) {
+//   request.headers['Authorization'] = 'Bearer ' + token;
+//   request.headers.token = token ;
+// }
+// request.headers['Content-Type'] = 'application/json';
+// return request;
+// },
+// error => {
+// Promise.reject(error)
+
+// For GET *** requests
+// axios.interceptors.request.use(
+//   (req) => {
+//     console.log("in the interceptor")
+//      // Add configurations here
+
+//     console.log("headers == >  ", req.headers)
+
+//      return req;
+//   },
+//   (err) => {
+//     console.log("in the interceptor error")
+//      return Promise.reject(err);
+//   }
+// );
+
+// axios.interceptors.response.use( (response) => {
+
+  
+//     console.log(55555555555555555)
+//     const token = useSelector((state) => state.login.token);
+
+//     response.headers.token = token ;
+//     return response
+//   })
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
