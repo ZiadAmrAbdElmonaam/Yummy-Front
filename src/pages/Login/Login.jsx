@@ -54,9 +54,12 @@ function Login() {
               : "",
         });
         break;
+        default:
         setUserError({
           ...userError,
         });
+       
+
     }
   };
 
@@ -77,7 +80,7 @@ function Login() {
         localStorage.setItem("token", data.token);
         
         console.log(data.token);
-        if (data.token == undefined) {
+        if (data.token === undefined) {
           throw new Error();
         }else {
           setUserError({
@@ -87,6 +90,12 @@ function Login() {
           if(user.role==="pilot"){
             history.push(`/pilot/${user.email}`)
             // window.location = `/pilot/${user.email}`;
+          }
+          else if(user.role==="user"){
+            history.push(`/user/${user.email}`)
+          }
+          else if(user.role==="kitchen"){
+            history.push(`/kitchen/${user.email}`)
           }
         }
       })
@@ -121,6 +130,7 @@ function Login() {
             value={user.role}
             onChange={(e) => handelUserChange(e)}
           >
+            <option value="select role">select role</option>
             <option value="user">user</option>
             <option value="kitchen">Kitchen</option>
             <option value="pilot">Pilot</option>

@@ -32,6 +32,7 @@ export default function Pilot() {
         <Loader />
       ) : (
         <>
+        
           <div className="cover">
             <div className="cover-info">
               <h2 className="pilotHeader">Welcome {pilot.pilotName}</h2>
@@ -41,6 +42,7 @@ export default function Pilot() {
                 dolores doloremque, laboriosam omnis vero placeat asperiores
                 animi nemo at deleniti eius debitis?
               </p>
+        <Link className="btn btn-primary" to="/onlineOrders">Online Orders </Link>
             </div>
           </div>
           <PilotOrders pilot={pilot} />

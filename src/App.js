@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp/UserSignUp";
 import JoinUS from "./pages/SignUp/KitchenSignUP";
 import PilotSignUP from "./pages/SignUp/PliotSignUp";
 import Pilot from "./pages/Pilot/Pilot";
+import PilotOnlineOrder from "./pages/OnlineOrders/PilotOnlineOrder";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/PilotSignUp" component={PilotSignUP} />
         <Route path="/userSignUp" component={SignUp} />
         <Route path="/pilot/:id" component={Pilot} />
+        <Route path="/onlineOrders" component={PilotOnlineOrder} />
         <Route path="/" exact component={Home} />
         {/* <Route path="*" exact component={NotFound}/> */}
       </Switch>
