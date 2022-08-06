@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../Network/Config";
 import Loader from "../../components/Loader/Loader";
-
+import { Link } from "react-router-dom";
+import { AiOutlineReload } from "react-icons/ai";
+import "./PilotOnline.css"
 function PilotOnlineOrder() {
   let params = useParams();
   let history=useHistory();
@@ -66,15 +68,31 @@ function PilotOnlineOrder() {
       .catch((err) => {
         console.log(err);
       });
-
-  }
+      
+    }
+    function refreshPage(){
+      console.log("clicked")
+      axiosInstance
+      .get(`/onlineOrders`)
+      .then((res) => {
+        setOnlineOrder(res.data);
+        console.log(res.data);
+        setIsLoad(false);
+      })
+      .catch((err) => {
+        setIsLoad(false);
+      });
+      
+    }
   return (
     <>
       {isload ? (
         <Loader />
       ) : (
         <div className="container">
-          <h1 className="orders-head">Online Orders</h1>
+           
+           <Link className="btn btn-danger" to={`/pilot/${params.id}`} >Get Back To My Orders</Link>
+          <h1 className="orders-head">Online Orders{"  "} </h1>
           <div className="table-responsive">
             <table className="table  table-hover my-5 ">
               <thead className="table-warning ">
@@ -87,12 +105,13 @@ function PilotOnlineOrder() {
                   <td>userFullName</td>
                   <td>userAddress</td>
                   <td>userPhone</td>
-                  <td></td>
+                  <td><AiOutlineReload size="28" color="orange" className="refresh" onClick={()=>refreshPage()}/></td>
                 </tr>
               </thead>
               <tbody>
                 {onlineOrder.map((order, index) => {
                   return (
+                    // order.length >=0?
                     <>
                       {order.pilotOrderStatus === "waiting" &&
                       order.kitchenOrderStatus === "pending" ? (
@@ -134,6 +153,7 @@ function PilotOnlineOrder() {
         </div>
       )}
     </>
+    // :"NO ORDERS AVAILABLE";
   );
 }
 
