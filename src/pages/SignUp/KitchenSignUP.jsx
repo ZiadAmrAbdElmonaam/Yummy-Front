@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
+import axiosInstance from "../../Network/Config";
+
 
 export default function JoinUS() {
   // start of states
@@ -142,13 +144,15 @@ export default function JoinUS() {
       ) {
         console.log(kitchenError[key]);
         console.log(key);
-        fetch("http://localhost:8080/kitchen/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(kitchen),
-        })
+         axiosInstance.post("/kitchen", kitchen)
+
+        // fetch("http://localhost:8080/kitchen/", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(kitchen),
+        // })
           .then((res) => {
             return res.json();
           })
