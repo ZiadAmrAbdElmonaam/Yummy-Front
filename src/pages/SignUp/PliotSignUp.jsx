@@ -5,10 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
 import axiosInstance from "../../Network/Config";
 
-
-
-
-
 export default function PilotSignUP() {
   // start of states
   const [pilot, setPilot] = useState({
@@ -16,6 +12,7 @@ export default function PilotSignUP() {
     nationalID: "",
     pilotPassword: "",
     pilotNumber: "",
+    pilotLisenceImage: "",
   });
 
   // handel validation error state
@@ -30,12 +27,16 @@ export default function PilotSignUP() {
   // handel pilot change
   const handlepilotChange = (event) => {
     console.log(event.target.name, event.target.value);
+    // console.log("event", event.target);
     setPilot({
       ...pilot,
       [event.target.name]: event.target.value,
     });
 
     handelValidationError(event.target.name, event.target.value);
+    if (event.target.type == "file") {
+      console.log("from condition ", event.target.value);
+    }
   };
 
   // validation
@@ -104,20 +105,19 @@ export default function PilotSignUP() {
       pilotError.pilotNumberError === "" &&
       pilotError.pilotPasswordError === ""
     ) {
+      //axiosInstance.post("/pilot/signUp", JSON.stringify({ pilot }))
+      axiosInstance
+        .post("/pilot/signUp", pilot)
 
-        //axiosInstance.post("/pilot/signUp", JSON.stringify({ pilot }))
-      axiosInstance.post("/pilot/signUp", pilot)
-
-    
-      // fetch("http://localhost:8080/pilot/signUp", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(pilot),
-      // })
+        // fetch("http://localhost:8080/pilot/signUp", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(pilot),
+        // })
         .then((res) => {
-          return res ;
+          return res;
         })
         .then((data) => {
           console.log(data);
@@ -200,6 +200,22 @@ export default function PilotSignUP() {
               {pilotError.pilotNumberError}
             </Form.Text>
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPhone">
+            <Form.Label> upload your Lisence Image</Form.Label>
+            <Form.Control
+              placeholder="upload your Lisence Image"
+              type="file"
+              accept=".jpg"
+              value={pilot.pilotLisenceImage}
+              name="pilotLisenceImage"
+              onChange={(e) => handlepilotChange(e)}
+            />
+            {/* <Form.Text className="d-block text-danger mb-2">
+              {pilotError.pilotNumberError}
+            </Form.Text> */}
+          </Form.Group>
+
           <Form.Text className="d-block text-danger m-auto d-flex justify-content-center  ">
             {pilotError.formValidationError}
           </Form.Text>
