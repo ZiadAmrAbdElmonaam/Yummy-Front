@@ -3,6 +3,7 @@ import axiosInstance from "./../../Network/Config";
 export const LoginThunk = () => (dispatch) => {
 
     let token = localStorage.getItem('token');
+   
   return axiosInstance
     .get("/login")
     .then((res) => {

@@ -3,6 +3,11 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
+import axiosInstance from "../../Network/Config";
+
+
+
+
 
 export default function PilotSignUP() {
   // start of states
@@ -99,19 +104,24 @@ export default function PilotSignUP() {
       pilotError.pilotNumberError === "" &&
       pilotError.pilotPasswordError === ""
     ) {
-      fetch("http://localhost:8080/pilot/signUp/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(pilot),
-      })
+
+        //axiosInstance.post("/pilot/signUp", JSON.stringify({ pilot }))
+      axiosInstance.post("/pilot/signUp", pilot)
+
+    
+      // fetch("http://localhost:8080/pilot/signUp", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(pilot),
+      // })
         .then((res) => {
-          return res.json();
+          return res ;
         })
         .then((data) => {
           console.log(data);
-          window.location = "/login";
+          // window.location = "/login";
         });
     } else {
       console.log("error validation");
@@ -148,7 +158,7 @@ export default function PilotSignUP() {
           </Form.Group>
 
           {/* national ID */}
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="formBasicNationalId">
             <Form.Label> national ID </Form.Label>
             <Form.Control
               placeholder="pilot national ID"
@@ -177,7 +187,7 @@ export default function PilotSignUP() {
             </Form.Text>
           </Form.Group>
           {/* phone  */}
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label> Phone Number</Form.Label>
             <Form.Control
               placeholder="pilot phone Number"

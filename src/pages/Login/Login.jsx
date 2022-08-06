@@ -2,17 +2,16 @@ import Button from "react-bootstrap/Button";
 // import Container from "react-bootstrap"
 import Form from "react-bootstrap/Form";
 import "./Login.css";
-// <<<<<<< HEAD
-// import { useState } from "react";
-// import { useDispatch } from "react-redux";
+
 import { LoginThunk } from "../../Store/Actions/Login";
  import axiosInstance from "../../Network/Config";
 import axios from "axios"
 
-import { useState,useDispatch} from "react";
+import { useState} from "react";
 import {useHistory } from "react-router-dom";
-// =======
-// >>>>>>> af9b5bb57eb21eb51c2fe62ef3e7d243dad9a46f
+import { useDispatch , useSelector} from "react-redux";
+
+
 
 
 function Login() {
@@ -78,11 +77,12 @@ function Login() {
   };
 
   //  on Submit
+  const dispatch = useDispatch()
   const handelSubmit = (event) => {
     event.preventDefault();
-// <<<<<<< HEAD
+  
     // axios.post("http://localhost:8080/login/",JSON.stringify(user))
-    axiosInstance.post("/login", JSON.stringify(user))
+     axiosInstance.post("/login", user)
     //  fetch("http://localhost:8080/login/", {
     //   method: "POST",
     //   headers: {
@@ -91,24 +91,19 @@ function Login() {
     //   body: JSON.stringify(user),
     // })
 
-    
-// =======
-//     fetch("http://localhost:8080/login/", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(user),
-//     })
-// >>>>>>> af9b5bb57eb21eb51c2fe62ef3e7d243dad9a46f
+  
       .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        localStorage.setItem("token", data.token);
+       
+        return  res
         
-        console.log(data.token);
-        if (data.token === undefined) {
+      }).then((data) => {
+      
+        localStorage.setItem("token", data.data.token);
+        
+      
+       
+
+        if (data.data.token === undefined) {
           throw new Error();
         }else {
           setUserError({
@@ -127,8 +122,11 @@ function Login() {
           }
         }
       })
+
+      .then(dispatch(LoginThunk ()))
+
       .catch((error) => {
-        // console.log(error);
+         console.log(error);
         if (error) {
           setUserError({
             ...userError,

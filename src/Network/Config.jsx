@@ -19,12 +19,18 @@ axiosInstance.interceptors.request.use(
     if(req.url == "/login"){
 
       console.log( "token is not found yet you still in page",req.url )
+    }else  if(req.url == "pilot/signUp"){
+      console.log( "token is not found yet you still in page",req.url )
+
     }else { 
       console.log(req.url , 55555)
+      console.log(Store.getState() , 5555555555555555555555)
+
        let token = Store.getState().login.token;
 
 
-  req.headers.token = token;
+  req.headers.token ="jjjjj";// token;
+  
       console.log( Store.getState().login.token);
        console.log( req.headers);
 
