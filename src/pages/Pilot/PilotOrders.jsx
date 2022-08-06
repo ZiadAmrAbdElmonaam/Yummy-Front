@@ -1,8 +1,48 @@
 import React from "react";
 import "./Pilot.css";
-
+import { AiOutlineCheck } from "react-icons/ai";
+import { useState } from "react";
+import axiosInstance from "../../Network/Config";
 export default function PilotOrders(props) {
-  console.log(props);
+
+  const [dileveredStatus, setDileveredStatus] = useState({
+    pilotOrderStatus: "dilevered",
+  });
+
+
+  const [pilotOrdersHistory, setPilotOrdersHistory] = useState([]);
+  
+
+  const deleteOrder = (index)=>{
+    const order = [...pilotOrdersHistory];
+    order.splice(index, 1);
+    console.log( "index====>",index)
+    setPilotOrdersHistory(order);
+}
+
+function changeToDelivered(index,e){
+  console.log(index)
+  console.log("clicked");
+  console.log("event",e.target.parentElement.parentElement.id);
+  let orderId=Number( e.target.parentElement.parentElement.id)
+  axiosInstance
+  .put(`/order/${orderId}`, dileveredStatus)
+  .then((res) => {
+    // setOnlineOrder(res.data);
+    console.log(res.data);
+    deleteOrder(index)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+
+}
+
+
+
+  console.log("props====>",props);
+  console.log("props.orders====>",props.pilot.orders);
   return (
     <div className="container">
       <h1 className="orders-head">My Orders</h1>
@@ -20,12 +60,15 @@ export default function PilotOrders(props) {
               <td>Item</td>
               <td>pilot Order Status</td>
               <td>total price</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
             {props.pilot.orders.map((order, index) => {
               return (
-                <tr key={index}>
+                
+                <tr key={index} id={order._id}>
+                  <td>{order._id}</td>
                   <td>{index + 1}</td>
                   <td>{order.kitchen.kitchenName}</td>
                   <td>
@@ -54,6 +97,12 @@ export default function PilotOrders(props) {
                   <td>
                     {order.totalPrice} <span>LE</span>
                   </td>
+                  <td><AiOutlineCheck size="30" 
+                  color="green" className="checkMark" 
+                   /></td>
+                   <td><button
+                    onClick={(e,index)=>changeToDelivered(index,e)}>{index}
+                    </button></td>
                 </tr>
               );
             })}

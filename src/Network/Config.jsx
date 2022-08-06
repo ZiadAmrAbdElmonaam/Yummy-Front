@@ -15,23 +15,23 @@ axiosInstance.interceptors.request.use(
   
   (req) => {
     
-    console.log("in the interceptor" )
+    // console.log("in the interceptor" )
     if(req.url == "/login"){
 
-      console.log( "token is not found yet you still in page",req.url )
+      // console.log( "token is not found yet you still in page",req.url )
     }else  if(req.url == "pilot/signUp"){
-      console.log( "token is not found yet you still in page",req.url )
+      // console.log( "token is not found yet you still in page",req.url )
 
     }else { 
-      console.log(req.url , 55555)
-      console.log(Store.getState() , 5555555555555555555555)
+      // console.log(req.url , 55555)
+      // console.log(Store.getState() , 5555555555555555555555)
 
        let token = Store.getState().login.token;
 
 
   req.headers.authorization =token;// token;
   
-      console.log( Store.getState().login.token);
+      // console.log( Store.getState().login.token);
       //  console.log("authorization ==>" ,req);
       //  console.log( "Authorization ==>" ,req.Authorization);
 
@@ -45,12 +45,12 @@ axiosInstance.interceptors.request.use(
      
       // req.headers.token = token;
 
-    console.log("headers == >  ", req.headers)
+    // console.log("headers == >  ", req.headers)
 
      return req;
   },
   (err) => {
-    console.log("in the interceptor error")
+    // console.log("in the interceptor error")
      return Promise.reject(err);
   }
 );

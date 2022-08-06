@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../Network/Config";
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
@@ -6,6 +6,7 @@ import "./Pilot.css";
 import PilotOrders from "./PilotOrders";
 
 export default function Pilot() {
+  const history = useHistory();
   const [pilot, setPilot] = useState({});
   // const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
@@ -24,8 +25,12 @@ export default function Pilot() {
         setIsLoad(false);
       });
   }, []);
+  function onlineOrders() {
+    console.log("params", params);
+    // console.log("hhhhhhh")
+    history.push(`/onlineOrders/${params.id}`);
+  }
   // console.log("nnn", item);
-
   return (
     <>
       {isload ? (
@@ -44,6 +49,15 @@ export default function Pilot() {
               <Link className="btn btn-primary" to="/onlineOrders">
                 Online Orders{" "}
               </Link>
+              {/* <Link className="btn btn-primary" to="/onlineOrders">Online Orders </Link> */}
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  onlineOrders();
+                }}
+              >
+                Online Orders{" "}
+              </button>
             </div>
           </div>
           <PilotOrders pilot={pilot} />

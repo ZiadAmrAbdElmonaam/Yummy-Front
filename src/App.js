@@ -23,7 +23,7 @@ function App() {
         <Route path="/PilotSignUp" component={PilotSignUP} />
         <Route path="/userSignUp" component={SignUp} />
         <Route path="/pilot/:id" component={Pilot} />
-        <Route path="/onlineOrders" component={PilotOnlineOrder} />
+        <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
         <Route path="/" exact component={Home} />
         {/* <Route path="*" exact component={NotFound}/> */}
       </Switch>

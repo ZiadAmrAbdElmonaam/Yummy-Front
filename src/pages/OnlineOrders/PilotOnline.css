@@ -1,0 +1,6 @@
+
+.refresh:hover{
+    cursor: pointer;
+    transition: 0.9s;
+    transform: rotate(330deg);
+}
