@@ -16,19 +16,20 @@ export default function PilotOrders(props) {
   const deleteOrder = (index)=>{
     const order = [...pilotOrdersHistory];
     order.splice(index, 1);
-    pilotOrdersHistory(order);
+    console.log( "index====>",index)
+    setPilotOrdersHistory(order);
 }
 
-function changeToDelivered(e,index){
+function changeToDelivered(index,e){
+  console.log(index)
   console.log("clicked");
   console.log("event",e.target.parentElement.parentElement.id);
-  let orderId=e.target.parentElement.parentElement.id
+  let orderId=Number( e.target.parentElement.parentElement.id)
   axiosInstance
   .put(`/order/${orderId}`, dileveredStatus)
   .then((res) => {
     // setOnlineOrder(res.data);
     console.log(res.data);
-    
     deleteOrder(index)
   })
   .catch((err) => {
@@ -65,7 +66,9 @@ function changeToDelivered(e,index){
           <tbody>
             {props.pilot.orders.map((order, index) => {
               return (
+                
                 <tr key={index} id={order._id}>
+                  <td>{order._id}</td>
                   <td>{index + 1}</td>
                   <td>{order.kitchen.kitchenName}</td>
                   <td>
@@ -96,7 +99,10 @@ function changeToDelivered(e,index){
                   </td>
                   <td><AiOutlineCheck size="30" 
                   color="green" className="checkMark" 
-                  onClick={(e,index)=>{changeToDelivered(e,index)}} /></td>
+                   /></td>
+                   <td><button
+                    onClick={(e,index)=>changeToDelivered(index,e)}>{index}
+                    </button></td>
                 </tr>
               );
             })}
