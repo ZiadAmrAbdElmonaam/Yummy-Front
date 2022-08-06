@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../Network/Config';
 import Loader from '../../components/Loader/Loader';
-
  function PilotOnlineOrder() {
   const [onlineOrder, setOnlineOrder] = useState({});
 
@@ -26,21 +25,27 @@ import Loader from '../../components/Loader/Loader';
   }, []);
   
 
-//   function addingOrder (id){
-//     console.log(id)
-//     axiosInstance
-//     .post(`/orders/${id}`)
-//     .then((res) => {
-//       setOnlineOrder(res.data);
-//       console.log(res.data)
-//       setIsLoad(false);
-//       //   setItem(res.data.menuId.menuItems);
-//     })
-//     .catch((err) => {
-//       setIsLoad(false);
-//     });
+  function addingOrder (){
+    // params=onlineOrder._id
+    for (let i = 0; i < onlineOrder.length; i++) {
+      params = onlineOrder[i]._id
+      
+      console.log(onlineOrder[i]._id)
+    }
+    console.log(params)
+    axiosInstance
+    .put(`/order/${params}`)
+    .then((res) => {
+      setOnlineOrder(res.data);
+      console.log(res.data)
+      setIsLoad(false);
+      //   setItem(res.data.menuId.menuItems);
+    })
+    .catch((err) => {
+      setIsLoad(false);
+    });
 
-//   }
+  }
 
   // console.log("nnn", item)
   return (
@@ -93,7 +98,7 @@ import Loader from '../../components/Loader/Loader';
                     {order.userid.userAddress.zone}
                   </td>
                   <td>{order.userid.userPhone}</td>
-                  {/* <td><button onClick={(index)=>addingOrder(index)} className=' btn btn-success'>Add</button></td> */}
+                  <td><button onClick={(index)=>addingOrder(index)} className=' btn btn-success'>Add</button></td>
                 </tr>
                 :""}
                 </>
