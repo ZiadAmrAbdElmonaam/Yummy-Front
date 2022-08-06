@@ -7,6 +7,8 @@ export default function PilotOrders(props) {
     <div className="container">
       <h1 className="orders-head">My Orders</h1>
       <div className="table-responsive">
+
+{/* 
         <table className="table  table-hover my-5 ">
           <thead className="table-warning ">
             <tr>
@@ -56,7 +58,9 @@ export default function PilotOrders(props) {
               );
             })}
           </tbody>
-        </table>
+        </table> */}
+
+
       </div>
     </div>
   );

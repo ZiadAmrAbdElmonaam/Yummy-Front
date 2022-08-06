@@ -29,10 +29,12 @@ axiosInstance.interceptors.request.use(
        let token = Store.getState().login.token;
 
 
-  req.headers.token ="jjjjj";// token;
+  req.headers.authorization =token;// token;
   
       console.log( Store.getState().login.token);
-       console.log( req.headers);
+      //  console.log("authorization ==>" ,req);
+      //  console.log( "Authorization ==>" ,req.Authorization);
+
 
      
 
@@ -40,6 +42,7 @@ axiosInstance.interceptors.request.use(
 
      // Add configurations here
      req.headers.ahmed = "ahmed in the header from axios instance";
+     
       // req.headers.token = token;
 
     console.log("headers == >  ", req.headers)
