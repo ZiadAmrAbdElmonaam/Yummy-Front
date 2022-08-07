@@ -22,20 +22,23 @@ export default function PilotSignUP() {
     pilotNameError: " ",
     nationalIDError: " ",
     pilotPasswordError: " ",
-    pilotNumberError: " ",
-    formValidationError: " ",
+    pilotNumberError: "",
+    formValidationError: "",
   });
   // functions
   // handel pilot change
   const handlepilotChange = (event, ref) => {
     handelValidationError(event.target.name, event.target.value);
     if (event.target.type == "file") {
-      console.log("my current file", ref.current.files[0]);
-      const x = ref.current.files[0];
-      setPilot({
-        ...pilot,
-        [event.target.name]: x,
-      });
+      console.log("my current file", ref.current.files[0].name);
+      const x = ref.current.files[0].name;
+      // setPilot({
+      //   ...pilot,
+      //   pilotLisenceImage: {
+      //     ...pilot.pilotLisenceImage,
+      //     [event.target.name]: x,
+      //   },
+      // });
     } else {
       console.log(event.target.name, event.target.value);
       // console.log("event", event.target);

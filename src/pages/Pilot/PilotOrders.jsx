@@ -1,33 +1,33 @@
 import React from "react";
 import "./Pilot.css";
 import { AiOutlineCheck } from "react-icons/ai";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../../Network/Config";
-import { useParams,Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 export default function PilotOrders() {
   const [dileveredStatus, setDileveredStatus] = useState({
     pilotOrderStatus: "dilevered",
     orderArrival: Date(),
   });
-const params=useParams()
-console.log(params.id)
+
+  const params = useParams();
+  console.log(params.id);
   const [pilotOnlineOrders, setPilotOnlineOrders] = useState([]);
-  
   let [isload, setIsLoad] = useState(true);
   useEffect(() => {
     axiosInstance
       .get(`/pilotOnlineOrders/${params.id}`)
       .then((res) => {
         setPilotOnlineOrders(res.data);
-        console.log("response>>>>",res.data);
+        console.log("response>>>>", res.data);
         setIsLoad(false);
       })
       .catch((err) => {
         setIsLoad(false);
-        console.log(err)
+        console.log(err);
       });
-    }, []);
-    // console.log("pilot state",pilotOnlineOrders)
+  }, []);
+  // console.log("pilot state",pilotOnlineOrders)
   const deleteOrder = (index) => {
     const order = [...pilotOnlineOrders];
     order.splice(index, 1);
@@ -35,17 +35,19 @@ console.log(params.id)
     setPilotOnlineOrders(order);
   };
 
-  function changeToDelivered(e,index) {
+  function changeToDelivered(e, index) {
     // console.log(index);
     console.log("clicked");
-    console.log("event", e.target.parentElement.parentElement.id);
-    let orderId = Number(e.target.parentElement.parentElement.id);
+    console.log("type of ", e.target.id);
+    let orderId = Number(e.target.id);
+    console.log("state", pilotOnlineOrders);
+
     axiosInstance
       .put(`/order/${orderId}`, dileveredStatus)
       .then((res) => {
         // setOnlineOrder(res.data);
         console.log(res.data);
-        console.log("index in func",index)
+        console.log("index in func", index);
         deleteOrder(index);
       })
       .catch((err) => {
@@ -58,8 +60,8 @@ console.log(params.id)
   return (
     <div className="container">
       <Link className="btn btn-danger" to={`/pilot/${params.id}`}>
-            Back
-          </Link>
+        Back
+      </Link>
       <h1 className="orders-head">My Orders</h1>
       <div className="table-responsive">
         <table className="table  table-hover my-5 ">
@@ -80,8 +82,7 @@ console.log(params.id)
           <tbody>
             {pilotOnlineOrders.map((order, index) => {
               return (
-                <tr key={index} id={order._id}>
-             
+                <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{order.kitchen.kitchenName}</td>
                   <td>
@@ -113,11 +114,12 @@ console.log(params.id)
                   </td>
                   <td>
                     <AiOutlineCheck
+                      id={order._id}
                       size="30"
                       color="green"
                       className="checkMark"
                       key={index}
-                      onClick={(e, key) => changeToDelivered( e,index)}
+                      onClick={(e, key) => changeToDelivered(e, index)}
                     />
                   </td>
                 </tr>
