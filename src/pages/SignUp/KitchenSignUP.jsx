@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
 import axiosInstance from "../../Network/Config";
 
-
 export default function JoinUS() {
   // start of states
   const [kitchen, setKitchen] = useState({
@@ -39,20 +38,23 @@ export default function JoinUS() {
   // functions
   // handel kitchen change
   const handleKitchenChange = (event) => {
-    if (event.target.name === "zone") {
-      // event.target.value=kitchen.kitchenAddress.zone
+    const { name, value } = event.target;
+    console.log(name, value);
+    if (name === "zone" || name === "street" || name === "buildingNumber") {
       setKitchen({
         ...kitchen,
-        [event.target.name]: event.target.value,
+        kitchenAddress: {
+          ...kitchen.kitchenAddress,
+          [name]: value,
+        },
       });
-      console.log(event.target.name, event.target.value);
+    } else {
+      setKitchen({
+        ...kitchen,
+        [name]: value,
+      });
     }
-    setKitchen({
-      ...kitchen,
-      [event.target.name]: event.target.value,
-    });
-    console.log(event.target.name, event.target.value);
-    handelValidationError(event.target.name, event.target.value);
+    handelValidationError(name, value);
   };
 
   // validation
@@ -144,15 +146,16 @@ export default function JoinUS() {
       ) {
         console.log(kitchenError[key]);
         console.log(key);
-         axiosInstance.post("/kitchen", kitchen)
+        axiosInstance
+          .post("/kitchen", kitchen)
 
-        // fetch("http://localhost:8080/kitchen/", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(kitchen),
-        // })
+          // fetch("http://localhost:8080/kitchen/", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(kitchen),
+          // })
           .then((res) => {
             return res.json();
           })
@@ -242,8 +245,8 @@ export default function JoinUS() {
                 <Form.Control
                   placeholder="zone"
                   type="text"
-                  value={kitchen.zone}
-                  name="kitchenAddress.zone"
+                  value={kitchen.kitchenAddress.zone}
+                  name="zone"
                   onChange={(e) => handleKitchenChange(e)}
                 />
                 <Form.Text className="d-block text-danger mb-2">

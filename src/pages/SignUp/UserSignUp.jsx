@@ -37,12 +37,28 @@ export default function SignUp() {
   // functions
   // handel user change
   const handelUserChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value,
-    });
-    handelValidationError(event.target.name, event.target.value);
+    const { name, value } = event.target;
+    console.log(name, value);
+    if (
+      name == "street" ||
+      name == "zone" ||
+      name == "city" ||
+      name == "building"
+    ) {
+      setUser({
+        ...user,
+        userAddress: {
+          ...user.userAddress,
+          [name]: value,
+        },
+      });
+    } else {
+      setUser({
+        ...user,
+        [name]: value,
+      });
+    }
+    handelValidationError(name, value);
   };
 
   // validation
@@ -224,73 +240,6 @@ export default function SignUp() {
               {userError.userPasswordError}
             </Form.Text>
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPhone">
-            <Form.Label>User Phone</Form.Label>
-            <Form.Control
-              placeholder="User Phone"
-              type="number"
-              value={user.userPhone}
-              name="userPhone"
-              onChange={(e) => handelUserChange(e)}
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.userPhoneError}
-            </Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicStreet">
-            <Form.Label>street</Form.Label>
-            <Form.Control
-              placeholder="Street"
-              type="text"
-              value={user.userAddress.street}
-              name="userAddress.street"
-              onChange={(e) => handelUserChange(e)}
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.userAddressError.street}
-            </Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasiczone">
-            <Form.Label>zone</Form.Label>
-            <Form.Control
-              placeholder="zone"
-              type="text"
-              value={user.userAddress.zone}
-              name="userAddress.zone"
-              onChange={(e) => handelUserChange(e)}
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.userAddressError.zone}
-            </Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasiccity">
-            <Form.Label>city</Form.Label>
-            <Form.Control
-              placeholder="city"
-              type="text"
-              value={user.userAddress.city}
-              name="userAddress.city"
-              onChange={(e) => handelUserChange(e)}
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.userAddressError.city}
-            </Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicbuilding">
-            <Form.Label>building</Form.Label>
-            <Form.Control
-              placeholder="building"
-              type="text"
-              value={user.userAddress.building}
-              name="userAddress.building"
-              onChange={(e) => handelUserChange(e)}
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.userAddressError.building}
-            </Form.Text>
-          </Form.Group>
-
           {/* confirm password */}
           {/* <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
             <Form.Label>Confirm Password</Form.Label>
@@ -305,17 +254,85 @@ export default function SignUp() {
               {userError.kitchenConfirmPasswordError}
             </Form.Text>
           </Form.Group> */}
-          {/* <div className="dropdown mb-5">
-            <select
-              value={user.role}
-              name="role"
+          <Form.Group className="mb-3" controlId="formBasicPhone">
+            <Form.Label>User Phone</Form.Label>
+            <Form.Control
+              placeholder="User Phone"
+              type="number"
+              value={user.userPhone}
+              name="userPhone"
               onChange={(e) => handelUserChange(e)}
-            >
-              <option value="user">User</option>
-              <option value="kitchen">Kitchen</option>
-              <option value="pilot">Pilot</option>
-            </select>
-          </div> */}
+            />
+            <Form.Text className="d-block text-danger mb-2">
+              {userError.userPhoneError}
+            </Form.Text>
+          </Form.Group>
+
+          {/* address */}
+          <div className="row">
+            <div className="col-md-6">
+              <Form.Group className="mb-3" controlId="formBasiccity">
+                <Form.Label>city</Form.Label>
+                <Form.Control
+                  placeholder="city"
+                  type="text"
+                  value={user.userAddress.city}
+                  name="city"
+                  onChange={(e) => handelUserChange(e)}
+                />
+                <Form.Text className="d-block text-danger mb-2">
+                  {userError.userAddressError.city}
+                </Form.Text>
+              </Form.Group>
+            </div>
+            <div className="col-md-6">
+              <Form.Group className="mb-3" controlId="formBasiczone">
+                <Form.Label>zone</Form.Label>
+                <Form.Control
+                  placeholder="zone"
+                  type="text"
+                  value={user.userAddress.zone}
+                  name="zone"
+                  onChange={(e) => handelUserChange(e)}
+                />
+                <Form.Text className="d-block text-danger mb-2">
+                  {userError.userAddressError.zone}
+                </Form.Text>
+              </Form.Group>
+            </div>
+            <div className="col-md-6">
+              <Form.Group className="mb-3" controlId="formBasicStreet">
+                <Form.Label>street</Form.Label>
+                <Form.Control
+                  placeholder="Street"
+                  type="text"
+                  value={user.userAddress.street}
+                  name="street"
+                  onChange={(e) => handelUserChange(e)}
+                />
+                <Form.Text className="d-block text-danger mb-2">
+                  {userError.userAddressError.street}
+                </Form.Text>
+              </Form.Group>
+            </div>
+
+            <div className="col-md-6">
+              <Form.Group className="mb-3" controlId="formBasicbuilding">
+                <Form.Label>building</Form.Label>
+                <Form.Control
+                  placeholder="building"
+                  type="text"
+                  value={user.userAddress.building}
+                  name="building"
+                  onChange={(e) => handelUserChange(e)}
+                />
+                <Form.Text className="d-block text-danger mb-2">
+                  {userError.userAddressError.building}
+                </Form.Text>
+              </Form.Group>
+            </div>
+          </div>
+
           <button type="submit" className="sub-btn">
             Submit
           </button>
