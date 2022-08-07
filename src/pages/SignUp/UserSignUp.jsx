@@ -4,9 +4,12 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
+import { useHistory } from "react-router-dom";
+import axiosInstance from "../../Network/Config";
 
 export default function SignUp() {
   // start of states
+  const history = useHistory()
   const [user, setUser] = useState({
     userFullName: "",
     userEmail: "",
@@ -22,17 +25,18 @@ export default function SignUp() {
   });
   // handel validation error state
   const [userError, setUserError] = useState({
-    userEmailError: "",
-    userNameError: "",
-    userPasswordError: "",
+    userEmailError: " ",
+    userNameError: " ",
+    userPasswordError: " ",
     // kitchenConfirmPassword: "",
-    userPhoneError: "",
+    userPhoneError: " ",
     userAddressError: {
-      street: "",
-      zone: "",
-      city: "",
-      building: "",
+      street: " ",
+      zone: " ",
+      city: " ",
+      building: " ",
     },
+    formValidationError:" "
   });
   // functions
   // handel user change
@@ -155,35 +159,87 @@ export default function SignUp() {
   const StoreSignUP = useSelector((state) => state.signUp.userList);
 
   //  on Submit
+  // const HandelSubmit = (event) => {
+  //   event.preventDefault();
+
+  //   if (
+  //     (userError.userNameError &&
+  //       userError.userEmailError &&
+  //       userError.userPasswordError &&
+  //       userError.userPhoneError &&
+  //       userError.userAddressError.building &&
+  //       userError.userAddressError.city &&
+  //       userError.userAddressError.street &&
+  //       userError.userAddressError.zone) === ""
+  //   ) {
+  //     console.log("error Validation");
+   
+  //   fetch("http://localhost:8080/user/", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(user),
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       history.push("/login")
+  //     })
+  //     .catch((err)=>{
+  //       console.log("invalid")
+  //       if(err){setUserError({
+  //       ...userError,
+  //       formValidationError:"invalid email and password"
+        
+  //     })
+  //     }}
+      
+  //     )}
+  // };
   const HandelSubmit = (event) => {
     event.preventDefault();
-
+    // console.log("from sub btn", ref.current.files[0]);
     if (
-      (userError.userNameError &&
-        userError.userEmailError &&
-        userError.userPasswordError &&
-        userError.userPhoneError &&
-        userError.userAddressError.building &&
-        userError.userAddressError.city &&
-        userError.userAddressError.street &&
-        userError.userAddressError.zone) === ""
+      userError.userEmailError === "" &&
+      userError.userNameError === "" &&
+      userError.userPasswordError === "" &&
+      userError.userPhoneError === ""
+      // userError.userAddressError.street === ""&&
+      // userError.userAddressError.city === ""&&
+      // userError.userAddressError.building === ""&&
+      // userError.userAddressError.zone === ""
+
     ) {
-      console.log("error Validation");
-    }
-    fetch("http://localhost:8080/user/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        // window.location = "/login";
+      //axiosInstance.post("/pilot/signUp", JSON.stringify({ pilot }))
+      axiosInstance
+        .post("/user", user)
+
+        // fetch("http://localhost:8080/pilot/signUp", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(pilot),
+        // })
+        .then((res) => {
+          console.log(res)
+          return res;
+        })
+        .then((data) => {
+          console.log(data);
+          // window.location = "/login";
+        });
+    } else {
+      console.log("error validation");
+      setUserError({
+        ...userError,
+        formValidationError: "complete ur data",
       });
+    }
   };
 
   return (
@@ -333,7 +389,7 @@ export default function SignUp() {
             </div>
           </div>
 
-          <button type="submit" className="sub-btn">
+          <button  type="submit" className="sub-btn">
             Submit
           </button>
         </Form>

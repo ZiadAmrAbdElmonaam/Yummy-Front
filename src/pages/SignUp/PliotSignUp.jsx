@@ -22,8 +22,8 @@ export default function PilotSignUP() {
     pilotNameError: " ",
     nationalIDError: " ",
     pilotPasswordError: " ",
-    pilotNumberError: "",
-    formValidationError: "",
+    pilotNumberError: " ",
+    formValidationError: " ",
   });
   // functions
   // handel pilot change
