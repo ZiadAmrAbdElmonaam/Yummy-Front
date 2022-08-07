@@ -1,87 +1,55 @@
 import React from "react";
 import "./Pilot.css";
 import { AiOutlineCheck } from "react-icons/ai";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../../Network/Config";
-import { useParams,Link } from "react-router-dom";
-export default function PilotOrders() {
-  const [dileveredStatus, setDileveredStatus] = useState({
-    pilotOrderStatus: "dilevered",
-    orderArrival: Date(),
-  });
-const params=useParams()
-console.log(params.id)
+import { useParams, Link } from "react-router-dom";
+export default function PilotHistory() {
+  const params = useParams();
+  console.log(params.id);
   const [pilotOnlineOrders, setPilotOnlineOrders] = useState([]);
-  
+
   let [isload, setIsLoad] = useState(true);
   useEffect(() => {
     axiosInstance
-      .get(`/pilotOnlineOrders/${params.id}`)
+      .get(`/pilotHistoryOrders/${params.id}`)
       .then((res) => {
         setPilotOnlineOrders(res.data);
-        console.log("response>>>>",res.data);
+        console.log("response>>>>", res.data);
         setIsLoad(false);
       })
       .catch((err) => {
         setIsLoad(false);
-        console.log(err)
-      });
-    }, []);
-    // console.log("pilot state",pilotOnlineOrders)
-  const deleteOrder = (index) => {
-    const order = [...pilotOnlineOrders];
-    order.splice(index, 1);
-    console.log("index====>", index);
-    setPilotOnlineOrders(order);
-  };
-
-  function changeToDelivered(e,index) {
-    // console.log(index);
-    console.log("clicked");
-    console.log("event", e.target.parentElement.parentElement.id);
-    let orderId = Number(e.target.parentElement.parentElement.id);
-    axiosInstance
-      .put(`/order/${orderId}`, dileveredStatus)
-      .then((res) => {
-        // setOnlineOrder(res.data);
-        console.log(res.data);
-        console.log("index in func",index)
-        deleteOrder(index);
-      })
-      .catch((err) => {
         console.log(err);
       });
-  }
+  }, []);
 
   // console.log("props====>", props);
   // console.log("props.orders====>", props.pilot.orders);
   return (
     <div className="container">
       <Link className="btn btn-danger" to={`/pilot/${params.id}`}>
-            Back
-          </Link>
-      <h1 className="orders-head">My Orders</h1>
+        Back
+      </Link>
+      <h1 className="orders-head">My History</h1>
       <div className="table-responsive">
         <table className="table  table-hover my-5 ">
           <thead className="table-warning ">
             <tr>
-              <td>Orders No.</td>
-              <td>Kitchen Name</td>
-              <td>kitchen Address</td>
-              <td>Client Name</td>
-              <td>Client Address</td>
-              <td>Client Phone</td>
+              <td>orders</td>
+              <td>kitchen name</td>
+              <td>kitchen zone</td>
+              <td>client name</td>
+              <td>client address</td>
               <td>Item</td>
-              <td>Pilot Order Status</td>
-              <td>Total Price</td>
-              <td></td>
+              <td>pilot Order Status</td>
+              <td>total price</td>
             </tr>
           </thead>
           <tbody>
             {pilotOnlineOrders.map((order, index) => {
               return (
                 <tr key={index} id={order._id}>
-             
                   <td>{index + 1}</td>
                   <td>{order.kitchen.kitchenName}</td>
                   <td>
@@ -95,7 +63,6 @@ console.log(params.id)
                     {order.userid.userAddress.street},{" "}
                     {order.userid.userAddress.zone}
                   </td>
-                  <td>{order.userid.userPhone}</td>
                   <td>
                     <ul>
                       {order.orderItems.map((item, index) => {
@@ -110,15 +77,6 @@ console.log(params.id)
                   <td>{order.pilotOrderStatus}</td>
                   <td>
                     {order.totalPrice} <span>LE</span>
-                  </td>
-                  <td>
-                    <AiOutlineCheck
-                      size="30"
-                      color="green"
-                      className="checkMark"
-                      key={index}
-                      onClick={(e, key) => changeToDelivered( e,index)}
-                    />
                   </td>
                 </tr>
               );

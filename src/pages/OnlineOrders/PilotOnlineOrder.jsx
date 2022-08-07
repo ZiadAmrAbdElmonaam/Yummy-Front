@@ -92,9 +92,6 @@ function PilotOnlineOrder() {
         <div className="container">
           {/* <h1 className="orders-head">Online Orders</h1> */}
 
-          <Link className="btn btn-danger" to={`/pilot/${params.id}`}>
-            Get Back To My Orders
-          </Link>
           <h1 className="orders-head">Online Orders{"  "} </h1>
           <div className="table-responsive">
             <table className="table  table-hover my-5 ">
@@ -123,10 +120,10 @@ function PilotOnlineOrder() {
               <tbody>
                 {onlineOrder.map((order, index) => {
                   return (
-                    <>
+                    <tr key={index}>
                       {order.pilotOrderStatus === "waiting" &&
                       order.kitchenOrderStatus === "pending" ? (
-                        <tr key={index}>
+                        <>
                           <td>{order._id}</td>
                           <td>{order.kitchen.kitchenName}</td>
                           <td>
@@ -145,17 +142,18 @@ function PilotOnlineOrder() {
                           <td>{order.userid.userPhone}</td>
                           <td>
                             <button
-                              onClick={(index) => addingOrder(index)}
+                              key={index}
+                              onClick={(e, key) => addingOrder(e, index)}
                               className=" btn btn-success"
                             >
                               Add
                             </button>
                           </td>
-                        </tr>
+                        </>
                       ) : (
                         ""
                       )}
-                    </>
+                    </tr>
                   );
                 })}
               </tbody>
