@@ -139,13 +139,13 @@ export default function JoinUS() {
   const HandelSubmit = (event) => {
     event.preventDefault();
     // handelValidationError();
-    for (const key in kitchenError) {
-      if (
-        kitchenError[key] === "" &&
-        kitchenError.kitchenAddressError[key] === ""
-      ) {
-        console.log(kitchenError[key]);
-        console.log(key);
+    // for (const key in kitchenError) {
+    //   if (
+    //     kitchenError[key] === "" &&
+    //     kitchenError.kitchenAddressError[key] === ""
+    //   ) {
+        // console.log(kitchenError[key]);
+        // console.log(key);
         axiosInstance
           .post("/kitchen", kitchen)
 
@@ -157,17 +157,20 @@ export default function JoinUS() {
           //   body: JSON.stringify(kitchen),
           // })
           .then((res) => {
-            return res.json();
+            return res;
           })
           .then((data) => {
             console.log(data);
             // window.location = "/login";
-          });
-      } else {
-        console.log("sdsd");
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      // } else {
+        // console.log("sdsd");
         //  return
-      }
-    }
+      // }
+    // }
   };
 
   return (

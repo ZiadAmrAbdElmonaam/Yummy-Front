@@ -46,10 +46,10 @@ export default function Pilot() {
                 dolores doloremque, laboriosam omnis vero placeat asperiores
                 animi nemo at deleniti eius debitis?
               </p>
-              <Link className="btn btn-primary" to="/onlineOrders">
+              {/* <Link className="btn btn-primary" to="/onlineOrders">
                 Online Orders{" "}
-              </Link>
-              {/* <Link className="btn btn-primary" to="/onlineOrders">Online Orders </Link> */}
+              </Link> */}
+              
               <button
                 className="btn btn-dark"
                 onClick={() => {
