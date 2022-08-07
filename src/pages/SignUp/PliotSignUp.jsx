@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,8 @@ import axiosInstance from "../../Network/Config";
 
 export default function PilotSignUP() {
   // start of states
+  const ref = useRef();
+  // console.log("ref current", ref.current);
   const [pilot, setPilot] = useState({
     pilotName: "",
     nationalID: "",
@@ -25,17 +27,22 @@ export default function PilotSignUP() {
   });
   // functions
   // handel pilot change
-  const handlepilotChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    // console.log("event", event.target);
-    setPilot({
-      ...pilot,
-      [event.target.name]: event.target.value,
-    });
-
+  const handlepilotChange = (event, ref) => {
     handelValidationError(event.target.name, event.target.value);
     if (event.target.type == "file") {
-      console.log("from condition ", event.target.value);
+      console.log("my current file", ref.current.files[0]);
+      const x = ref.current.files[0];
+      setPilot({
+        ...pilot,
+        [event.target.name]: x,
+      });
+    } else {
+      console.log(event.target.name, event.target.value);
+      // console.log("event", event.target);
+      setPilot({
+        ...pilot,
+        [event.target.name]: event.target.value,
+      });
     }
   };
 
@@ -99,6 +106,7 @@ export default function PilotSignUP() {
   //  on Submit
   const HandelSubmit = (event) => {
     event.preventDefault();
+    // console.log("from sub btn", ref.current.files[0]);
     if (
       pilotError.nationalIDError === "" &&
       pilotError.pilotNameError === "" &&
@@ -206,10 +214,11 @@ export default function PilotSignUP() {
             <Form.Control
               placeholder="upload your Lisence Image"
               type="file"
+              ref={ref}
               accept=".jpg"
               value={pilot.pilotLisenceImage}
               name="pilotLisenceImage"
-              onChange={(e) => handlepilotChange(e)}
+              onChange={(e) => handlepilotChange(e, ref)}
             />
             {/* <Form.Text className="d-block text-danger mb-2">
               {pilotError.pilotNumberError}
