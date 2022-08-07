@@ -10,7 +10,8 @@ import JoinUS from "./pages/SignUp/KitchenSignUP";
 import PilotSignUP from "./pages/SignUp/PliotSignUp";
 import Pilot from "./pages/Pilot/Pilot";
 import PilotOnlineOrder from "./pages/OnlineOrders/PilotOnlineOrder";
-
+import PilotOrders from "./pages/Pilot/PilotOrders";
+import PilotHistory from "./pages/Pilot/PilotHistory";
 function App() {
   return (
     <Router>
@@ -25,6 +26,8 @@ function App() {
         <Route path="/pilot/:id" component={Pilot} />
         <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
         <Route path="/" exact component={Home} />
+        <Route path="/pilotOnlineOrders/:id" exact component={PilotOrders} />
+        <Route path="/pilotHistory/:id" exact component={PilotHistory} />
         {/* <Route path="*" exact component={NotFound}/> */}
       </Switch>
     </Router>

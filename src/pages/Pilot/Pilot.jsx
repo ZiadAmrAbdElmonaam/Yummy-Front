@@ -3,7 +3,8 @@ import axiosInstance from "../../Network/Config";
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import "./Pilot.css";
-import PilotOrders from "./PilotOrders";
+import PilotOnlineOrder from "../OnlineOrders/PilotOnlineOrder";
+// import PilotOrders from "./PilotOrders";
 
 export default function Pilot() {
   const history = useHistory();
@@ -30,6 +31,12 @@ export default function Pilot() {
     // console.log("hhhhhhh")
     history.push(`/onlineOrders/${params.id}`);
   }
+  function myOnlineOrders() {
+    history.push(`/pilotOnlineOrders/${params.id}`);
+  }
+  function myHistory() {
+    history.push(`/pilotHistory/${params.id}`);
+  }
   // console.log("nnn", item);
   return (
     <>
@@ -50,17 +57,38 @@ export default function Pilot() {
                 Online Orders{" "}
               </Link> */}
 
-              <button
+              {/* <button */}
+              {/* <button
                 className="btn btn-dark"
                 onClick={() => {
                   onlineOrders();
                 }}
               >
-                Online Orders{" "}
+                Online Orders{" "}  
+              </button> */}
+
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  myOnlineOrders();
+                }}
+              >
+                My Online Orders{" "}
               </button>
+              <button
+                className="btn btn-dark"
+                onClick={() => {
+                  myHistory();
+                }}
+              >
+                My History{" "}
+              </button>
+              {/* <Link className="btn btn-primary" to="/pilotOnlineOrders/:id">My Online Orders</Link> */}
+              <PilotOnlineOrder />
             </div>
           </div>
-          <PilotOrders pilot={pilot} />
+
+          {/* <PilotOrders pilot={pilot} /> */}
         </>
       )}
     </>
