@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ItemCard.css";
 import { AiFillPlusCircle } from "react-icons/ai";
 function CardComponent(props) {
+  const { addToCard } = props;
+
   return (
     <>
       <div className="row">
@@ -12,7 +14,13 @@ function CardComponent(props) {
           </h5>
           <p className="text-muted mb-5">{props.item.itemDescription}</p>
 
-          <p className=" mt-5 item-price">
+          <p
+            className=" mt-5 item-price"
+            id={props.item._id}
+            onClick={() => {
+              addToCard(props.item);
+            }}
+          >
             <AiFillPlusCircle size="22" /> {props.item.itemPrice} EGP
           </p>
         </div>

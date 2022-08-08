@@ -10,9 +10,23 @@ import ItemCard from "../../components/ItemCard/ItemCard";
 export default function KitchenDetails() {
   const [userD, setUserD] = useState({});
   const [item, setItem] = useState([]);
+  const [cart, setCart] = useState([]);
   let [isload, setIsLoad] = useState(true);
-
   let params = useParams();
+
+  function addOrder(item) {
+    // let _id  = e.target.id;
+    const itemsId = [...cart];
+    itemsId.push(item);
+    // console.log("info", props.item.itemName);
+    setCart(itemsId);
+    console.log("itemid", itemsId);
+    localStorage.setItem("userCart", itemsId);
+    // console.log("e", cart);
+
+    // props.item._id
+  }
+
   // console.log("params", params);
   useEffect(() => {
     axiosInstance
@@ -26,8 +40,7 @@ export default function KitchenDetails() {
         setIsLoad(false);
       });
   }, []);
-  console.log("nnn", item);
-
+  console.log("kitchen data", userD);
   return (
     <div>
       {isload ? (
@@ -81,7 +94,7 @@ export default function KitchenDetails() {
               return (
                 <div className="col-12" key={item._id}>
                   <div className="m-2 item">
-                    <ItemCard item={item} />
+                    <ItemCard item={item} addToCard={addOrder} />
                   </div>
                 </div>
               );
@@ -92,6 +105,7 @@ export default function KitchenDetails() {
     </div>
   );
 }
+// use use context save v as global
 
 {
   /* <Card style={{ width: "18rem" }}>

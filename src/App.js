@@ -25,7 +25,7 @@ function App() {
         <Route path="/userSignUp" component={SignUp} />
         <Route path="/pilot/:id" component={Pilot} />
         <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact compon ent={Home} />
         <Route path="/pilotOnlineOrders/:id" exact component={PilotOrders} />
         <Route path="/pilotHistory/:id" exact component={PilotHistory} />
         {/* <Route path="*" exact component={NotFound}/> */}
