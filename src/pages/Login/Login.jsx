@@ -4,26 +4,20 @@ import Form from "react-bootstrap/Form";
 import "./Login.css";
 
 import { LoginThunk } from "../../Store/Actions/Login";
- import axiosInstance from "../../Network/Config";
+import axiosInstance from "../../Network/Config";
 import axios from "axios"
-
 import { useState} from "react";
 import {useHistory } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
 import Store from "../../Store/Store"
- 
-
-
 
 function Login() {
-  const history= useHistory()
+  const history = useHistory();
   const [user, setUser] = useState({
     email: "",
     password: "",
     role: "",
-    
   });
-
 
   // handel validation error state
   const [userError, setUserError] = useState({
@@ -40,7 +34,6 @@ function Login() {
       [event.target.name]: event.target.value,
     });
 
- 
     handelValidationError(event.target.name, event.target.value);
   };
   // validation
@@ -68,52 +61,39 @@ function Login() {
               : "",
         });
         break;
-        default:
+      default:
         setUserError({
           ...userError,
         });
-       
-
     }
   };
 
   //  on Submit
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handelSubmit = (event) => {
     event.preventDefault();
-  
-    // axios.post("http://localhost:8080/login/",JSON.stringify(user))
-     axiosInstance.post("/login", user)
-    //  fetch("http://localhost:8080/login/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(user),
-    // })
 
-  
+ 
+    axiosInstance
+      .post("/login", user)
+
       .then((res) => {
-       
-        return  res
-        
-      }).then((data) => {
-      
+        return res;
+      })
+      .then((data) => {
         localStorage.setItem("token", data.data.token);
-        
-      // console.log(data.data.data._id);
-       
 
         if (data.data.token === undefined) {
           throw new Error();
-        }else {
+        } else {
           setUserError({
             ...userError,
             loginError: "",
           });
-          if(user.role==="pilot"){
-            history.push(`/pilot/${user.email}`)
+          if (user.role === "pilot") {
+            history.push(`/pilot/${user.email}`);
             // window.location = `/pilot/${user.email}`;
+
           }
           else if(user.role==="user"){
             // history.push(`/user/${data.data.data._id}`)
@@ -122,20 +102,22 @@ function Login() {
           }
           else if(user.role==="kitchen"){
             history.push(`/kitchen/${data.data.data._id}`)
+
           }
         }
       })
 
       .then(dispatch(LoginThunk (user)) )
 
+
       .catch((error) => {
-         console.log(error);
+        console.log(error);
         if (error) {
           setUserError({
             ...userError,
             loginError: "Incorrect Email or Password",
           });
-        } 
+        }
         throw Error("incorrect Email or Password", error);
       });
   };
