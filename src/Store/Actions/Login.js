@@ -1,25 +1,29 @@
 import axiosInstance from "./../../Network/Config";
 
-export const LoginThunk = () => (dispatch) => {
+export const LoginThunk = (object) => (dispatch) => {
 
     let token = localStorage.getItem('token');
    
   return axiosInstance
-    .get("/login")
+    //  .get("/login")
+     .post("/login" , object)
+
     .then((res) => {
         console.log( "response is",res)
         //  token = localStorage.getItem('token');
         console.log("token is ====>", token)
+         console.log("res object is ====>", object)
+
         dispatch({
             type: "GET_LOGIN_TOKEN",
             payload: token
           })
-      
+       return res
     })
     // .then()
     .catch((error) => {
       if (error.res && error.res.status >= 400 && error.res.status <= 500) {
-        console.log("error from sign up thunk Actions");
+        console.log("error from login thunk Actions");
         // setUserError("erroR", error.res.user.message);
       }
     });

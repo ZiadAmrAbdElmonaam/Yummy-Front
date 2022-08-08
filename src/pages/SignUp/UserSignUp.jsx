@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
+import axiosInstance from "../../Network/Config";
 
 export default function SignUp() {
   // start of states
@@ -170,15 +171,18 @@ export default function SignUp() {
     ) {
       console.log("error Validation");
     }
-    fetch("http://localhost:8080/user/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    axiosInstance.post("/user", user)
+    // fetch("http://localhost:8080/user/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // })
       .then((res) => {
-        return res.json();
+        // return res.json();
+        return res;
+
       })
       .then((data) => {
         console.log(data);

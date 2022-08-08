@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
        let token = Store.getState().login.token;
 
 
-  req.headers.authorization =token;// token;
+  req.headers.Authorization = `Bearer ${token}`;   // token;
   
       // console.log( Store.getState().login.token);
       //  console.log("authorization ==>" ,req);
@@ -48,6 +48,32 @@ axiosInstance.interceptors.request.use(
     // console.log("headers == >  ", req.headers)
 
      return req;
+  },
+  (err) => {
+    // console.log("in the interceptor error")
+     return Promise.reject(err);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  
+  (res) => {
+    
+     if ( (res.status == 401) || (res.status == 403) ) {
+    
+      console.log(        "response is ====>"    ,res.status)
+      // console.log(Store.getState() , 5555555555555555555555)
+
+       Store.getState().login.auth = false;
+
+    }
+
+     // Add configurations here
+     res.headers.ahmed = "ahmed in the header from axios instance response";
+     
+  
+
+     return res;
   },
   (err) => {
     // console.log("in the interceptor error")

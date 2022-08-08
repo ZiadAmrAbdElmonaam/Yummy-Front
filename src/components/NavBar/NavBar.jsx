@@ -1,7 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import  { useState } from "react";
 
 export default function NavBar() {
+
+
+  const list = [
+    "Banana",
+    "Apple",
+    "Orange",
+    "Mango",
+    "Pineapple",
+    "Watermelon"
+  ];
+
+  const [filterList, setFilterList] = useState(list);
+
+const handleSearch = (event) => {
+
+    if (event.target.value === "") {
+      setFilterList(list);
+      return;
+    }
+    const filteredValues = list.filter(
+      (item) =>
+        item.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1
+    );
+    setFilterList(filteredValues);
+  };
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -72,10 +100,17 @@ export default function NavBar() {
             <form className="d-flex ">
               <input
                 className="form-control me-2"
-                type="search"
+                type="text"
+                name="query"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={handleSearch}
               />
+              
+              {filterList &&
+        filterList.map((item, index) => (
+          <div key={index}>{item}</div> //Display each item
+        ))}
               <button className="btn btn-outline-success" type="submit">
                 Search
               </button>

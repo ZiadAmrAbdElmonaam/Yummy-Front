@@ -11,12 +11,28 @@ import PilotSignUP from "./pages/SignUp/PliotSignUp";
 import Pilot from "./pages/Pilot/Pilot";
 import PilotOnlineOrder from "./pages/OnlineOrders/PilotOnlineOrder";
 
+
+import {useSelector} from "react-redux"
+import NotFound from "./pages/Not Found/Notfound";
+
+
 function App() {
-  return (
-    <Router>
+  
+  let auth = useSelector((state)=>state.login.auth)
+  if(auth){
+
+    
+     return (
+      
+      
+      
+      
+      <Router>
+      
       <NavBar />
       <Switch>
-        <Route path="/home" exact component={Home} />
+      
+        <Route path="/home/:userid?" exact component={Home} />
         <Route path="/kitchendetails/:id" component={KitchenDetails} />
         <Route path="/login" component={Login} />
         <Route path="/kitchenSignUP" component={JoinUS} />
@@ -25,10 +41,31 @@ function App() {
         <Route path="/pilot/:id" component={Pilot} />
         <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
         <Route path="/" exact component={Home} />
-        {/* <Route path="*" exact component={NotFound}/> */}
+        <Route path="*" exact component={NotFound}/>
       </Switch>
     </Router>
-  );
+    
+   );
+}
+else {
+   return(
+    
+    <Router>
+    <NavBar />
+    <Switch>
+
+    <Route path="/"   component={Login}  />
+   
+      
+   
+</Switch>
+
+      </Router>
+   )
+  
+ 
+}
+  
 }
 
 export default App;

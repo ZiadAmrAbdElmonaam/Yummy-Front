@@ -10,7 +10,8 @@ import axios from "axios"
 import { useState} from "react";
 import {useHistory } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
-
+import Store from "../../Store/Store"
+ 
 
 
 
@@ -100,7 +101,7 @@ function Login() {
       
         localStorage.setItem("token", data.data.token);
         
-      
+      // console.log(data.data.data._id);
        
 
         if (data.data.token === undefined) {
@@ -115,15 +116,17 @@ function Login() {
             // window.location = `/pilot/${user.email}`;
           }
           else if(user.role==="user"){
-            history.push(`/user/${user.email}`)
+            // history.push(`/user/${data.data.data._id}`)
+            history.push(`/home/${data.data.data._id}`)
+
           }
           else if(user.role==="kitchen"){
-            history.push(`/kitchen/${user.email}`)
+            history.push(`/kitchen/${data.data.data._id}`)
           }
         }
       })
 
-      .then(dispatch(LoginThunk ()))
+      .then(dispatch(LoginThunk (user)) )
 
       .catch((error) => {
          console.log(error);
