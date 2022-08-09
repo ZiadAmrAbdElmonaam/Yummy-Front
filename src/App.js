@@ -17,8 +17,9 @@ import NotFound from "./pages/Not Found/Notfound";
 import PilotOrders from "./pages/Pilot/PilotOrders";
 import PilotHistory from "./pages/Pilot/PilotHistory";
 import KitchenProfile from "./pages/KitchenProfile/KitchenProfile";
-import EditKitchenProfile from "./pages/KitchenProfile/EditKitchenProfile";
+import AddKitchenItem from "./pages/KitchenProfile/AddKitchenItem";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import EditKitchenItems from "./pages/KitchenProfile/EditKitchenItems";
 
 function App() {
   let auth = useSelector((state) => state.login.auth);
@@ -39,11 +40,11 @@ function App() {
           <Route path="/pilotHistory/:id" exact component={PilotHistory} />
           <Route path="/kitchen/:kitchenId" component={KitchenProfile} />
           <Route path="/user/:id" component={UserProfile} />
+          <Route path="/addKitchenItem/:kitchenId" component={AddKitchenItem} />
           <Route
-            path="/editKitchenProfile/:kitchenId"
-            component={EditKitchenProfile}
+            path="/editKitchenItems/:kitchenId"
+            component={EditKitchenItems}
           />
-
           <Route path="/" exact component={Home} />
           <Route path="*" exact component={NotFound} />
         </Switch>

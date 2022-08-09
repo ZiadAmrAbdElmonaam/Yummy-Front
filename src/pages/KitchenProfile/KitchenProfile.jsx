@@ -4,7 +4,7 @@ import axiosInstance from "../../Network/Config";
 import { Params, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ItemCard from "../../components/ItemCard/ItemCard";
-import EditKitchenProfile from "./EditKitchenProfile";
+import EditKitchenProfile from "./AddKitchenItem";
 import Form from "react-bootstrap/Form";
 import {
   AiOutlineAppstoreAdd,
@@ -15,7 +15,7 @@ import "./kitchenProfile.css";
 
 export default function KitchenProfile() {
   //   console.log("props", props);
- 
+
   const [kitchen, setKitchen] = useState({});
   const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
@@ -23,7 +23,7 @@ export default function KitchenProfile() {
 
   let params = useParams();
   //   console.log(params);
-
+  const [kitchenEdit, setKitchenEdit] = useState({});
   useEffect(() => {
     axiosInstance
       .get(`/kitchen/${params.kitchenId}`)
@@ -31,57 +31,41 @@ export default function KitchenProfile() {
         setKitchen(res.data);
         setItem(res.data.menuId.menuItems);
         setIsLoad(false);
-        // setKitchenEdit(res.data);
+        setKitchenEdit({
+          // ...kitchen,
+          kitchenName: kitchen.kitchenName,
+          kitchenEmail: kitchen.kitchenEmail,
+          kitchenPhone: kitchen.kitchenPhone,
+          kitchenCategeory: kitchen.kitchenCategeory,
+          kitchenStatus: kitchen.kitchenStatus,
+          ...kitchen.kitchenAddress,
+          zone: kitchen.kitchenAddress.zone,
+          street: kitchen.kitchenAddress.street,
+          buildingNumber: kitchen.kitchenAddress.buildingNumber,
+        });
         // console.log("res>>>", res.data);
       })
       .catch((err) => {
         setIsLoad(false);
         console.log(err);
       });
-  }, []);
-  console.log("kitchen=====>",kitchen.kitchenName)
-  const kitchenArray= {...kitchen};
-  console.log("kitchen Array",kitchenArray)
-  const [kitchenEdit, setKitchenEdit] = useState({
-    kitchenName: kitchen.kitchenName,
-    kitchenEmail: kitchen.kitchenEmail,
-    kitchenPassword: kitchen.kitchenPassword,
-    kitchenPhone: kitchen.kitchenPhone,
-    kitchenCategeory: kitchen.kitchenCategeory,
-    kitchenAddress: {
-      zone: kitchen.zone,
-      street: kitchen.street,
-      buildingNumber: kitchen.buildingNumber,
-    },
-  });
-  console.log("Kitchen Edit===>>>", kitchenEdit)
+  }, [edit]);
+  // console.log("kitchen=====>", kitchen.kitchenName);
+  const kitchenArray = { ...kitchen };
+  // console.log("kitchen Array", kitchenArray);
 
- 
+  // console.log("Kitchen Edit===>>>", kitchenEdit);
 
   const handleKitchenChange = (event) => {
     const { name, value } = event.target;
     console.log(name, value);
-    if (name === "zone" || name === "street" || name === "buildingNumber") {
-      setKitchenEdit({
-        ...kitchenEdit,
-        kitchenAddress: {
-          ...kitchenEdit.kitchenAddress,
-          [name]: value,
-        },
-      });
-    } else {
       setKitchenEdit({
         ...kitchenEdit,
         [name]: value,
       });
-    }
+    // }
   };
-  function updateData(e) {
-    console.log("eve",e.target.value)
-    setKitchenEdit({
-      kitchenName:e.target.value  
-    })
-  }
+
   //  on Submit
   const HandelSubmit = (event) => {
     console.log(params.kitchenId);
@@ -126,7 +110,7 @@ export default function KitchenProfile() {
                     <div className="col-md-10">
                       <div className="kitchen-info p-3 pt-5">
                         <input
-                        type="text"
+                          type="text"
                           className="contain-kitchen-name"
                           value={kitchenEdit.kitchenName}
                           name="kitchenName"
@@ -153,14 +137,14 @@ export default function KitchenProfile() {
                           <option>frozen</option>
                         </select>
                         <br />
-                        {/* <input
-                        type="text"
+                        <input
+                          type="text"
                           value={kitchenEdit.zone}
                           name="zone"
                           onChange={(e) => handleKitchenChange(e)}
                         />
                         <input
-                        type="text"
+                          type="text"
                           value={kitchenEdit.street}
                           name="street"
                           onChange={(e) => handleKitchenChange(e)}
@@ -170,7 +154,7 @@ export default function KitchenProfile() {
                           value={kitchenEdit.buildingNumber}
                           name="buildingNumber"
                           onChange={(e) => handleKitchenChange(e)}
-                        /> */}
+                        />
                         <br />
                         <button
                           type="submit"
@@ -226,11 +210,11 @@ export default function KitchenProfile() {
                         {kitchen.kitchenCategeory} Food
                       </p>
                       {/* location */}
-                      {/* <p>
+                      <p>
                         {kitchen.kitchenAddress.zone} ,{" "}
                         {kitchen.kitchenAddress.street} ,{" "}
                         {kitchen.kitchenAddress.buildingNumber}
-                      </p> */}
+                      </p>
                       {/* <button className="btn btn-warning">Edit Profile</button> */}
                       <button
                         className="btn btn-warning"
@@ -246,9 +230,11 @@ export default function KitchenProfile() {
               </div>
             </div>
           )}
-          <button className="btn btn-success">
-            Add Item <AiOutlineAppstoreAdd size="30" />
-          </button>
+          <Link to={`/addKitchenItem/${params.kitchenId}`}>
+            <button className="btn btn-success">
+              Add Item <AiOutlineAppstoreAdd size="30" />
+            </button>
+          </Link>
           {/* items */}
           <div className="row g-0 ">
             {item.map((item) => {
