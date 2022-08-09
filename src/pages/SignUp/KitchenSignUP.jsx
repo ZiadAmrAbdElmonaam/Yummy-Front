@@ -160,10 +160,10 @@ export default function JoinUS() {
     formData.append("kitchenPassword", kitchen.kitchenPassword);
     formData.append("kitchenPhone", kitchen.kitchenPhone);
     formData.append("kitchenCategeory", kitchen.kitchenCategeory);
-    formData.append("kitchenAddress.zone", kitchen.kitchenAddress.zone);
-    formData.append("kitchenAddress.street", kitchen.kitchenAddress.street);
+    formData.append("kitchenAddress[zone]", kitchen.kitchenAddress.zone);
+    formData.append("kitchenAddress[street]", kitchen.kitchenAddress.street);
     formData.append(
-      "kitchenAddress.buildingNumber",
+      "kitchenAddress[buildingNumber]",
       kitchen.kitchenAddress.buildingNumber
     );
     axiosInstance
@@ -321,13 +321,14 @@ export default function JoinUS() {
             </div>
             <div className="col-lg-4">
               <div className="dropdown mb-5">
-                <Form.Label> upload your Lisence Image</Form.Label>
+                <Form.Label> Choose your Category</Form.Label>
                 <select
                   value={kitchen.kitchenCategeory}
                   name="kitchenCategeory"
                   className="select-category"
                   onChange={(e) => handleKitchenChange(e)}
                 >
+                  <option>Select Category</option>
                   <option value="all">all</option>
                   <option value="vegetarian">Vegetarian</option>
                   <option value="non-vegetarian">non-vegetarian</option>
