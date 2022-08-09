@@ -1,23 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import  { useState } from "react";
+import { useState } from "react";
 
 export default function NavBar() {
-
-
   const list = [
     "Banana",
     "Apple",
     "Orange",
     "Mango",
     "Pineapple",
-    "Watermelon"
+    "Watermelon",
   ];
 
   const [filterList, setFilterList] = useState(list);
 
-const handleSearch = (event) => {
-
+  const handleSearch = (event) => {
     if (event.target.value === "") {
       setFilterList(list);
       return;
@@ -28,7 +25,6 @@ const handleSearch = (event) => {
     );
     setFilterList(filteredValues);
   };
-
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -106,11 +102,11 @@ const handleSearch = (event) => {
                 aria-label="Search"
                 onChange={handleSearch}
               />
-              
+
               {filterList &&
-        filterList.map((item, index) => (
-          <div key={index}>{item}</div> //Display each item
-        ))}
+                filterList.map((item, index) => (
+                  <div key={index}>{item}</div> //Display each item
+                ))}
               <button className="btn btn-outline-success" type="submit">
                 Search
               </button>

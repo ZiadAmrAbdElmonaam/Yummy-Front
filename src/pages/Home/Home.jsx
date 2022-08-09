@@ -2,14 +2,16 @@ import React from "react";
 // import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import CardComponent from "../../components/Card/Card";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import Loading from "./../component/Loading";
 
 import axiosInstance from "../../Network/Config";
 export default function Home() {
   const [kitchens, setKitchens] = useState([]);
-
+  const userId = useParams();
+  // console.log(userId.userid);
   let [load, setLoad] = useState(true);
   useEffect(() => {
     axiosInstance
@@ -23,13 +25,11 @@ export default function Home() {
         console.log(err);
       });
   }, []);
-  // let handelClick = (e) =>{
-  //     <Link to={"/user-details:id"}></Link>
-  // }
 
   return (
     <>
       <h1>Hello from home page </h1>
+      <Link to={`/user/${userId.userid}`}>My Profile</Link>
       <h6>Menu</h6>
 
       <div className="row row-cols-1 row-cols-md-4 g-0 ">
