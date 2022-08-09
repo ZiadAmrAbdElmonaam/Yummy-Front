@@ -16,8 +16,8 @@ import NotFound from "./pages/Not Found/Notfound";
 
 import PilotOrders from "./pages/Pilot/PilotOrders";
 import PilotHistory from "./pages/Pilot/PilotHistory";
-
-
+import KitchenProfile from "./pages/KitchenProfile/KitchenProfile";
+import EditKitchenProfile from "./pages/KitchenProfile/EditKitchenProfile";
 
 
 function App() {
@@ -43,6 +43,9 @@ function App() {
         <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
         <Route path="/pilotOnlineOrders/:id" exact component={PilotOrders} />
         <Route path="/pilotHistory/:id" exact component={PilotHistory} />
+        <Route path="/kitchen/:kitchenId" component={KitchenProfile} />
+        <Route path="/editKitchenProfile/:kitchenId" component={EditKitchenProfile} />
+
         <Route path="/" exact component={Home} />
         <Route path="*" exact component={NotFound}/>
         

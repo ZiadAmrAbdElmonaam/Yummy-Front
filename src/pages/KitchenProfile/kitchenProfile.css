@@ -1,0 +1,8 @@
+.icon{
+   
+    margin-left: 43rem;
+}
+.icon:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
