@@ -20,7 +20,7 @@ import KitchenProfile from "./pages/KitchenProfile/KitchenProfile";
 import AddKitchenItem from "./pages/KitchenProfile/AddKitchenItem";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import EditKitchenItems from "./pages/KitchenProfile/EditKitchenItems";
-
+// import EditForm from "./pages/KitchenProfile/editForm";
 function App() {
   let auth = useSelector((state) => state.login.auth);
   if (auth) {
@@ -41,6 +41,7 @@ function App() {
           <Route path="/kitchen/:kitchenId" component={KitchenProfile} />
           <Route path="/user/:id" component={UserProfile} />
           <Route path="/addKitchenItem/:kitchenId" component={AddKitchenItem} />
+          {/* <Route path="/editForm/:kitchenId" component={EditForm} /> */}
           <Route
             path="/editKitchenItems/:kitchenId"
             component={EditKitchenItems}

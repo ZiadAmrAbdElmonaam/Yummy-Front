@@ -1,8 +1,11 @@
 .icon{
    
-    margin-left: 43rem;
+    /* margin-left: 47%; */
 }
 .icon:hover{
     cursor: pointer;
     transform: scale(1.1);
+}
+.icons-container{
+    text-align: right;
 }

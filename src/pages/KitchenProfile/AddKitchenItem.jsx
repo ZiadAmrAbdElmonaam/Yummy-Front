@@ -5,7 +5,7 @@ export default function AddKitchenItem(kitchen) {
   return (
     <>
     <div>Edit</div>
-    <p>hello zobr</p>
+    <p>hello hamada</p>
     </>
   )
 }
