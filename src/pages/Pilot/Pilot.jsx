@@ -4,9 +4,12 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../components/Loader/Loader";
 import "./Pilot.css";
 import PilotOnlineOrder from "../OnlineOrders/PilotOnlineOrder";
+import { useSelector } from "react-redux";
 // import PilotOrders from "./PilotOrders";
 
 export default function Pilot() {
+let toke =   useSelector(state => state.login.token)
+console.log("now token is =>>" , toke)
   const history = useHistory();
   const [pilot, setPilot] = useState({});
   // const [item, setItem] = useState([]);
@@ -15,6 +18,8 @@ export default function Pilot() {
   let params = useParams();
   // console.log("params", params);
   useEffect(() => {
+    // if(toke)
+    // {
     axiosInstance
       .get(`/pilotOrders/${params.id}`)
       .then((res) => {
@@ -23,9 +28,12 @@ export default function Pilot() {
         //   setItem(res.data.menuId.menuItems);
       })
       .catch((err) => {
+        console.log(err)
         setIsLoad(false);
       });
-  }, []);
+    // }
+  }, []); 
+  // toke
   function onlineOrders() {
     console.log("params", params);
     // console.log("hhhhhhh")

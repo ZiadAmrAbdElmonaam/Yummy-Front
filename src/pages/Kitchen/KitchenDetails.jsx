@@ -6,6 +6,13 @@ import Loader from "../../components/Loader/Loader";
 import axiosInstance from "../../Network/Config";
 import Menu from "../../components/Menu/Menu";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import { useDispatch , useSelector} from "react-redux";
+import { OrderThunk } from "../../Store/Actions/Orders";
+import NavBar from "../../components/NavBar/NavBar";
+
+import { KetchenIdThunk } from "../../Store/Actions/KetchenId";
+
+
 
 export default function KitchenDetails() {
   const [userD, setUserD] = useState({});
@@ -13,34 +20,38 @@ export default function KitchenDetails() {
   const [cart, setCart] = useState([]);
   let [isload, setIsLoad] = useState(true);
   let params = useParams();
+  const dispatch = useDispatch();
 
   function addOrder(item) {
-    // let _id  = e.target.id;
-    const itemsId = [...cart];
-    itemsId.push(item);
-    // console.log("info", props.item.itemName);
-    setCart(itemsId);
-    console.log("itemid", itemsId);
-    localStorage.setItem("userCart", itemsId);
-    // console.log("e", cart);
+  
+     console.log("e===================>", item);
+   
+    dispatch(OrderThunk(item ))
 
-    // props.item._id
+    console.log("item ===>", item);
+    
   }
 
-  // console.log("params", params);
   useEffect(() => {
+
     axiosInstance
       .get(`/kitchen/${params.id}`)
       .then((res) => {
         setUserD(res.data);
         setIsLoad(false);
+        console.log(params.id);
+    dispatch(KetchenIdThunk(Number(params.id) ))
+      
         setItem(res.data.menuId.menuItems);
       })
+      
       .catch((err) => {
         setIsLoad(false);
       });
+
   }, []);
   console.log("kitchen data", userD);
+
   return (
     <div>
       {isload ? (
@@ -105,17 +116,4 @@ export default function KitchenDetails() {
     </div>
   );
 }
-// use use context save v as global
 
-{
-  /* <Card style={{ width: "18rem" }}>
-             <Card.Header variant="top"> {userD.kitchenName}</Card.Header>
-            {" "}
-            <Card.Body>
-               <Card.Title>{userD.kitchenStatus}</Card.Title>
-              <Card.Text>{userD.kitchenName}</Card.Text>
-              {" "}
-            </Card.Body>
-            {" "}
-          </Card> */
-}

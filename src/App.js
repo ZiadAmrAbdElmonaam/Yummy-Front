@@ -22,7 +22,10 @@ import PilotHistory from "./pages/Pilot/PilotHistory";
 
 function App() {
   
-  let auth = useSelector((state)=>state.login.auth)
+
+  let auth = useSelector((state)=>{
+        console.log("state is => ",state)
+       return state.login.auth})
   if(auth){
 
     

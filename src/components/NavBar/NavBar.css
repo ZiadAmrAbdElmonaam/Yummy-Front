@@ -1,0 +1,29 @@
+.basket{
+    font-size: x-large !important;
+    color: red !important;
+}
+
+.sidebarhead{
+    color: orange !important;
+    background-color: black;
+}
+.sidebarbody{
+    color: white !important;
+    background-color: orange;
+    opacity: .8;
+}
+.cash{
+    margin-left: 30% !important;
+    text-align: center;
+    width: 40%;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 5px 5px 20px inset;
+    
+}
+.dnone{
+    display: none;
+}
+.dblock{
+    display: block;
+}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import Login from "../pages/Login/Login";
+import { LoginThunk } from "../Store/Actions/Login";
 import Store from "../Store/Store"
 
 
@@ -18,18 +19,23 @@ axiosInstance.interceptors.request.use(
     // console.log("in the interceptor" )
     if(req.url == "/login"){
 
-      // console.log( "token is not found yet you still in page",req.url )
+      console.log( "token is not found yet you still in page",req.url )
     }else  if(req.url == "pilot/signUp"){
-      // console.log( "token is not found yet you still in page",req.url )
+      console.log( "token is not found yet you still in page",req.url )
 
     }else { 
       // console.log(req.url , 55555)
-      // console.log(Store.getState() , 5555555555555555555555)
+      console.log(req )
 
-       let token = Store.getState().login.token;
+      console.log(Store.getState() )
 
+      //  let token = Store.getState().login.token;
+      console.log(Store.getState() ,)
 
-  req.headers.Authorization = `Bearer ${token}`;   // token;
+  
+  req.headers.Authorization = `Bearer` + " " + Store.getState().login.token;   
+  // req.headers.Authorization = `Bearer` + " " + localStorage.getItem("token");  
+
   
       // console.log( Store.getState().login.token);
       //  console.log("authorization ==>" ,req);

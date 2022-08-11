@@ -2,7 +2,8 @@ import axiosInstance from "./../../Network/Config";
 
 export const LoginThunk = (object) => (dispatch) => {
 
-    let token = localStorage.getItem('token');
+    // let token = localStorage.getItem('token');
+    // console.log("token is ====>", token)
    
   return axiosInstance
     //  .get("/login")
@@ -11,13 +12,14 @@ export const LoginThunk = (object) => (dispatch) => {
     .then((res) => {
         console.log( "response is",res)
         //  token = localStorage.getItem('token');
-        console.log("token is ====>", token)
+        // console.log("token is ====>", token)
          console.log("res object is ====>", object)
 
         dispatch({
             type: "GET_LOGIN_TOKEN",
-            payload: token
+            payload: localStorage.getItem('token')
           })
+         
        return res
     })
     // .then()

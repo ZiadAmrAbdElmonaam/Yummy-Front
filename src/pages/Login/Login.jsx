@@ -6,18 +6,49 @@ import "./Login.css";
 import { LoginThunk } from "../../Store/Actions/Login";
 import axiosInstance from "../../Network/Config";
 import axios from "axios"
-import { useState} from "react";
+import { useEffect, useState} from "react";
 import {useHistory } from "react-router-dom";
 import { useDispatch , useSelector} from "react-redux";
 import Store from "../../Store/Store"
+import { IsLoadingThunk } from "../../Store/Actions/IsLoading";
+import { UserIdThunk } from "../../Store/Actions/UserId";
+
+
 
 function Login() {
   const history = useHistory();
+
+  const [userLoggedIn, setUserLoggedIn]= useState(false);
+  const [userId, setUserId]= useState(0);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
     role: "",
   });
+  let currentToken =useSelector(state => state.login.token)
+  
+  useEffect(()=>{
+    if(userLoggedIn && currentToken)
+    {
+      
+    if (user.role === "pilot") {
+      console.log("before pilot ==================>" ,localStorage.getItem(  "token"));
+
+          history.push(`/pilot/${user.email}`);
+          // window.location = `/pilot/${user.email}`;
+
+        }
+        else if(user.role==="user"){
+        
+dispatch(UserIdThunk(userId))
+        }
+        else if(user.role==="kitchen"){
+          history.push(`/kitchen/${userId}`)
+
+        }
+  }
+},[userLoggedIn,currentToken])
 
   // handel validation error state
   const [userError, setUserError] = useState({
@@ -68,21 +99,32 @@ function Login() {
     }
   };
 
-  //  on Submit
+  
+  
+
   const dispatch = useDispatch();
+
+////////  on Submit
+
   const handelSubmit = (event) => {
     event.preventDefault();
 
- 
-    axiosInstance
-      .post("/login", user)
+
+/////////////////////////////////////////////////////////////
+dispatch(IsLoadingThunk(null))
+  axiosInstance
+  .post("/login", user)
 
       .then((res) => {
+        console.log(res.data.token)
+        localStorage.setItem("token", res.data.token);
+        console.log(res)
         return res;
       })
+      
       .then((data) => {
-        localStorage.setItem("token", data.data.token);
-
+        // console.log(localStorage.getItem('token'));
+        
         if (data.data.token === undefined) {
           throw new Error();
         } else {
@@ -90,24 +132,15 @@ function Login() {
             ...userError,
             loginError: "",
           });
-          if (user.role === "pilot") {
-            history.push(`/pilot/${user.email}`);
-            // window.location = `/pilot/${user.email}`;
-
-          }
-          else if(user.role==="user"){
-            // history.push(`/user/${data.data.data._id}`)
-            history.push(`/home/${data.data.data._id}`)
-
-          }
-          else if(user.role==="kitchen"){
-            history.push(`/kitchen/${data.data.data._id}`)
-
-          }
+          
+          dispatch(LoginThunk (user))
+          setUserId(data.data.data._id)
+setUserLoggedIn(true);
         }
+      
       })
 
-      .then(dispatch(LoginThunk (user)) )
+      
 
 
       .catch((error) => {
@@ -120,6 +153,7 @@ function Login() {
         }
         throw Error("incorrect Email or Password", error);
       });
+  
   };
   // change type
 

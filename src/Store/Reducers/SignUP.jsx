@@ -3,7 +3,6 @@
 const initialValue = {
   userList: [],
 };
-
 export default function SignUpThunkReducer(state = initialValue, action) {
   switch (action.type) {
     case "POST_THUNK_DATA":

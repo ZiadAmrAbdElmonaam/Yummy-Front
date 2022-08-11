@@ -4,8 +4,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import SignUpThunkReducer from "./SignUP";
 import LoginThunkReducer from "./Login";
+import OrderThunkReducer from "./Orders";
+import FlagThunkReducer from "./Flag";
+// import IsLoadingThunkReducer from "./IsLoading";
+
+
 
 export default combineReducers({
   signUp: SignUpThunkReducer,
-  login: LoginThunkReducer
+  login: LoginThunkReducer,
+  orders: OrderThunkReducer,
+  flag: FlagThunkReducer
+  // isloading: IsLoadingThunkReducer
 });
