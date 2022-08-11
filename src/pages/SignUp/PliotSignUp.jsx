@@ -14,8 +14,9 @@ export default function PilotSignUP() {
     nationalID: "",
     pilotPassword: "",
     pilotNumber: "",
-    pilotLisenceImage: "",
   });
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   // handel validation error state
   const [pilotError, setPilotError] = useState({
@@ -30,15 +31,10 @@ export default function PilotSignUP() {
   const handlepilotChange = (event, ref) => {
     handelValidationError(event.target.name, event.target.value);
     if (event.target.type == "file") {
-      console.log("my current file", ref.current.files[0].name);
-      const x = ref.current.files[0].name;
-      // setPilot({
-      //   ...pilot,
-      //   pilotLisenceImage: {
-      //     ...pilot.pilotLisenceImage,
-      //     [event.target.name]: x,
-      //   },
-      // });
+      // console.log("my current file", event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+      setIsFilePicked(true);
+      // console.log("selected now", selectedFile);
     } else {
       console.log(event.target.name, event.target.value);
       // console.log("event", event.target);
@@ -48,7 +44,7 @@ export default function PilotSignUP() {
       });
     }
   };
-
+  console.log("select", selectedFile);
   // validation
   const handelValidationError = (field, value) => {
     switch (field) {
@@ -116,17 +112,17 @@ export default function PilotSignUP() {
       pilotError.pilotNumberError === "" &&
       pilotError.pilotPasswordError === ""
     ) {
-      //axiosInstance.post("/pilot/signUp", JSON.stringify({ pilot }))
-      axiosInstance
-        .post("/pilot/signUp", pilot)
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      formData.append("pilotName", pilot.pilotName);
+      formData.append("nationalID", pilot.nationalID);
+      formData.append("pilotPassword", pilot.pilotPassword);
+      formData.append("pilotNumber", pilot.pilotNumber);
+      formData.append("pilotLisenceImage", pilot.pilotLisenceImage);
 
-        // fetch("http://localhost:8080/pilot/signUp", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(pilot),
-        // })
+      axiosInstance
+        .post("/pilot/signUp", formData)
+
         .then((res) => {
           return res;
         })
@@ -211,26 +207,32 @@ export default function PilotSignUP() {
               {pilotError.pilotNumberError}
             </Form.Text>
           </Form.Group>
+          {/* upload licence img */}
 
           <Form.Group className="mb-3" controlId="formBasicPhone">
             <Form.Label> upload your Lisence Image</Form.Label>
             <Form.Control
               placeholder="upload your Lisence Image"
               type="file"
-              ref={ref}
-              accept=".jpg"
-              value={pilot.pilotLisenceImage}
               name="pilotLisenceImage"
-              onChange={(e) => handlepilotChange(e, ref)}
+              onChange={(e) => handlepilotChange(e)}
             />
             {/* <Form.Text className="d-block text-danger mb-2">
               {pilotError.pilotNumberError}
             </Form.Text> */}
-          </Form.Group>
 
-          <Form.Text className="d-block text-danger m-auto d-flex justify-content-center  ">
-            {pilotError.formValidationError}
-          </Form.Text>
+            <Form.Text className="d-block text-danger m-auto d-flex justify-content-center  ">
+              {pilotError.formValidationError}
+            </Form.Text>
+            {/* test */}
+          </Form.Group>
+          {isFilePicked ? (
+            <div>
+              <p className="text-primary">Done</p>
+            </div>
+          ) : (
+            <p className="text-danger">upload image please</p>
+          )}
           <button type="submit" className="sub-btn">
             Submit
           </button>

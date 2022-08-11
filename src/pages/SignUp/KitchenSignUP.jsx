@@ -20,6 +20,8 @@ export default function JoinUS() {
       buildingNumber: 0,
     },
   });
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   // handel validation error state
   const [kitchenError, setKitchenError] = useState({
@@ -39,7 +41,6 @@ export default function JoinUS() {
   // handel kitchen change
   const handleKitchenChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
     if (name === "zone" || name === "street" || name === "buildingNumber") {
       setKitchen({
         ...kitchen,
@@ -48,6 +49,11 @@ export default function JoinUS() {
           [name]: value,
         },
       });
+    } else if (event.target.type == "file") {
+      console.log("my current file", event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+      setIsFilePicked(true);
+      // console.log("selected now", selectedFile);
     } else {
       setKitchen({
         ...kitchen,
@@ -144,32 +150,39 @@ export default function JoinUS() {
     //     kitchenError[key] === "" &&
     //     kitchenError.kitchenAddressError[key] === ""
     //   ) {
-        // console.log(kitchenError[key]);
-        // console.log(key);
-        axiosInstance
-          .post("/kitchen", kitchen)
+    // console.log(kitchenError[key]);
+    // console.log(key);
 
-          // fetch("http://localhost:8080/kitchen/", {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify(kitchen),
-          // })
-          .then((res) => {
-            return res;
-          })
-          .then((data) => {
-            console.log(data);
-            // window.location = "/login";
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
-      // } else {
-        // console.log("sdsd");
-        //  return
-      // }
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("kitchenName", kitchen.kitchenName);
+    formData.append("kitchenEmail", kitchen.kitchenEmail);
+    formData.append("kitchenPassword", kitchen.kitchenPassword);
+    formData.append("kitchenPhone", kitchen.kitchenPhone);
+    formData.append("kitchenCategeory", kitchen.kitchenCategeory);
+    formData.append("kitchenAddress[zone]", kitchen.kitchenAddress.zone);
+    formData.append("kitchenAddress[street]", kitchen.kitchenAddress.street);
+    formData.append(
+      "kitchenAddress[buildingNumber]",
+      kitchen.kitchenAddress.buildingNumber
+    );
+    axiosInstance
+      .post("/kitchen", formData)
+
+      .then((res) => {
+        return res;
+      })
+      .then((data) => {
+        console.log(data);
+        // window.location = "/login";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // } else {
+    // console.log("sdsd");
+    //  return
+    // }
     // }
   };
 
@@ -197,7 +210,6 @@ export default function JoinUS() {
               {kitchenError.kitchenEmailError}
             </Form.Text>
           </Form.Group>
-
           {/* kitchen  name */}
           <Form.Group className="mb-3" controlId="formBasickitchenName">
             <Form.Label>kitchen Name</Form.Label>
@@ -212,7 +224,6 @@ export default function JoinUS() {
               {kitchenError.kitchenNameError}
             </Form.Text>
           </Form.Group>
-
           {/* password */}
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -227,7 +238,6 @@ export default function JoinUS() {
               {kitchenError.kitchenPasswordError}
             </Form.Text>
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>kitchen Phone</Form.Label>
             <Form.Control
@@ -287,20 +297,47 @@ export default function JoinUS() {
                 </Form.Text>
               </Form.Group>
             </div>
+            <div className="col-lg-8">
+              <Form.Group className="mb-3" controlId="formBasicPhone">
+                <Form.Label> upload your Lisence Image</Form.Label>
+                <Form.Control
+                  placeholder="upload your Lisence Image"
+                  type="file"
+                  name="kitchenimage"
+                  onChange={(e) => handleKitchenChange(e)}
+                />
+                {/* <Form.Text className="d-block text-danger mb-2">
+              {pilotError.pilotNumberError}
+            </Form.Text> */}
+                {/* test */}
+              </Form.Group>
+              {isFilePicked ? (
+                <div>
+                  <p className="text-primary">Done</p>
+                </div>
+              ) : (
+                <p className="text-danger">upload image please</p>
+              )}
+            </div>
+            <div className="col-lg-4">
+              <div className="dropdown mb-5">
+                <Form.Label> Choose your Category</Form.Label>
+                <select
+                  value={kitchen.kitchenCategeory}
+                  name="kitchenCategeory"
+                  className="select-category"
+                  onChange={(e) => handleKitchenChange(e)}
+                >
+                  <option>Select Category</option>
+                  <option value="all">all</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="non-vegetarian">non-vegetarian</option>
+                  <option value="frozen">frozen</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div className="dropdown mb-5">
-            <select
-              value={kitchen.kitchenCategeory}
-              name="kitchenCategeory"
-              className="select-category"
-              onChange={(e) => handleKitchenChange(e)}
-            >
-              <option value="all">all</option>
-              <option value="vegetarian">Vegetarian</option>
-              <option value="non-vegetarian">non-vegetarian</option>
-              <option value="frozen">frozen</option>
-            </select>
-          </div>
+          {/* end of row */}
           <button type="submit" className="sub-btn">
             Submit
           </button>

@@ -11,16 +11,18 @@ import PilotSignUP from "./pages/SignUp/PliotSignUp";
 import Pilot from "./pages/Pilot/Pilot";
 import PilotOnlineOrder from "./pages/OnlineOrders/PilotOnlineOrder";
 
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import NotFound from "./pages/Not Found/Notfound";
 
 import PilotOrders from "./pages/Pilot/PilotOrders";
 import PilotHistory from "./pages/Pilot/PilotHistory";
-
-
-
-
+import KitchenProfile from "./pages/KitchenProfile/KitchenProfile";
+import AddKitchenItem from "./pages/KitchenProfile/AddKitchenItem";
+import UserProfile from "./pages/UserProfile/UserProfile";
+import EditKitchenItems from "./pages/KitchenProfile/EditKitchenItems";
+// import EditForm from "./pages/KitchenProfile/editForm";
 function App() {
+
   
 
   let auth = useSelector((state)=>{
@@ -31,49 +33,43 @@ function App() {
     
      return (
       
+
       <Router>
-      
-      <NavBar />
-      <Switch>
-      
-        <Route path="/home/:userid?" exact component={Home} />
-        <Route path="/kitchendetails/:id" component={KitchenDetails} />
-        <Route path="/login" component={Login} />
-        <Route path="/kitchenSignUP" component={JoinUS} />
-        <Route path="/PilotSignUp" component={PilotSignUP} />
-        <Route path="/userSignUp" component={SignUp} />
-        <Route path="/pilot/:id" component={Pilot} />
-        <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
-        <Route path="/pilotOnlineOrders/:id" exact component={PilotOrders} />
-        <Route path="/pilotHistory/:id" exact component={PilotHistory} />
-        <Route path="/" exact component={Home} />
-        <Route path="*" exact component={NotFound}/>
-        
-
-      </Switch>
-    </Router>
-    
-   );
-}
-else {
-   return(
-    
-    <Router>
-    <NavBar />
-    <Switch>
-
-    <Route path="/"   component={Login}  />
-   
-      
-   
-</Switch>
-
+        <NavBar />
+        <Switch>
+          <Route path="/home/:userid?" exact component={Home} />
+          <Route path="/kitchendetails/:id" component={KitchenDetails} />
+          <Route path="/login" component={Login} />
+          <Route path="/kitchenSignUP" component={JoinUS} />
+          <Route path="/PilotSignUp" component={PilotSignUP} />
+          <Route path="/userSignUp" component={SignUp} />
+          <Route path="/pilot/:id" component={Pilot} />
+          <Route path="/onlineOrders/:id" component={PilotOnlineOrder} />
+          <Route path="/pilotOnlineOrders/:id" exact component={PilotOrders} />
+          <Route path="/pilotHistory/:id" exact component={PilotHistory} />
+          <Route path="/kitchen/:kitchenId" component={KitchenProfile} />
+          <Route path="/user/:id" component={UserProfile} />
+          <Route path="/addKitchenItem/:kitchenId" component={AddKitchenItem} />
+          {/* <Route path="/editForm/:kitchenId" component={EditForm} /> */}
+          <Route
+            path="/editKitchenItems/:kitchenId"
+            component={EditKitchenItems}
+          />
+          <Route path="/" exact component={Home} />
+          <Route path="*" exact component={NotFound} />
+        </Switch>
       </Router>
-   )
-  
- 
-}
-  
+    );
+  } else {
+    return (
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route path="/" component={Login} />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;

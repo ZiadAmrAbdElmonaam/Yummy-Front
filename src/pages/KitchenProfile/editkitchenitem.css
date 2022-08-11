@@ -1,0 +1,29 @@
+.cardImg {
+    width: 90% !important;
+    height: 90%;
+    object-fit: contain;
+  }
+  .cardImg:hover {
+    transform: scale(1.1);
+    transition: ease-in-out 2s;
+    cursor: pointer;
+  }
+  .status {
+    font-size: 1rem;
+  }
+  .item-pricee {
+    /* text-decoration: underline; */
+    color: #ff5a00;
+    font-weight: 800;
+  }
+  .item-body{
+    text-align: left;
+  }
+
+  /* .item-price:hover {
+    color: #b84406;
+    cursor: pointer;
+  } */
+.icon{
+  width: 100% !important;
+}
