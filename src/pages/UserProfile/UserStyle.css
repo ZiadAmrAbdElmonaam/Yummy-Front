@@ -1,7 +1,7 @@
 .side-bar {
   color: #ff5a00;
   background-image: linear-gradient(180deg, #ff5a00, #8a3508);
-  height: 95vh;
+  height: 93vh;
   color: #fff;
 }
 .side-bar-top {
@@ -49,5 +49,16 @@
   background-color: #ff5a00;
 }
 .profileData {
-  padding: 2rem;
+  padding: 4rem 2rem 2rem 2rem;
+}
+.offcanvas-body {
+  padding: 0;
+  overflow-y: hidden;
+}
+.toggle-btn {
+  width: 75% !important;
+  margin-top: 5rem !important;
+}
+.exit {
+  margin: 1rem 1rem 0rem 1rem !important;
 }

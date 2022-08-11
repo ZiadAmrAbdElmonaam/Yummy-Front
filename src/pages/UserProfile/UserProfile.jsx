@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import Loader from "../../components/Loader/Loader";
 import axiosInstance from "../../Network/Config";
 import { Params, useParams } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-
+import { AiOutlineMenuUnfold } from "react-icons/ai";
+import { AiOutlineMenuFold } from "react-icons/ai";
 import "./UserStyle.css";
-import CurrentOrders from "../../components/UserOrders/CurrentOrders";
+import CurrentOrders from "../../components/UserProfile/CurrentOrders";
+import UpdateUser from "../../components/UserProfile/UpdateUser";
+import HistoryOrders from "../../components/UserProfile/HistoryOrders";
 export default function UserProfile() {
   const [user, setUser] = useState({});
   let [isload, setIsLoad] = useState(true);
-  let [isedit, setIsedit] = useState(false);
-  let [isOrder, setIsOrder] = useState(false);
+  let [isEdit, setIsEdit] = useState(false);
+  let [isOrder, setIsOrder] = useState(true);
+  let [isHistoryOrder, setIsHitoryOrder] = useState(false);
   const params = useParams();
   useEffect(() => {
     axiosInstance
@@ -26,19 +29,25 @@ export default function UserProfile() {
         setIsLoad(false);
         console.log(err);
       });
-  }, []);
-  console.log(user);
+  }, [isEdit]);
+  console.log("user  ", user);
   function showEdit() {
-    setIsedit(true);
+    setIsOrder(false);
+    setIsHitoryOrder(false);
+    setIsEdit(true);
     console.log("clicked");
   }
   function showOrders() {
+    setIsEdit(false);
+    setIsHitoryOrder(false);
     setIsOrder(true);
   }
-  function HandelSubmit(event) {
-    event.preventDefault();
-    setIsedit(false);
+  function showHistoryOrders() {
+    setIsEdit(false);
+    setIsOrder(false);
+    setIsHitoryOrder(true);
   }
+
   return (
     <>
       {isload ? (
@@ -46,83 +55,82 @@ export default function UserProfile() {
       ) : (
         <div className="user-profile">
           <div className="row g-0">
-            <div className="col-md-3">
+            <div className="col-md-2">
               {/* side bar */}
-
-              <div className="side-bar">
-                <div className="side-bar-top p-5">
-                  {/* <img
+              <button
+                className="btn sub-btn up-btn toggle-btn"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+              >
+                <AiOutlineMenuUnfold />
+              </button>
+              <div
+                className="offcanvas offcanvas-start"
+                tabIndex="-1"
+                id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel"
+              >
+                <div className="offcanvas-header">
+                  <button
+                    type="button"
+                    className="btn sub-btn up-btn exit"
+                    data-bs-dismiss="offcanvas"
+                  >
+                    <AiOutlineMenuFold />
+                  </button>
+                </div>
+                <div className="offcanvas-body">
+                  <div className="side-bar">
+                    <div className="side-bar-top p-5">
+                      {/* <img
                     src="../../../public/images/john.png"
                     className="img-responsive"
                   /> */}
-                  <div className="student-info">
-                    <h1>{user.userFullName}</h1>
-                    <h3>{user.userEmail}</h3>
-                    <h3>{user.userPhone}</h3>
+                      <div className="student-info">
+                        <h1>{user.userFullName}</h1>
+                        <h3>{user.userEmail}</h3>
+                        <h3>{user.userPhone}</h3>
+                      </div>
+                    </div>
+                    <div className="side-bar-bottom pb-5">
+                      <ul className="ul-group profile-list">
+                        <li className="element">
+                          <button onClick={showEdit}>Edit Profile</button>
+                        </li>
+                        <li className="element">
+                          <button onClick={showOrders}>
+                            My Current Orders
+                          </button>
+                        </li>
+                        <li className="element">
+                          <button onClick={showHistoryOrders}>
+                            My Old Orders
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-                <div className="side-bar-bottom pb-5">
-                  <ul className="ul-group profile-list">
-                    <li className="element">
-                      <button onClick={showEdit}>Edit Profile</button>
-                    </li>
-                    <li className="element">
-                      <button onClick={showOrders}>My Current Orders</button>
-                    </li>
-                    <li className="element">
-                      <button>My Old Orders</button>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
-            <div className="col-md-9">
+            <div className="col-md-10">
               <div className="profileData">
                 {/* <h1>data here</h1> */}
-                {isedit ? (
+                {isEdit ? (
                   <div>
-                    <Form
-                      onSubmit={(event) => {
-                        HandelSubmit(event);
-                      }}
-                      className="form"
-                    >
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                          type="email"
-                          placeholder="Enter email"
-                          //   value={user.userEmail}
-                          name="userEmail"
-                          //   onChange={(e) => handelUserChange(e)}
-                        />
-                        {/* <Form.Text className="d-block text-danger mb-2">
-                          {userError.userEmailError}
-                        </Form.Text> */}
-                      </Form.Group>
-                      <Form.Group className="mb-3" controlId="formBasicPhone">
-                        <Form.Label>User Phone</Form.Label>
-                        <Form.Control
-                          placeholder="User Phone"
-                          type="number"
-                          //   value={user.userPhone}
-                          name="userPhone"
-                          //   onChange={(e) => handelUserChange(e)}
-                        />
-                        {/* <Form.Text className="d-block text-danger mb-2">
-              {userError.userPhoneError}
-            </Form.Text> */}
-                      </Form.Group>
-                      <button type="submit" className="sub-btn">
-                        Submit
-                      </button>
-                    </Form>
+                    <UpdateUser userObj={user} />
                   </div>
                 ) : (
                   ""
                 )}
                 {/* end of edit profile */}
+                {/* current Order */}
                 {isOrder ? <CurrentOrders userData={user} /> : ""}
+                {/* history order */}
+                {isHistoryOrder ? <HistoryOrders userData={user} /> : ""}
+                {/* toggle */}
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect , useState }  from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -9,7 +9,7 @@ import axiosInstance from "../../Network/Config";
 
 export default function SignUp() {
   // start of states
-  const history = useHistory()
+  const history = useHistory();
   const [user, setUser] = useState({
     userFullName: "",
     userEmail: "",
@@ -36,7 +36,7 @@ export default function SignUp() {
       city: " ",
       building: " ",
     },
-    formValidationError:" "
+    formValidationError: " ",
   });
   // functions
   // handel user change
@@ -158,7 +158,6 @@ export default function SignUp() {
 
   const StoreSignUP = useSelector((state) => state.signUp.userList);
 
-  
   const HandelSubmit = (event) => {
     event.preventDefault();
     // console.log("from sub btn", ref.current.files[0]);
@@ -171,19 +170,16 @@ export default function SignUp() {
       // userError.userAddressError.city === ""&&
       // userError.userAddressError.building === ""&&
       // userError.userAddressError.zone === ""
-
     ) {
-
       console.log("error Validation");
-    
-    axiosInstance.post("/user", user)
-   
-      .then((res) => {
-  
-        return res;
 
-      })
-     
+      axiosInstance
+        .post("/user", user)
+
+        .then((res) => {
+          return res;
+        })
+
         .then((data) => {
           console.log(data);
           // window.location = "/login";
@@ -193,7 +189,6 @@ export default function SignUp() {
       setUserError({
         ...userError,
         formValidationError: "complete ur data",
-
       });
     }
   };
@@ -223,7 +218,7 @@ export default function SignUp() {
             </Form.Text>
           </Form.Group>
 
-          {/* kitchen  name */}
+          {/* user  name */}
           <Form.Group className="mb-3" controlId="formBasickitchenName">
             <Form.Label>User Name</Form.Label>
             <Form.Control
@@ -345,7 +340,7 @@ export default function SignUp() {
             </div>
           </div>
 
-          <button  type="submit" className="sub-btn">
+          <button type="submit" className="sub-btn">
             Submit
           </button>
         </Form>
