@@ -15,6 +15,15 @@ function EditKitchenItems(props) {
   const params = useParams();
   // const [item, setItem] = useState([]);
   const [edit, setShow] = useState(false);
+  const[deleteitem,setDeleteItem] = useState(true)
+  
+  const [menuitems,setmenuitems] = useState({
+
+    menuItems:Number( props.item._id)
+  })
+  // console.log("kitchenid>>>>",kitchenid)
+ 
+
   const [kitchenItemEdit, setKitchenItemEdit] = useState({
 
     itemName: props.item.itemName,
@@ -26,6 +35,7 @@ function EditKitchenItems(props) {
     itemId: props.item._id
 
   });
+
 
   // console.log(params)
   // useEffect(() => {
@@ -99,30 +109,29 @@ function EditKitchenItems(props) {
   };
   // console.log(kitchenItemEdit)
   const deleteItem = (event) => {
-    // console.log(params.kitchenId);
-    // event.preventDefault();
-    console.log(event.target);
-    setShow(false)
+
+    console.log(event.target.id);
+    let itemId  = Number(event.target.id)
+    let kitcheeenid= Number(params.kitchenId)
+    console.log("555555555",kitcheeenid)
+console.log(itemId)
+    // setShow(false)
+    console.log("type item id>>",props.item._id)
 
     axiosInstance
-      .delete(`/menuItem/${props.item._id}`, kitchenItemEdit)
+      .delete(`/menu/item/${kitcheeenid}`,menuitems)
       .then((res) => {
         return res;
       })
       .then((data) => {
         // setKitchenItemEdit(data.data.data)
-
-        setKitchenItemEdit({
-
-          ...kitchenItemEdit,
-          [event.target.name]: event.target.value,
-        });
-
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+
   function formshow(e) {
     console.log("event====>", e.target)
     console.log("props====>", props.item._id)
@@ -171,8 +180,15 @@ function EditKitchenItems(props) {
             <AiFillEdit hidden={edit ? true : false} onClick={() => { setShow(true) }} className="icon text-success" size="27"   />
           </span>{" "}
           <span>
-           <AiFillCloseSquare onClick={(event) => { deleteItem(event) }} className="icon text-danger" hidden={edit ? true : false} size="27" />{" "}
+
+       <button onClick={(event) => { deleteItem(event) }}  id={kitchenItemEdit.itemId} >
+       {/* <AiFillCloseSquare 
+       className="icon text-danger" hidden={edit ? true : false} size="27" /> */}
+       Delete
+        </button> 
           </span>
+
+
         </p>
         {edit ? (<form >
           <div className="form-group">

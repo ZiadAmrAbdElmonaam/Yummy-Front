@@ -24,4 +24,6 @@
     color: #b84406;
     cursor: pointer;
   } */
-  
+.icon{
+  width: 100% !important;
+}
