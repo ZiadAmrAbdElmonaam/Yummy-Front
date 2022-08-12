@@ -4,9 +4,10 @@ import "./Card.css";
 // import "../../../../Yummy-Graduation/avatars/images/"
 
 function CardComponent(props) {
-  console.log("param is ===>", props.param)
+  console.log("param is ===>", props.kitchen.menuId)
   return (
     <>
+  
       <div className="card h-100 w-100">
         <img
           src={props.kitchen.kitchenImage}
@@ -23,6 +24,8 @@ function CardComponent(props) {
           </Link>
         </div>
       </div>
+    
+      
     </>
   );
 }

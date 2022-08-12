@@ -40,6 +40,7 @@ export default function PilotOrders() {
     console.log("clicked");
     console.log("type of ", e.target.id);
     let orderId = Number(e.target.id);
+    console.log(Number(e.target.id))
     console.log("state", pilotOnlineOrders);
 
     axiosInstance
