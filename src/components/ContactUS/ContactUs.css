@@ -1,0 +1,131 @@
+.contact-top {
+  background-image: url("http://localhost:8080/avatars/images/cover.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+.contact-us::before {
+  background-color: rgba(250, 108, 20, 0.516);
+  content: " ";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.top {
+  position: absolute;
+  top: 40%;
+  color: #edf4f5;
+}
+.top h1 {
+  margin-bottom: 20px;
+}
+.top p {
+  width: 50%;
+}
+.contact-bottom {
+  background-color: #f6fcfc;
+}
+.head {
+  text-align: center;
+  color: #113e6b;
+}
+.form-input {
+  font-weight: 400;
+  line-height: 1.5;
+  color: #4f6983;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  width: 100%;
+  height: 45px;
+  background-color: #edf4f5;
+  padding: 0 3px 0 10px;
+  margin-bottom: 30px;
+}
+.form-textarea {
+  width: 100%;
+  height: 250px;
+  padding: 12px 20px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: none;
+  background-color: #edf4f5;
+  color: #4f6983;
+}
+.form-btn {
+  width: 50%;
+  height: 50px;
+  border-radius: 15px;
+  background-image: linear-gradient(90deg, #fe6277, #ff8149);
+  border: 0px;
+  color: #edf4f5;
+}
+.contain-btn {
+  text-align: center;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width: 1199px) {
+}
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 991px) {
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 767px) {
+  .top p {
+    font-size: 16px;
+  }
+  .top .h1 {
+    font-size: 25px;
+  }
+
+  .form-btn {
+    width: 90%;
+  }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 575px) {
+  .top p {
+    font-size: 16px;
+    width: 70%;
+  }
+  .top .h1 {
+    font-size: 25px;
+  }
+
+  .head h1 {
+    font-size: 34px;
+  }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 479px) {
+  .top p {
+    font-size: 16px;
+    width: 70%;
+  }
+  .top .h1 {
+    font-size: 25px;
+  }
+  .head h1 {
+    font-size: 24px;
+  }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 360px) {
+  .top p {
+    font-size: 16px;
+    width: 90%;
+  }
+  .top .h1 {
+    font-size: 25px;
+  }
+}
+.head h1 {
+  font-size: 20px;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 319px) {
+}

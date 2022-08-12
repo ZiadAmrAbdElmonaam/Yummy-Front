@@ -95,7 +95,7 @@ function PilotOnlineOrder() {
         <div className="container">
           {/* <h1 className="orders-head">Online Orders</h1> */}
 
-          <h1 className="orders-head">Online Orders{"  "} </h1>
+          <h1 className="orders-head">Online Orders..{"  "} </h1>
           <div className="table-responsive">
             <table className="table  table-hover my-5 ">
               <thead className="table-warning ">

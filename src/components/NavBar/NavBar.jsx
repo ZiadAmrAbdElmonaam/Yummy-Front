@@ -190,7 +190,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
           <div className="collapse navbar-collapse mynav" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
             
-              <li   className= {`${loginrole == "pilot" ||  loginrole == "kitchen" ? " dnone" : "nav-item dblock"}`} >
+              <li   className= {`${loginrole == "pilot" ||  loginrole == "kitchen" ? " dnone" : "nav-item dblock navli"}`} >
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -202,7 +202,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
 
                {/* userId  kitchenId  pilotId */}
 
-              <li className="nav-item">   
+              <li className="nav-item navli">   
          
 
         { loginrole == "pilot"  ? 
@@ -232,7 +232,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
 
 
 
-              <li className="nav-item">
+              <li className="nav-item navli">
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -241,7 +241,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
                   About Us
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item navli">
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -255,7 +255,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
             <div className="d-flex ">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
 
-              <li>
+              <li className="navli">
 
              { loginrole == ""  ? 
 
@@ -272,7 +272,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
 
 
 
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown navli">
                   <a
                     className="nav-link dropdown-toggle"
                     href="#"
@@ -287,17 +287,17 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                    <li>
+                    <li className="navli">
                       <Link className="dropdown-item" to="/userSignUp">
                         As User
                       </Link>
                     </li>
-                    <li>
+                    <li className="navli">
                       <Link className="dropdown-item" to="/kitchenSignUP">
                         As Kitchen
                       </Link>
                     </li>
-                    <li>
+                    <li className="navli">
                       <Link className="dropdown-item" to="/PilotSignUp">
                         As Pilot
                       </Link>

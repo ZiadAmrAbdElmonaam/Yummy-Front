@@ -5,18 +5,15 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardComponent from "../../components/Card/Card";
 
-
-
-
 import { Link } from "react-router-dom";
 // import Loading from "./../component/Loading";
-
 
 import axiosInstance from "../../Network/Config";
 import NavBar from "../../components/NavBar/NavBar";
 import { useSelector } from "react-redux";
+import "./Home.css"
 export default function Home() {
-  let stateuserid = useSelector(state => state.login.userId)
+  let stateuserid = useSelector((state) => state.login.userId);
 
   const [kitchens, setKitchens] = useState([]);
   const userId = useParams();
@@ -28,7 +25,7 @@ export default function Home() {
       .get("/kitchen")
       .then((res) => {
         setKitchens(res.data);
-       
+
         setLoad(false);
       })
       .catch((err) => {
@@ -36,8 +33,7 @@ export default function Home() {
       });
   }, []);
 
- 
-const param = useParams()
+  const param = useParams();
   return (
     <>
       {/* <h1>Hello from home page </h1>
@@ -47,10 +43,9 @@ const param = useParams()
       <div className="row row-cols-1 row-cols-md-4 g-0 ">
         {kitchens.map((kitchen) => {
           return (
-            <div className="col" key={kitchen._id}>
+            <div className={kitchen.menuId===0?"col hide":"col"} key={kitchen._id}>
               <div className="m-3">
                 <CardComponent kitchen={kitchen} param={param} />
-                
               </div>
             </div>
           );

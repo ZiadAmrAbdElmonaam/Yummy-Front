@@ -8,6 +8,8 @@ import "./UserStyle.css";
 import CurrentOrders from "../../components/UserProfile/CurrentOrders";
 import UpdateUser from "../../components/UserProfile/UpdateUser";
 import HistoryOrders from "../../components/UserProfile/HistoryOrders";
+import {FlagThunk} from "../../Store/Actions/Flag"
+import { useSelector } from "react-redux";
 export default function UserProfile() {
   const [user, setUser] = useState({});
   let [isload, setIsLoad] = useState(true);
@@ -15,6 +17,7 @@ export default function UserProfile() {
   let [isOrder, setIsOrder] = useState(true);
   let [isHistoryOrder, setIsHitoryOrder] = useState(false);
   const params = useParams();
+let flag = useSelector(state => state.flag.flag)
   useEffect(() => {
     axiosInstance
       .get(`/user/${params.id}`)
@@ -29,7 +32,7 @@ export default function UserProfile() {
         setIsLoad(false);
         console.log(err);
       });
-  }, [isEdit]);
+  }, [isEdit , flag ]);
   console.log("user  ", user);
   function showEdit() {
     setIsOrder(false);

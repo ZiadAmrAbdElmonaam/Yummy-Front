@@ -5,9 +5,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
 import axiosInstance from "../../Network/Config";
+import { useHistory } from "react-router-dom";
 
 export default function JoinUS() {
   // start of states
+  const history= useHistory()
   const [kitchen, setKitchen] = useState({
     kitchenName: "",
     kitchenEmail: "",
@@ -175,6 +177,7 @@ export default function JoinUS() {
       .then((data) => {
         console.log(data);
         // window.location = "/login";
+        history.push("/login")
       })
       .catch((err) => {
         console.log(err);

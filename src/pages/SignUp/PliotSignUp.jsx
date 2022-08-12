@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./signStyle.css";
 import axiosInstance from "../../Network/Config";
+import { useHistory } from "react-router-dom";
 
 export default function PilotSignUP() {
   // start of states
   const ref = useRef();
+  const history =useHistory()
   // console.log("ref current", ref.current);
   const [pilot, setPilot] = useState({
     pilotName: "",
@@ -129,6 +131,7 @@ export default function PilotSignUP() {
         .then((data) => {
           console.log(data);
           // window.location = "/login";
+          history.push("/login")
         });
     } else {
       console.log("error validation");

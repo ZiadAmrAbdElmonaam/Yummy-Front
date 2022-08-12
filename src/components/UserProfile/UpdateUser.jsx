@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 
 import "./OrdersStyle.css";
+import { useDispatch, useSelector } from "react-redux";
+import {FlagThunk} from "../../Store/Actions/Flag"
 
 export default function UpdateUser(props) {
   console.log("new propse", props.userObj._id);
@@ -94,6 +96,8 @@ export default function UpdateUser(props) {
     }
   };
 
+  let dispatch = useDispatch()
+  let flag = useSelector(state => state.flag.flag)
   function HandelSubmit(event) {
     event.preventDefault();
     console.log("user now", user);
@@ -109,10 +113,17 @@ export default function UpdateUser(props) {
     axiosInstance
       .put(`/user/${props.userObj._id}`, user)
       .then((res) => {
+        if(flag){
+        dispatch(FlagThunk(false))
+        }else{
+        dispatch(FlagThunk(true))
+
+        }
         return res;
       })
       .then((data) => {
         console.log("updated data is", data);
+
       })
       .catch((error) => {
         console.log(error);
