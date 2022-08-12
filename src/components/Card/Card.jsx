@@ -7,8 +7,8 @@ function CardComponent(props) {
   console.log("param is ===>", props.kitchen.menuId)
   return (
     <>
-    {props.kitchen.menuId===0?"":(
-      <div className="card h-100 w-100">
+  
+      <div className="card h-100 w-100" hidden={props.kitchen.menuId===0?true:false}>
         <img
           src={props.kitchen.kitchenImage}
           className="card-img-top responsive-img"
@@ -24,7 +24,7 @@ function CardComponent(props) {
           </Link>
         </div>
       </div>
-    )}
+    
       
     </>
   );
