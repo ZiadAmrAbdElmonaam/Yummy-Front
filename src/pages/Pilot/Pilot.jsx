@@ -14,9 +14,8 @@ console.log("now token is =>>" , toke)
   const [pilot, setPilot] = useState({});
   // const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
- const [pilotEdit,setPilotEdit]=useState({
-
-  })
+  const [showUpdate,setShowUpdate]=useState(false)
+ const [pilotEdit,setPilotEdit]=useState({ })
 console.log("pilotEdit",pilotEdit)
   let params = useParams();
   console.log("params", params);
@@ -28,12 +27,14 @@ console.log("pilotEdit",pilotEdit)
       .then((res) => {
         setPilot(res.data);
         setIsLoad(false);
+        console.log("res.data>>>>",res.data.pilotName)
+        // console.log("res.data>>>>",res.data)
         //   setItem(res.data.menuId.menuItems);
         setPilotEdit({
-            pilotName:pilot.pilotName, 
-            pilotNumber:pilot.pilotNumber,
-            pilotStatus:pilot.pilotStatus,
-            pilotLisenceImage:pilot.pilotLisenceImage
+            pilotName:res.data.pilotName, 
+            pilotNumber:res.data.pilotNumber,
+            pilotStatus:res.data.pilotStatus,
+            pilotLisenceImage:res.data.pilotLisenceImage
          
         })
       })
@@ -42,7 +43,7 @@ console.log("pilotEdit",pilotEdit)
         setIsLoad(false);
       });
     // }
-  }, []); 
+  }, [showUpdate]); 
   // toke
   console.log("piiiiiiiiiiilot",pilot)
   function onlineOrders() {
@@ -79,6 +80,13 @@ console.log("pilotEdit",pilotEdit)
     axiosInstance
     .put(`/pilot/${params.id}`, pilotEdit)
     .then((res) => {
+      if(showUpdate){
+        setShowUpdate(false)
+
+      }else{
+        setShowUpdate(true)
+      }
+      console.log(res)
       return res;
     })
     .then((data) => {
@@ -104,7 +112,6 @@ console.log("pilotEdit",pilotEdit)
                 </div>
                 
             <div className="cover-info text-center">
-              <h2 className="pilotHeader">Welcome {pilot.pilotName}</h2>
            
         
               <div

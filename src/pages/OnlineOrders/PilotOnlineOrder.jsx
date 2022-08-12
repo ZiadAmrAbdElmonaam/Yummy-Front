@@ -124,8 +124,7 @@ function PilotOnlineOrder() {
                 {onlineOrder.map((order, index) => {
                   return (
                     <tr key={index}>
-                      {order.pilotOrderStatus === "waiting" &&
-                      order.kitchenOrderStatus === "pending" ? (
+                      {order.pilotOrderStatus === "waiting" ? (
                         <>
                           <td>{order._id}</td>
                           <td>{order.kitchen.kitchenName}</td>
