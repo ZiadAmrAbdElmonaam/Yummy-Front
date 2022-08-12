@@ -40,8 +40,8 @@ function Login() {
 
         }
         else if(user.role==="user"){
-        
-dispatch(UserIdThunk(userId))
+          dispatch(UserIdThunk(userId))
+          history.push(`/home`)
         }
         else if(user.role==="kitchen"){
           history.push(`/kitchen/${userId}`)
