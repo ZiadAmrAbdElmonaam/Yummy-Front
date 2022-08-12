@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
           <div className="col-md-2 col-sm-4 col-6 footer-element ">
             <div>
-              <h1>Join US</h1>
+              <h1>Join us</h1>
             </div>
             <div>
               <a href="#">

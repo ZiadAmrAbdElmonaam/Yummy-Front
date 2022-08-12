@@ -8,7 +8,8 @@ const initialValue = {
     token:"",
     auth:true,
      userId:0,
-     ketchenId:0
+     ketchenId:0,
+     PilotId:0
   };
   // let isloading = useSelector((state)=>{state.isloading.isLoading})
   export default function LoginThunkReducer(state = initialValue, action) {
@@ -31,6 +32,20 @@ const initialValue = {
           
   
           };
+
+
+          case "Auth_CHANGE" :
+            return {
+           ...state,
+             auth: action.payload,
+            
+    
+            };
+
+
+
+
+
         
           break;
           case "USER_ID":
@@ -42,7 +57,7 @@ const initialValue = {
             };
           
             break;
-
+           
             case "KETCHEN_ID":
             return {
            ...state,
@@ -52,7 +67,18 @@ const initialValue = {
             };
           
             break;
-  
+
+            case  "PILOT_ID":
+              return {
+             ...state,
+             PilotId: action.payload,
+              
+      
+              };
+            
+              break;
+
+
       default:
         return state;
         break;

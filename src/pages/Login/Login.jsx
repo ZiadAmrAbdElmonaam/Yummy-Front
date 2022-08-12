@@ -13,6 +13,8 @@ import Store from "../../Store/Store"
 import { IsLoadingThunk } from "../../Store/Actions/IsLoading";
 import { UserIdThunk } from "../../Store/Actions/UserId";
 import { RoleThunk } from "../../Store/Actions/Role";
+import { PilotIdThunk } from "../../Store/Actions/PilotId";
+import { KetchenIdThunk } from "../../Store/Actions/KetchenId";
 
 
 function Login() {
@@ -20,6 +22,8 @@ function Login() {
 
   const [userLoggedIn, setUserLoggedIn]= useState(false);
   const [userId, setUserId]= useState(0);
+  // const [kitchenId, setKitchenId]= useState(0);
+
 
   const [user, setUser] = useState({
     email: "",
@@ -32,19 +36,22 @@ function Login() {
     if(userLoggedIn && currentToken)
     {
       
-    if (user.role === "pilot") {
-      console.log("before pilot ==================>" ,localStorage.getItem(  "token"));
-
-          history.push(`/pilot/${user.email}`);
-          // window.location = `/pilot/${user.email}`;
-
-        }
+      if (user.role === "pilot") {
+        console.log("before pilot ==================>" ,localStorage.getItem(  "token"));
+        
+        history.push(`/pilot/${user.email}`);
+        // window.location = `/pilot/${user.email}`;
+        console.log(userId)
+        dispatch(PilotIdThunk(userId))
+      }
         else if(user.role==="user"){
         
-dispatch(UserIdThunk(userId))
+          dispatch(UserIdThunk(userId))
+         
         }
         else if(user.role==="kitchen"){
           history.push(`/kitchen/${userId}`)
+           dispatch(KetchenIdThunk(userId))
 
         }
   }
@@ -105,7 +112,7 @@ dispatch(UserIdThunk(userId))
 
   const dispatch = useDispatch();
 
-////////  on Submit
+                      ///////////////////  on Submit ////////////////////////
 
   const handelSubmit = (event) => {
     event.preventDefault();
@@ -117,14 +124,14 @@ dispatch(IsLoadingThunk(null))
   .post("/login", user)
 
       .then((res) => {
-        console.log(res.data.token)
+        // console.log(res.data.token)
         localStorage.setItem("token", res.data.token);
         console.log(res)
         return res;
       })
       
       .then((data) => {
-        // console.log(localStorage.getItem('token'));
+         console.log(data.data.data);
         
         if (data.data.token === undefined) {
           throw new Error();
@@ -133,12 +140,12 @@ dispatch(IsLoadingThunk(null))
             ...userError,
             loginError: "",
           });
-          
+        
           dispatch(LoginThunk (user))
           setUserId(data.data.data._id)
           setUserLoggedIn(true);
-          console.log(user.role)
           dispatch(RoleThunk(user.role))
+
         }
       
       })

@@ -40,9 +40,9 @@ export default function Home() {
 const param = useParams()
   return (
     <>
-      <h1>Hello from home page </h1>
-      <Link to={`/user/${stateuserid}`}>My Profile</Link>
-      <h6>Menu</h6>
+      {/* <h1>Hello from home page </h1>
+      <Link to={`/user/${stateuserid}`}>My Profile</Link> */}
+      <h6> Kitchens Menu</h6>
 
       <div className="row row-cols-1 row-cols-md-4 g-0 ">
         {kitchens.map((kitchen) => {

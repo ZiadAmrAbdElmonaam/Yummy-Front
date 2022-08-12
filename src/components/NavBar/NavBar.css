@@ -1,16 +1,19 @@
 .basket{
     font-size: x-large !important;
     color: red !important;
+
 }
 
 .sidebarhead{
     color: orange !important;
     background-color: black;
 }
+
 .sidebarbody{
     color: white !important;
     background-color: orange;
     opacity: .8;
+   
 }
 .cash{
     margin-left: 30% !important;
@@ -27,3 +30,36 @@
 .dblock{
     display: block;
 }
+/* .show{
+    display:  initial;
+}
+
+.hiden{
+    display: none;
+
+} */
+
+li :hover{
+
+border-radius: 10px;
+padding: 5px;
+box-shadow: 3px 3px 5px inset whitesmoke;
+
+}
+.yummy{
+    font-size: 1.3rem;
+}
+.charY{
+    font-size: 1.8rem;
+    color: orange;
+    margin-right: 0;
+}
+.mynav{
+
+    background-color: orange !important;
+    opacity: .9;
+    padding: 10px !important;
+    border-radius: 10px !important;
+   font-size: larger;
+    }
+

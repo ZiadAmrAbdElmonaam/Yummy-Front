@@ -24,8 +24,15 @@ export default function NavBar() {
 
   let userId = useSelector((state) => state.login.userId);
   let kitchenId = useSelector((state) => state.login.ketchenId);
+  let pilotId = useSelector((state) => state.login.PilotId);
+
+  let loginrole = useSelector((state) => state.role.role);
+console.log(  "loginrole is ==================>"   ,kitchenId);
 
   let allItems = useSelector((state) => state.orders.userCart);
+ 
+  
+
 
   let obj = {
     totalPrice: order.totalPrice + 20,
@@ -110,7 +117,7 @@ export default function NavBar() {
       />
       {basketLength ? <span> {basketLength} </span> : ""}
       <div
-        className="offcanvas offcanvas-end "
+        className="offcanvas offcanvas-end"
         tabIndex="-1"
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel"
@@ -163,12 +170,12 @@ export default function NavBar() {
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light ">
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            YUMMY
-          </a>
+        <div className="container-fluid ">
+          <Link className="navbar-brand yummy" to="/home">
+            <span className="charY">Y</span> UMMY
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -180,9 +187,10 @@ export default function NavBar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+          <div className="collapse navbar-collapse mynav" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+            
+              <li   className= {`${loginrole == "pilot" ||  loginrole == "kitchen" ? " dnone" : "nav-item dblock"}`} >
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -191,6 +199,39 @@ export default function NavBar() {
                   Home
                 </Link>
               </li>
+
+               {/* userId  kitchenId  pilotId */}
+
+              <li className="nav-item">   
+         
+
+        { loginrole == "pilot"  ? 
+
+              <Link className="nav-link active" aria-current="page" to= {`/pilot/${pilotId}`} >  Profile </Link>
+               
+                : loginrole == "kitchen"  ? 
+
+                <Link className="nav-link active" aria-current="page" to= {`/kitchen/${kitchenId}`} >  Profile </Link>
+                
+                :  loginrole == "user"  ? 
+
+               <Link className="nav-link active" aria-current="page" to= {`/user/${userId}`} >  Profile </Link>
+               
+          
+                : 
+                 <Link className="nav-link active" aria-current="page" to= "/login" >  Profile </Link>
+              
+                
+                } 
+
+              </li>
+            
+
+
+
+
+
+
               <li className="nav-item">
                 <Link
                   className="nav-link active"
@@ -213,16 +254,23 @@ export default function NavBar() {
 
             <div className="d-flex ">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to="/login"
-                  >
-                    Login
-                    {/* IoMdCart */}
-                  </Link>
-                </li>
+
+              <li>
+
+             { loginrole == ""  ? 
+
+               <Link className="nav-link active" aria-current="page" to= "/login" >  Login </Link>
+ 
+                 : 
+
+              <a className="nav-link active" aria-current="page" href= "/login" >  Logout </a>
+  
+             } 
+              </li>
+
+
+
+
 
                 <li className="nav-item dropdown">
                   <a

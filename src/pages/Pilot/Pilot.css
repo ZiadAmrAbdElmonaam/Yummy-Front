@@ -28,7 +28,7 @@
   text-decoration: underline;
   color: #ff5a00;
   font-weight: 700;
-  /* text-align: center; */
+  
 }
 .checkMark:hover{
   cursor: pointer;

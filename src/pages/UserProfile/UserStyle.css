@@ -41,11 +41,11 @@
   color: #fff;
   border: 0;
 }
-/* .activeLink {
+.activeLink {
   background-color: #ff5a00;
   border-left: 5px solid #ff5a00;
-} */
-.element:hover {
+} 
+ .element:hover {
   background-color: #ff5a00;
 }
 .profileData {
@@ -61,4 +61,22 @@
 }
 .exit {
   margin: 1rem 1rem 0rem 1rem !important;
-}
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
