@@ -16,7 +16,7 @@ function PilotOnlineOrder() {
     deliverypilot: Number(params.id),
   });
   const [pilotOrderUpdate, setPilotOrderUpdate] = useState({
-    orders: [],
+    orders: [0],
   });
   let [isload, setIsLoad] = useState(true);
   useEffect(() => {
@@ -42,9 +42,12 @@ function PilotOnlineOrder() {
     let orderId = Number(
       e.target.parentElement.parentElement.firstElementChild.innerText
     );
+    console.log(pilotOrderUpdate)
     setPilotOrderUpdate({
-      orders: pilotOrderUpdate.orders.push(orderId),
+      ...pilotOrderUpdate,  
+      orders:[...pilotOrderUpdate.orders,orderId] ,
       // ...pilotOrderUpdate,
+      // pilotOrderUpdate.orders.push(orderId)
     });
 
     console.log("order id", pilotOrderUpdate.orders);
