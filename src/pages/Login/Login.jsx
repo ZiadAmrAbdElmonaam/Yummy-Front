@@ -12,7 +12,7 @@ import { useDispatch , useSelector} from "react-redux";
 import Store from "../../Store/Store"
 import { IsLoadingThunk } from "../../Store/Actions/IsLoading";
 import { UserIdThunk } from "../../Store/Actions/UserId";
-
+import { RoleThunk } from "../../Store/Actions/Role";
 
 
 function Login() {
@@ -64,6 +64,7 @@ dispatch(UserIdThunk(userId))
       ...user,
       [event.target.name]: event.target.value,
     });
+
 
     handelValidationError(event.target.name, event.target.value);
   };
@@ -135,7 +136,9 @@ dispatch(IsLoadingThunk(null))
           
           dispatch(LoginThunk (user))
           setUserId(data.data.data._id)
-setUserLoggedIn(true);
+          setUserLoggedIn(true);
+          console.log(user.role)
+          dispatch(RoleThunk(user.role))
         }
       
       })
