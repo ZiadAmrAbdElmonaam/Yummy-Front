@@ -1,0 +1,145 @@
+footer {
+  background-color: #1b1b1b;
+  color: #ffffff;
+  padding: 30px 0 0 0px;
+}
+
+.footer-element {
+  margin-top: 25px;
+}
+.footer-element img {
+  width: 100%;
+  object-fit: cover;
+}
+.footer-element h1 {
+  font-size: 20px;
+  font-weight: 200;
+  padding: 0 0 15px 0;
+}
+.footer-element a h3 {
+  color: #0db3c0;
+  font-size: 15px;
+  padding: 3px 0 0 0;
+}
+.footer-element a {
+  text-decoration: none;
+}
+.footer-info {
+  padding: 15px 0 0 0;
+}
+.footer-contact-us h6 {
+  font-size: 14px;
+  padding: 0px;
+  font-weight: 200;
+  line-height: 11px;
+}
+
+.copy-right {
+  background-color: #1b1b1b;
+}
+.copy-right a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px;
+}
+.yummy p {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+}
+.copy-right {
+  padding: 15px 40px;
+}
+.copy-right p {
+  float: right;
+  margin: 0;
+}
+.yummy-pages {
+  display: inline-block;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width: 1199px) {
+  .footer-info {
+    padding: 0;
+  }
+  .footer-info h6 {
+    line-height: 17px;
+    margin-bottom: 5px;
+  }
+}
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 991px) {
+  .yummy-info h3 {
+    font-size: 14px;
+  }
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width: 767px) {
+  .copy-right p {
+    font-size: 13px;
+    padding: 3px 10px 0 0;
+  }
+  .copy-right a {
+    font-size: 12px;
+    padding: 7px;
+  }
+
+  .yummy-info h3 {
+    font-size: 13px;
+  }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 575px) {
+  .copy-right p {
+    font-size: 11px;
+    padding: 6px 10px 0 0;
+  }
+  .copy-right a {
+    font-size: 11px;
+    padding: 4px;
+  }
+  .footer-element img {
+    width: 70%;
+    margin-left: 4.6rem;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 479px) {
+  .copy-right p {
+    font-size: 11px;
+    text-align: center;
+    float: none;
+  }
+  .copy-right a {
+    font-size: 11px;
+    padding: 3px;
+  }
+  .footer-element img {
+    width: 70%;
+    margin-left: 3.6rem;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 360px) {
+  .copy-right p {
+    font-size: 10px;
+    text-align: center;
+    float: none;
+  }
+  .copy-right a {
+    font-size: 10px;
+    padding: 1px;
+  }
+  .footer-element img {
+    width: 70%;
+    margin-left: 2.6rem;
+  }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 319px) {
+}
