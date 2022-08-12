@@ -14,7 +14,8 @@ import {
   AiFillCloseSquare,
 } from "react-icons/ai";
 import "./kitchenProfile.css";
-import KitchenCurrentOrders from "./KitchenCurrentOrder/KitchenCurrentOrder"
+import KitchenCurrentOrders from "./KitchenCurrentOrder/KitchenCurrentOrder";
+import HistoryOrder from "./HistoryOrder";
 
 export default function KitchenProfile() {
   //   console.log("props", props);
@@ -26,6 +27,7 @@ export default function KitchenProfile() {
   const [onlineFlag, setOnlineFlag] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(false);
   const [home, setHome] = useState(true);
+  let [showHistory, setShowHistory] = useState(false);
 
   let params = useParams();
   //   console.log(params);
@@ -90,19 +92,28 @@ export default function KitchenProfile() {
       });
   };
   function onlineOrders() {
-    setHome(false)
+    setHome(false);
     setCurrentOrder(false);
+    setShowHistory(false);
     setOnlineFlag(true);
   }
   function currentOrders() {
-    setHome(false)
+    setHome(false);
     setOnlineFlag(false);
+    setShowHistory(false);
     setCurrentOrder(true);
   }
-  function goHome(){
+  function showHistoryOrder() {
+    setHome(false);
     setOnlineFlag(false);
     setCurrentOrder(false);
-    setHome(true)
+    setShowHistory(true);
+  }
+  function goHome() {
+    setOnlineFlag(false);
+    setCurrentOrder(false);
+    setShowHistory(false);
+    setHome(true);
   }
   return (
     <div>
@@ -111,6 +122,15 @@ export default function KitchenProfile() {
       ) : (
         <div className="App">
           <div>
+            <button
+              onClick={() => {
+                showHistoryOrder();
+              }}
+            >
+              {" "}
+              History Order
+            </button>
+            {showHistory ? <HistoryOrder /> : ""}
             <button
               onClick={() => {
                 currentOrders();
@@ -127,7 +147,13 @@ export default function KitchenProfile() {
               online orders
             </button>
             {onlineFlag ? <KitchenOnlineOrders /> : ""}
-            <button onClick={()=>{goHome()}}>Home</button>
+            <button
+              onClick={() => {
+                goHome();
+              }}
+            >
+              Home
+            </button>
             {home ? (
               <>
                 <div
