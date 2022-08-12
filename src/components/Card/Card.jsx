@@ -8,7 +8,7 @@ function CardComponent(props) {
   return (
     <>
   
-      <div className="card h-100 w-100" hidden={props.kitchen.menuId===0?true:false}>
+      <div className="card h-100 w-100">
         <img
           src={props.kitchen.kitchenImage}
           className="card-img-top responsive-img"

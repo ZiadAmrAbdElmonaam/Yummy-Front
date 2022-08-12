@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import axiosInstance from "../../Network/Config";
 import NavBar from "../../components/NavBar/NavBar";
 import { useSelector } from "react-redux";
+import "./Home.css"
 export default function Home() {
   let stateuserid = useSelector((state) => state.login.userId);
 
@@ -42,7 +43,7 @@ export default function Home() {
       <div className="row row-cols-1 row-cols-md-4 g-0 ">
         {kitchens.map((kitchen) => {
           return (
-            <div className="col" key={kitchen._id}>
+            <div className={kitchen.menuId===0?"col hide":"col"} key={kitchen._id}>
               <div className="m-3">
                 <CardComponent kitchen={kitchen} param={param} />
               </div>

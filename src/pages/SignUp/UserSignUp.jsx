@@ -183,6 +183,7 @@ export default function SignUp() {
         .then((data) => {
           console.log(data);
           // window.location = "/login";
+          history.push("/login")
         });
     } else {
       console.log("error validation");
