@@ -6,3 +6,8 @@
 .card {
   box-shadow: 1px 1px 10px #ff5a00, -1px -1px 10px #ff5a00;
 }
+
+.hidee{
+  display: none;
+  position: absolute;
+}
