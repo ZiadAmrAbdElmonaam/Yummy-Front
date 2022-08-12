@@ -14,6 +14,7 @@ import {
   AiFillCloseSquare,
 } from "react-icons/ai";
 import "./kitchenProfile.css";
+import KitchenCurrentOrders from "./KitchenCurrentOrder/KitchenCurrentOrder"
 
 export default function KitchenProfile() {
   //   console.log("props", props);
@@ -23,6 +24,8 @@ export default function KitchenProfile() {
   let [isload, setIsLoad] = useState(true);
   const [edit, setShow] = useState(false);
   const [onlineFlag, setOnlineFlag] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState(false);
+  const [home, setHome] = useState(true);
 
   let params = useParams();
   //   console.log(params);
@@ -87,7 +90,19 @@ export default function KitchenProfile() {
       });
   };
   function onlineOrders() {
+    setHome(false)
+    setCurrentOrder(false);
     setOnlineFlag(true);
+  }
+  function currentOrders() {
+    setHome(false)
+    setOnlineFlag(false);
+    setCurrentOrder(true);
+  }
+  function goHome(){
+    setOnlineFlag(false);
+    setCurrentOrder(false);
+    setHome(true)
   }
   return (
     <div>
@@ -98,14 +113,22 @@ export default function KitchenProfile() {
           <div>
             <button
               onClick={() => {
+                currentOrders();
+              }}
+            >
+              Current Orders
+            </button>
+            {currentOrder ? <KitchenCurrentOrders /> : ""}
+            <button
+              onClick={() => {
                 onlineOrders();
               }}
             >
               online orders
             </button>
-            {onlineFlag ? (
-              <KitchenOnlineOrders />
-            ) : (
+            {onlineFlag ? <KitchenOnlineOrders /> : ""}
+            <button onClick={()=>{goHome()}}>Home</button>
+            {home ? (
               <>
                 <div
                   class="modal fade"
@@ -323,6 +346,8 @@ export default function KitchenProfile() {
                   })}
                 </div>
               </>
+            ) : (
+              ""
             )}
           </div>
         </div>

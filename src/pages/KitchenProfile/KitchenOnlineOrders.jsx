@@ -10,77 +10,85 @@ export default function KitchenOnlineOrders() {
   let kitchenId = Number(params.kitchenId);
   console.log(kitchenId);
 
-  const [kitchenOrder, setKitchenOrder] = useState({});
+  const [kitchenOrder, setKitchenOrder] = useState([]);
   let [isload, setIsLoad] = useState(true);
   let [isOrder, setIsOrder] = useState(false);
-
-  let [isdeleted, setIsdeleted] = useState(true);
   // console.log(order);
 
   useEffect(() => {
     axiosInstance
-      .get(`/kitchenOrders/${kitchenId}`)
+      .get(`/kitchenPendingOrders/${kitchenId}`)
       .then((res) => {
         setKitchenOrder(res.data);
-        setIsOrder(true);
         setIsLoad(false);
-        // setKitchenEdit(res.data);
-        console.log("res>>>", res.data);
-        console.log("order>>>>>", kitchenOrder);
       })
       .catch((err) => {
         setIsLoad(false);
         console.log(err);
       });
-  }, [isdeleted]);
+  }, [isOrder]);
   // console.log("orders", userOrders.userOrder);
-  // delete order
-  const changeStatus = async (e, i) => {
-    console.log("user id===>", Number(e.target.id));
-    let userID = Number(params.id);
-    // console.log(userID);
-    // console.log("clicked index", i);
+  // accept order
+  const changeStatus = (e) => {
+    console.log("event value===>", e.target.value);
     let currentOrder = Number(e.target.id);
-    console.log("order id==> ", currentOrder);
-
     axiosInstance
-      .put(`/order/${currentOrder}`)
+      .put(`/order/${currentOrder}`, { kitchenOrderStatus: "accepted" })
       .then((res) => {
         console.log(res.data);
-        setIsdeleted(false);
+        if (isOrder) {
+          setIsOrder(false);
+        } else {
+          setIsOrder(true);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  function rejectStatus(e) {
+    let currentOrder = Number(e.target.id);
+
+    axiosInstance
+      .put(`/order/${currentOrder}`, { kitchenOrderStatus: "rejected" })
+      .then((res) => {
+        console.log(res.data);
+        if (isOrder) {
+          setIsOrder(false);
+        } else {
+          setIsOrder(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  console.log("hhhhhh", kitchenOrder);
+  console.log("hhhhhh", kitchenOrder.length);
   return (
     <div className="my-3">
-      <h2 className="top-header">Current Orders</h2>
-      {isOrder ? (
+      <h2 className="top-header">Requested Orders</h2>
+      {kitchenOrder.length !== 0 ? (
         <table className="table  table-hover my-5 ">
           <thead className="table-warning ">
             <tr>
               <td>Orders No.</td>
-              <td>Client Name</td>
-              <td>Client Phone</td>
               <td>Kitchen status</td>
-              <td>Pilot status</td>
               <td>Items</td>
               <td>Total Price</td>
-              <td>Status</td>
+              <td>Accept/Reject</td>
             </tr>
           </thead>
           <tbody>
-            {kitchenOrder.kitchenOrders.map((order, index) => {
+            {kitchenOrder.map((order, index) => {
               return (
                 <tr key={index}>
-                  {order.pilotOrderStatus !== "dilevered" ? (
+                
                     <>
                       <td>{index + 1}</td>
-                      <td>{order.userid.userFullName}</td>
-                      <td>{order.userid.userPhone}</td>
+
                       <td>{order.kitchenOrderStatus}</td>
-                      <td>{order.pilotOrderStatus}</td>
+
                       <td>
                         <ul>
                           {order.orderItems.map((item, index) => {
@@ -95,38 +103,34 @@ export default function KitchenOnlineOrders() {
                       </td>
                       <td>{order.totalPrice}</td>
                       <td>
-
-                      <button
-                          disabled={
-                            order.kitchenOrderStatus == "completed" ||
-                            order.kitchenOrderStatus == "inProgress"
-                              ? true
-                              : false
-                          }
+                        <button
+                          value="accepted"
                           id={order._id}
                           key={index}
-                          className="btn btn-success"
-                          onClick={(e, key) => changeStatus(e, index)}
+                          className="btn btn-success mx-1"
+                          onClick={(e) => changeStatus(e)}
                         >
                           Accept
                         </button>
-                        <button className="btn btn-danger">
-                        Reject
-
+                        <button
+                          className="btn btn-danger"
+                          onClick={(e) => rejectStatus(e)}
+                          value="rejected"
+                          id={order._id}
+                        >
+                          Reject
                         </button>
                       </td>
                     </>
-                  ) : (
-                    ""
-                  )}
+                 
                 </tr>
               );
             })}
           </tbody>
         </table>
-      ) : (
+       ) : (
         "no order added yet"
-      )}
+               )}
     </div>
   );
 }
