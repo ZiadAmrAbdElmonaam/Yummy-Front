@@ -16,7 +16,7 @@ function EditKitchenItems(props) {
   // const [item, setItem] = useState([]);
   const [edit, setShow] = useState(false);
   const [deleteitem, setDeleteItem] = useState(true);
-
+const [deleteFlag,setDeleteFlag]= useState(false)
   const [menuitems, setmenuitems] = useState({
     menuItems: Number(props.item._id),
   });
@@ -82,6 +82,7 @@ function EditKitchenItems(props) {
     axiosInstance
       .put(`/menuItem/${props.item._id}`, kitchenItemEdit)
       .then((res) => {
+      
         return res;
       })
       .then((data) => {
@@ -114,8 +115,13 @@ function EditKitchenItems(props) {
       // .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
       .delete(`/menuItem/${props.item._id}/${params.kitchenId}`)
       .then((res) => {
-        setDeleteItem(false)
         console.log("first res",res.data)
+        if(deleteFlag){
+          setDeleteFlag(false)
+        }else{
+          setDeleteFlag(true)
+
+        }
         return res;
 
       })
