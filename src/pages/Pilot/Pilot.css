@@ -1,4 +1,4 @@
-.pilotHeader {
+/* .pilotHeader {
   text-align: center;
   color: #ff5a00;
   font-weight: 700;
@@ -28,7 +28,6 @@
   text-decoration: underline;
   color: #ff5a00;
   font-weight: 700;
-  /* text-align: center; */
 }
 .checkMark:hover{
   cursor: pointer;
@@ -36,4 +35,17 @@
 }
 .checkMark:active{
 color: #ff5a00;
+}
+
+.container{
+  margin-bottom: 20px;
+} */
+
+.yummy{
+  text-decoration: solid;
+  color: orangered;
+  display: inline-block;
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
 }
