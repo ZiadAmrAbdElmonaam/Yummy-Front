@@ -10,32 +10,27 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 function EditKitchenItems(props) {
   // const { addToCard } = props;
-  console.log(props.item);
+  // console.log(props.item);
   // const [item, setKitchen] = useState({});
   const params = useParams();
   // const [item, setItem] = useState([]);
   const [edit, setShow] = useState(false);
-  const[deleteitem,setDeleteItem] = useState(true)
-  
-  const [menuitems,setmenuitems] = useState({
+  const [deleteitem, setDeleteItem] = useState(true);
 
-    menuItems:Number( props.item._id)
-  })
+  const [menuitems, setmenuitems] = useState({
+    menuItems: Number(props.item._id),
+  });
   // console.log("kitchenid>>>>",kitchenid)
- 
 
   const [kitchenItemEdit, setKitchenItemEdit] = useState({
-
     itemName: props.item.itemName,
     itemStatus: props.item.itemStatus,
     itemDescription: props.item.itemDescription,
     itemPrice: props.item.itemPrice,
     itemImage: props.item.itemImage,
     kitchenId: params.kitchenId,
-    itemId: props.item._id
-
+    itemId: props.item._id,
   });
-
 
   // console.log(params)
   // useEffect(() => {
@@ -44,10 +39,10 @@ function EditKitchenItems(props) {
   //     .then((res) => {
   //       // setItem(res.data);
   //       // console.log(res.data)
-  //       setItem(res.data.menuId.menuItems);
-  //       console.log(res.data.menuId.menuItems)
+  //       // setItem(res.data.menuId.menuItems);
+  //       // console.log(res.data.menuId.menuItems)
   //       // setKitchenItemEdit({
-
+  //       //   ...
   //       // });
 
   //       // console.log("res>>>", res.data);
@@ -55,11 +50,10 @@ function EditKitchenItems(props) {
   //     .catch((err) => {
   //       console.log(err);
   //     });
-  // }, [edit]);
+  // }, [deleteitem]);
   // console.log(item)
-  const history = useHistory()
+  const history = useHistory();
   // console.log(kitchenItemEdit);
-
 
   const handleKitchenItemChange = (event) => {
     const { name, value } = event.target;
@@ -70,10 +64,7 @@ function EditKitchenItems(props) {
       [name]: value,
     });
 
-    console.log(kitchenItemEdit)
-
-
-
+    console.log(kitchenItemEdit);
 
     // }
   };
@@ -85,8 +76,8 @@ function EditKitchenItems(props) {
   const HandelSubmit = (event) => {
     // console.log(params.kitchenId);
     event.preventDefault();
-    console.log(props.item._id)
-    setShow(false)
+    console.log(props.item._id);
+    setShow(false);
 
     axiosInstance
       .put(`/menuItem/${props.item._id}`, kitchenItemEdit)
@@ -97,11 +88,9 @@ function EditKitchenItems(props) {
         // setKitchenItemEdit(data.data.data)
 
         setKitchenItemEdit({
-
           ...kitchenItemEdit,
           [event.target.name]: event.target.value,
         });
-
       })
       .catch((err) => {
         console.log(err);
@@ -109,47 +98,51 @@ function EditKitchenItems(props) {
   };
   // console.log(kitchenItemEdit)
   const deleteItem = (event) => {
-
-    console.log(event.target.id);
-    let itemId  = Number(event.target.id)
-    let kitcheeenid= Number(params.kitchenId)
-    console.log("555555555",kitcheeenid)
-console.log(itemId)
-    // setShow(false)
-    console.log("type item id>>",props.item._id)
-
+    // console.log(event.target.id);
+    // let itemId = Number(event.target.id);
+    // let kitcheeenid = Number(params.kitchenId);
+    // console.log("555555555", kitcheeenid);
+    // console.log(itemId);
+    // // setShow(false)
+    // console.log("type item id>>", props.item._id);
+    // console.log("state",menuitems)
+    // setmenuitems({
+    //   menuItems:props.item._id
+    // })
+    // console.log()
     axiosInstance
-      .delete(`/menu/item/${kitcheeenid}`,menuitems)
+      // .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
+      .delete(`/menuItem/${props.item._id}/${params.kitchenId}`)
       .then((res) => {
+        setDeleteItem(false)
+        console.log("first res",res.data)
         return res;
+
       })
-      .then((data) => {
+      axiosInstance
+      .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
+      .then((res) => {
         // setKitchenItemEdit(data.data.data)
+        console.log("sec res",res.data)
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-
   function formshow(e) {
-    console.log("event====>", e.target)
-    console.log("props====>", props.item._id)
+    console.log("event====>", e.target);
+    console.log("props====>", props.item._id);
 
     // setKitchenItemEdit({
     //   ...kitchenItemEdit,
     //   [e.target.name]: e.target.value,
     // });
-
-
-
   }
-  console.log(kitchenItemEdit);
-
+  // console.log(kitchenItemEdit);
 
   // const deleteitem = (index) => {
   //   console.log(kitchenItemEdit)
-
 
   // };
 
@@ -177,90 +170,110 @@ console.log(itemId)
       <div className="row">
         <p className="icons-container">
           <span>
-            <AiFillEdit hidden={edit ? true : false} onClick={() => { setShow(true) }} className="icon text-success" size="27"   />
+            <AiFillEdit
+              hidden={edit ? true : false}
+              onClick={() => {
+                setShow(true);
+              }}
+              className="icon text-success"
+              size="27"
+            />
           </span>{" "}
           <span>
-
-       <button onClick={(event) => { deleteItem(event) }}  id={kitchenItemEdit.itemId} >
-       {/* <AiFillCloseSquare 
+            <button
+              onClick={(event) => {
+                deleteItem(event);
+              }}
+              id={kitchenItemEdit.itemId}
+            >
+              {/* <AiFillCloseSquare 
        className="icon text-danger" hidden={edit ? true : false} size="27" /> */}
-       Delete
-        </button> 
+              Delete
+            </button>
           </span>
-
-
         </p>
-        {edit ? (<form >
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1"> Item Name</label>
+        {edit ? (
+          <form>
+            <div className="form-group">
+              <label htmlFor="exampleInputEmail1"> Item Name</label>
+              <input
+                type="text"
+                className="form-control  "
+                //  id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value={kitchenItemEdit.itemName}
+                name="itemName"
+                onChange={(e) => handleKitchenItemChange(e)}
+                id={props.item._id}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">Item Description</label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputPassword1"
+                value={kitchenItemEdit.itemDescription}
+                name="itemDescription"
+                onChange={(e) => handleKitchenItemChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <div>{"  "}</div>
+              <label htmlFor="exampleInputPassword1">Item Price</label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputPassword1"
+                value={kitchenItemEdit.itemPrice}
+                name="itemPrice"
+                onChange={(e) => handleKitchenItemChange(e)}
+              />
+            </div>
+            <label htmlFor="exampleInputPassword1">Item Status</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              value={kitchenItemEdit.itemStatus}
+              name="itemStatus"
+              onChange={(e) => handleKitchenItemChange(e)}
+            >
+              <option selected disabled>
+                itemStatus
+              </option>
+              <option value="available">available</option>
+              <option value="not available">not available</option>
+            </select>
+            <br />{" "}
             <input
-              type="text"
-              className="form-control  "
-              //  id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              value={kitchenItemEdit.itemName}
-              name="itemName"
-              onChange={(e) => handleKitchenItemChange(e)}
-              id={props.item._id}
-
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Item Description</label>
-            <input type="text"
-              className="form-control"
-              id="exampleInputPassword1"
-              value={kitchenItemEdit.itemDescription}
-              name="itemDescription"
-              onChange={(e) => handleKitchenItemChange(e)}
-            />
-
-          </div>
-          <div className="form-group"><div>{"  "}</div>
-            <label htmlFor="exampleInputPassword1">Item Price</label>
-            <input type="text"
-              className="form-control"
-              id="exampleInputPassword1"
-              value={kitchenItemEdit.itemPrice}
-              name="itemPrice"
-              onChange={(e) => handleKitchenItemChange(e)}
-            />
-          </div>
-          <label htmlFor="exampleInputPassword1">Item Status</label>
-          <select class="form-select" aria-label="Default select example"
-            value={kitchenItemEdit.itemStatus}
-            name="itemStatus"
-            onChange={(e) => handleKitchenItemChange(e)}
-
-          >
-            <option selected disabled>itemStatus</option>
-            <option value="available">available</option>
-            <option value="not available">not available</option>
-          </select>
-          <br /> <input type="file" className="form-control-file" id="exampleFormControlFile1"></input><br /><br />
-          <button type="submit" onClick={(e) => { HandelSubmit(e) }} className="btn btn-primary">Submit</button>
-        </form>)
-
-
-
-
-
-          : ""
-
-
-        }
+              type="file"
+              className="form-control-file"
+              id="exampleFormControlFile1"
+            ></input>
+            <br />
+            <br />
+            <button
+              type="submit"
+              onClick={(e) => {
+                HandelSubmit(e);
+              }}
+              className="btn btn-primary"
+            >
+              Submit
+            </button>
+          </form>
+        ) : (
+          ""
+        )}
         <div className="col-md-10 item-body">
           <h5 className="card-title">
-            
             {kitchenItemEdit.itemName}{" "}
-          
-            <span className={
-                            kitchenItemEdit.itemStatus === "not avilable"
-                              ? "text-danger"
-                              : "text-success"
-                          }
-           
-            
+            <span
+              className={
+                kitchenItemEdit.itemStatus === "not avilable"
+                  ? "text-danger"
+                  : "text-success"
+              }
             >
               {kitchenItemEdit.itemStatus}
             </span>
@@ -270,9 +283,9 @@ console.log(itemId)
           <p
             className=" mt-5 item-pricee"
             id={props.item._id}
-          //  onClick={() => {
-          //    addToCard(props.item);
-          //  }}
+            //  onClick={() => {
+            //    addToCard(props.item);
+            //  }}
           >
             {kitchenItemEdit.itemPrice} EGP
           </p>
