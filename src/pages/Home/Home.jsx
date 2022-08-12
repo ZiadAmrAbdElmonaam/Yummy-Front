@@ -14,10 +14,14 @@ import { Link } from "react-router-dom";
 
 import axiosInstance from "../../Network/Config";
 import NavBar from "../../components/NavBar/NavBar";
+import { useSelector } from "react-redux";
 export default function Home() {
+  let stateuserid = useSelector(state => state.login.userId)
+
   const [kitchens, setKitchens] = useState([]);
   const userId = useParams();
   // console.log(userId.userid);
+
   let [load, setLoad] = useState(true);
   useEffect(() => {
     axiosInstance
@@ -34,11 +38,10 @@ export default function Home() {
 
  
 const param = useParams()
-
   return (
     <>
       <h1>Hello from home page </h1>
-      <Link to={`/user/${userId.userid}`}>My Profile</Link>
+      <Link to={`/user/${stateuserid}`}>My Profile</Link>
       <h6>Menu</h6>
 
       <div className="row row-cols-1 row-cols-md-4 g-0 ">

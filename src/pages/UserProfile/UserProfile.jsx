@@ -61,7 +61,7 @@ export default function UserProfile() {
                 className="btn sub-btn up-btn toggle-btn"
                 type="button"
                 data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
+                data-bs-target="#offcanvasRight1"
                 aria-controls="offcanvasRight"
               >
                 <AiOutlineMenuUnfold />
@@ -69,7 +69,7 @@ export default function UserProfile() {
               <div
                 className="offcanvas offcanvas-start"
                 tabIndex="-1"
-                id="offcanvasRight"
+                id="offcanvasRight1"
                 aria-labelledby="offcanvasRightLabel"
               >
                 <div className="offcanvas-header">
@@ -81,7 +81,7 @@ export default function UserProfile() {
                     <AiOutlineMenuFold />
                   </button>
                 </div>
-                <div className="offcanvas-body">
+                <div className="offcanvas-body body-user">
                   <div className="side-bar">
                     <div className="side-bar-top p-5">
                       {/* <img
