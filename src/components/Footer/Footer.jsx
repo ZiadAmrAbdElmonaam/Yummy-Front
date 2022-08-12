@@ -1,12 +1,16 @@
 import React from "react";
 import "./Footer.css";
+
 export default function Footer() {
   return (
     <footer>
       <div className="container pb-3">
         <div className="row ">
           <div className="col-md-2 col-sm-4 col-12 footer-element">
-            {/* <img src="../../../../assets/images/logo.png" alt="logo"/> */}
+            <img
+              src="http://localhost:8080/avatars/images/yummy.jpeg"
+              alt="logo"
+            />
           </div>
           <div className="col-md-2 col-sm-4 col-6 footer-element">
             <div>
