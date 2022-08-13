@@ -27,7 +27,7 @@ export default function HistoryOrder() {
         setIsLoad(false);
         console.log(err);
       });
-  });
+  },[]);
 
   return (
     <div className="my-3">

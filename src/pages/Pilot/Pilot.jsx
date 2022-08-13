@@ -35,7 +35,6 @@ console.log("pilotEdit",pilotEdit)
             pilotNumber:res.data.pilotNumber,
             pilotStatus:res.data.pilotStatus,
             pilotLisenceImage:res.data.pilotLisenceImage
-         
         })
       })
       .catch((err) => {

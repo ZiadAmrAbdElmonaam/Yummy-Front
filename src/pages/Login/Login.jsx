@@ -5,56 +5,52 @@ import "./Login.css";
 
 import { LoginThunk } from "../../Store/Actions/Login";
 import axiosInstance from "../../Network/Config";
-import axios from "axios"
-import { useEffect, useState} from "react";
-import {useHistory } from "react-router-dom";
-import { useDispatch , useSelector} from "react-redux";
-import Store from "../../Store/Store"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Store from "../../Store/Store";
 import { IsLoadingThunk } from "../../Store/Actions/IsLoading";
 import { UserIdThunk } from "../../Store/Actions/UserId";
 import { RoleThunk } from "../../Store/Actions/Role";
 import { PilotIdThunk } from "../../Store/Actions/PilotId";
 import { KetchenIdThunk } from "../../Store/Actions/KetchenId";
 
-
 function Login() {
   const history = useHistory();
 
-  const [userLoggedIn, setUserLoggedIn]= useState(false);
-  const [userId, setUserId]= useState(0);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(0);
   // const [kitchenId, setKitchenId]= useState(0);
-
 
   const [user, setUser] = useState({
     email: "",
     password: "",
     role: "",
   });
-  let currentToken =useSelector(state => state.login.token)
-  
-  useEffect(()=>{
-    if(userLoggedIn && currentToken)
-    {
-      
+  let currentToken = useSelector((state) => state.login.token);
+
+  useEffect(() => {
+    if (userLoggedIn && currentToken) {
       if (user.role === "pilot") {
-        console.log("before pilot ==================>" ,localStorage.getItem(  "token"));
-        
+        console.log(
+          "before pilot ==================>",
+          localStorage.getItem("token")
+        );
+
         history.push(`/pilot/${user.email}`);
         // window.location = `/pilot/${user.email}`;
-        console.log(userId)
-        dispatch(PilotIdThunk(userId))
+        console.log(userId);
+        dispatch(PilotIdThunk(userId));
+      } else if (user.role === "user") {
+        dispatch(UserIdThunk(userId));
+        history.push("/home")
+      } else if (user.role === "kitchen") {
+        history.push(`/kitchen/${userId}`);
+        dispatch(KetchenIdThunk(userId));
       }
-        else if(user.role==="user"){
-        
-dispatch(UserIdThunk(userId))
-        }
-        else if(user.role==="kitchen"){
-          history.push(`/kitchen/${userId}`)
-           dispatch(KetchenIdThunk(userId))
-
-        }
-  }
-},[userLoggedIn,currentToken])
+    }
+  }, [userLoggedIn, currentToken]);
 
   // handel validation error state
   const [userError, setUserError] = useState({
@@ -70,7 +66,6 @@ dispatch(UserIdThunk(userId))
       ...user,
       [event.target.name]: event.target.value,
     });
-
 
     handelValidationError(event.target.name, event.target.value);
   };
@@ -106,32 +101,28 @@ dispatch(UserIdThunk(userId))
     }
   };
 
-  
-  
-
   const dispatch = useDispatch();
 
-                      ///////////////////  on Submit ////////////////////////
+  ///////////////////  on Submit ////////////////////////
 
   const handelSubmit = (event) => {
     event.preventDefault();
 
-
-/////////////////////////////////////////////////////////////
-dispatch(IsLoadingThunk(null))
-  axiosInstance
-  .post("/login", user)
+    /////////////////////////////////////////////////////////////
+    dispatch(IsLoadingThunk(null));
+    axiosInstance
+      .post("/login", user)
 
       .then((res) => {
         // console.log(res.data.token)
         localStorage.setItem("token", res.data.token);
-        console.log(res)
+        console.log(res);
         return res;
       })
-      
+
       .then((data) => {
-         console.log(data.data.data);
-        
+        console.log(data.data.data);
+
         if (data.data.token === undefined) {
           throw new Error();
         } else {
@@ -139,18 +130,13 @@ dispatch(IsLoadingThunk(null))
             ...userError,
             loginError: "",
           });
-        
-          dispatch(LoginThunk (user))
-          setUserId(data.data.data._id)
+
+          dispatch(LoginThunk(user));
+          setUserId(data.data.data._id);
           setUserLoggedIn(true);
-          dispatch(RoleThunk(user.role))
-
+          dispatch(RoleThunk(user.role));
         }
-      
       })
-
-      
-
 
       .catch((error) => {
         console.log(error);
@@ -162,7 +148,6 @@ dispatch(IsLoadingThunk(null))
         }
         throw Error("incorrect Email or Password", error);
       });
-  
   };
   // change type
 

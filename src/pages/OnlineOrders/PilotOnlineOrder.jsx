@@ -24,7 +24,6 @@ function PilotOnlineOrder() {
       .get(`/onlineOrders`)
       .then((res) => {
         setOnlineOrder(res.data);
-        console.log(res.data);
         setIsLoad(false);
       })
       .catch((err) => {
@@ -42,10 +41,9 @@ function PilotOnlineOrder() {
     let orderId = Number(
       e.target.parentElement.parentElement.firstElementChild.innerText
     );
-    console.log(pilotOrderUpdate)
     setPilotOrderUpdate({
-      ...pilotOrderUpdate,  
-      orders:[...pilotOrderUpdate.orders,orderId] ,
+      ...pilotOrderUpdate,
+      orders: [orderId],
       // ...pilotOrderUpdate,
       // pilotOrderUpdate.orders.push(orderId)
     });
@@ -54,33 +52,26 @@ function PilotOnlineOrder() {
     axiosInstance
       .put(`/order/${orderId}`, orderUpdate)
       .then((res) => {
-        // setOnlineOrder(res.data);
-        console.log(res.data);
+
+        axiosInstance
+          .put(`/pilot/${params.id}`, pilotOrderUpdate)
+          .then((res) => {
+            deleteOrder(index);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    axiosInstance
-      .put(`/pilot/${params.id}`, pilotOrderUpdate)
-      .then((res) => {
-        setPilotOrderUpdate({
-          ...pilotOrderUpdate,
-          orders: [],
-        });
-        deleteOrder(index);
-        console.log("response", res.data);
-      })
+
       .catch((err) => {
         console.log(err);
       });
   }
   function refreshPage() {
-    console.log("clicked");
     axiosInstance
       .get(`/onlineOrders`)
       .then((res) => {
         setOnlineOrder(res.data);
-        console.log(res.data);
         setIsLoad(false);
       })
       .catch((err) => {

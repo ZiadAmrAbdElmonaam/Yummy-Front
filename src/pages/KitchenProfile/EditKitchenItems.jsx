@@ -9,18 +9,13 @@ import axiosInstance from "../../Network/Config";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 function EditKitchenItems(props) {
-  // const { addToCard } = props;
-  // console.log(props.item);
-  // const [item, setKitchen] = useState({});
   const params = useParams();
-  // const [item, setItem] = useState([]);
   const [edit, setShow] = useState(false);
   const [deleteitem, setDeleteItem] = useState(true);
 const [deleteFlag,setDeleteFlag]= useState(false)
   const [menuitems, setmenuitems] = useState({
     menuItems: Number(props.item._id),
   });
-  // console.log("kitchenid>>>>",kitchenid)
 
   const [kitchenItemEdit, setKitchenItemEdit] = useState({
     itemName: props.item.itemName,
@@ -32,49 +27,16 @@ const [deleteFlag,setDeleteFlag]= useState(false)
     itemId: props.item._id,
   });
 
-  // console.log(params)
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get(`/kitchen/${params.kitchenId}`)
-  //     .then((res) => {
-  //       // setItem(res.data);
-  //       // console.log(res.data)
-  //       // setItem(res.data.menuId.menuItems);
-  //       // console.log(res.data.menuId.menuItems)
-  //       // setKitchenItemEdit({
-  //       //   ...
-  //       // });
-
-  //       // console.log("res>>>", res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [deleteitem]);
-  // console.log(item)
-  const history = useHistory();
-  // console.log(kitchenItemEdit);
-
   const handleKitchenItemChange = (event) => {
     const { name, value } = event.target;
-    // console.log(event.target.name,event.target.value)
     console.log(name, value);
     setKitchenItemEdit({
       ...kitchenItemEdit,
       [name]: value,
     });
-
     console.log(kitchenItemEdit);
-
-    // }
   };
-  // function handleEdit(){
-  //   console.log("clicked");
-  //   history.push(`/editForm/${params.kitchenId}`)
-
-  // }
   const HandelSubmit = (event) => {
-    // console.log(params.kitchenId);
     event.preventDefault();
     console.log(props.item._id);
     setShow(false);
@@ -86,8 +48,6 @@ const [deleteFlag,setDeleteFlag]= useState(false)
         return res;
       })
       .then((data) => {
-        // setKitchenItemEdit(data.data.data)
-
         setKitchenItemEdit({
           ...kitchenItemEdit,
           [event.target.name]: event.target.value,
@@ -97,22 +57,9 @@ const [deleteFlag,setDeleteFlag]= useState(false)
         console.log(err);
       });
   };
-  // console.log(kitchenItemEdit)
   const deleteItem = (event) => {
-    // console.log(event.target.id);
-    // let itemId = Number(event.target.id);
-    // let kitcheeenid = Number(params.kitchenId);
-    // console.log("555555555", kitcheeenid);
-    // console.log(itemId);
-    // // setShow(false)
-    // console.log("type item id>>", props.item._id);
-    // console.log("state",menuitems)
-    // setmenuitems({
-    //   menuItems:props.item._id
-    // })
-    // console.log()
+
     axiosInstance
-      // .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
       .delete(`/menuItem/${props.item._id}/${params.kitchenId}`)
       .then((res) => {
         console.log("first res",res.data)
@@ -120,57 +67,18 @@ const [deleteFlag,setDeleteFlag]= useState(false)
           setDeleteFlag(false)
         }else{
           setDeleteFlag(true)
-
         }
         return res;
-
       })
       axiosInstance
       .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
       .then((res) => {
-        // setKitchenItemEdit(data.data.data)
         console.log("sec res",res.data)
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  function formshow(e) {
-    console.log("event====>", e.target);
-    console.log("props====>", props.item._id);
-
-    // setKitchenItemEdit({
-    //   ...kitchenItemEdit,
-    //   [e.target.name]: e.target.value,
-    // });
-  }
-  // console.log(kitchenItemEdit);
-
-  // const deleteitem = (index) => {
-  //   console.log(kitchenItemEdit)
-
-  // };
-
-  // function changeToDelivered(e, index) {
-  //   // console.log(index);
-  //   console.log("clicked");
-  //   console.log("type of ", e.target.id);
-  //   let orderId = Number(e.target.id);
-  //   console.log("state", pilotOnlineOrders);
-
-  //   axiosInstance
-  //     .put(`/order/${orderId}`, dileveredStatus)
-  //     .then((res) => {
-  //       // setOnlineOrder(res.data);
-  //       console.log(res.data);
-  //       console.log("index in func", index);
-  //       deleteOrder(index);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
   return (
     <>
       <div className="row">
