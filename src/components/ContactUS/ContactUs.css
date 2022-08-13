@@ -6,7 +6,7 @@
   width: 100%;
 }
 .contact-us::before {
-  background-color: rgba(255, 213, 0, 0.139);
+  background-color: rgba(255, 213, 0, 0.208);
   content: " ";
   height: 100%;
   width: 100%;
@@ -15,7 +15,7 @@
 .top {
   position: absolute;
   top: 40%;
-  color: #edf4f5;
+  color: #113e6b;
 }
 .top h1 {
   margin-bottom: 20px;

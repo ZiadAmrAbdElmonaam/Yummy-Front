@@ -7,15 +7,16 @@ export default function ContactUS() {
         <div className="top">
           <h1>CONTACT US</h1>
           <p>
-            Yummy is an Offline and Online learning platfrom fucos on the
-            student of Zagazig university to help them during the studing years
-            and also after graduation from the university.
+            Yummy ABOUT US Yummy is Online food ordering application, considered
+            as an increasingly used application in homemade food management.
+            Just a few years ago, people used to spend times to go restaurants
+            junky food .
           </p>
         </div>
       </div>
       <div className="contact-bottom pb-5">
         <div className="head p-5">
-          <h1>CONTACT Yummy</h1>
+          <h1>CONTACT YUMMY</h1>
         </div>
         <div className="container">
           <form name="contact-us" className="pt-1 pb-5">
