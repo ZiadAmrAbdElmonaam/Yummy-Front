@@ -144,23 +144,24 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
               );
             })}
           </div>
-          <div id="cashDetails" className={`${isActive ? "dblock" : "dnone"}`}>
+          <div id="cashDetails" className={`${isActive ? "dblock" : "dnone"}` }>
             <p>Subtotal : {order.totalPrice} EGP </p>
             <p>Delivery fee : 20 EGP</p>
 
             <p>Totall-Price : {order.totalPrice + 20} EGP</p>
           </div>
-          <button
+        
+          {loginrole == "user" ?  
+          <button className={`${basketLength ? "dblock cash" : "dnone"}`}
             id="cash"
-            className="cash"
             onClick={(e) => checkOut({ allItems })}
           >
             ADD ORDER
-          </button>{" "}
+          </button> :  <Link className="dblock cash addorder" to="/login">  ADD ORDER </Link> }
           <br />
           <br />
           <button
-            className={`${isActive ? "dblock cash" : "dnone"}`}
+            className={`${isActive ? "dblock cash" : "dnone"}` }
             onClick={(e) => createOrder()}
           >
             {" "}

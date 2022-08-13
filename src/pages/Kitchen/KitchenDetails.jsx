@@ -21,7 +21,7 @@ export default function KitchenDetails() {
   let [isload, setIsLoad] = useState(true);
   let params = useParams();
   const dispatch = useDispatch();
-
+ 
   function addOrder(item) {
   
      console.log("e===================>", item);
