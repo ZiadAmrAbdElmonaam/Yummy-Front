@@ -12,6 +12,8 @@ import axiosInstance from "../../Network/Config";
 import NavBar from "../../components/NavBar/NavBar";
 import { useSelector } from "react-redux";
 import "./Home.css"
+import SearchBar from "../../components/SearchBar/SearchBar";
+
 export default function Home() {
   let stateuserid = useSelector((state) => state.login.userId);
 
@@ -38,6 +40,7 @@ export default function Home() {
     <>
       {/* <h1>Hello from home page </h1>
       <Link to={`/user/${stateuserid}`}>My Profile</Link> */}
+      <SearchBar/>
       <h6> Kitchens Menu</h6>
 
       <div className="row row-cols-1 row-cols-md-4 g-0 ">

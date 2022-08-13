@@ -5,6 +5,7 @@ import "./Card.css";
 
 function CardComponent(props) {
   console.log("param is ===>", props.kitchen.menuId)
+  console.log("param is ===>", props)
   return (
     <>
   
