@@ -5,6 +5,7 @@ import axiosInstance from "../../Network/Config";
 import "./kitchenProfile.css";
 import { AiFillPlusCircle, AiOutlineRollback } from "react-icons/ai";
 import { BiExit } from "react-icons/bi";
+import {SiOneplus} from "react-icons/si"
 
 export default function AddKitchenItem() {
   const history = useHistory();
@@ -205,7 +206,7 @@ export default function AddKitchenItem() {
                 name="itemStatus"
                 value={item.itemStatus}
               >
-                <option value="avilable"> Select item status</option>
+                <option value=""> Select item status</option>
                 <option value="avilable">avilable</option>
                 <option value="not avilable">not avilable</option>
               </select>
@@ -265,8 +266,8 @@ export default function AddKitchenItem() {
               </div>
               <div className="col-md-4">
                 {!showbutton ? (
-                  <button onClick={() => addItemToMenu()}>
-                    <AiFillPlusCircle size="22" />
+                  <button onClick={() => addItemToMenu()} className="btn">
+                    <SiOneplus size="27" className="text-success" />
                   </button>
                 ) : (
                   <>
@@ -275,9 +276,10 @@ export default function AddKitchenItem() {
                         onClick={() => {
                           updateKitchen();
                         }}
+                        className="btn saveMenu"
                       >
                         {" "}
-                        save your menu
+                        Add First Item
                       </button>
                     ) : (
                       ""

@@ -2,60 +2,67 @@
    
     margin-left: 47%;
 } */
-.icon:hover{
-    cursor: pointer;
-    transform: scale(1.1);
+.icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
-.icons-container{
-    text-align: right;
-}
-
-
-.itemForm{
-    margin: 2rem auto;
-    border: 1px solid rgb(194, 191, 191);
-    border-radius: 1rem;
-    background-color: rgb(239, 233, 233);
-    width: 70vw;
-    padding: 1rem;
-}
-.addItem{
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-.addItem button{
-    background-color: #ff5a00;
- border-color:#ff5a00 ;
- color:white;
- width: 30vw;
-
-}
-.addItem button:hover{
-    background-color: white;
- border-color:#ff5a00;
- color: #ff5a00;
-
+.icons-container {
+  text-align: right;
 }
 
-.price input{
-    margin-left: 1rem;
-    width: 18vw;
-    display: inline-block;
+.itemForm {
+  margin: 2rem auto;
+  border: 1px solid rgb(194, 191, 191);
+  border-radius: 1rem;
+  background-color: rgb(239, 233, 233);
+  width: 70vw;
+  padding: 1rem;
 }
-.price select{
-    width: 18vw !important;
-    display: inline-block;
-    margin-right: 1rem;
+.addItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.addItem button {
+  background-color: #ff5a00;
+  border-color: #ff5a00;
+  color: white;
+  width: 30vw;
+}
+.addItem button:hover {
+  background-color: white;
+  border-color: #ff5a00;
+  color: #ff5a00;
+}
 
+.price input {
+  margin-left: 1rem;
+  width: 18vw;
+  display: inline-block;
 }
-.head{
-    color: #ff5a00;
+.price select {
+  width: 18vw !important;
+  display: inline-block;
+  margin-right: 1rem;
 }
-.newItem{
-    width: 70vw;
-    margin:3rem auto ;
-padding: 1rem;
+.head {
+  color: #ff5a00;
+}
+.newItem {
+  width: 70vw;
+  margin: 3rem auto;
+  padding: 1rem;
+}
+.saveMenu {
+  margin-top: 5.3rem;
+  background-color: #ff5a00;
+  border-color: #ff5a00;
+  color: white;
+  /* width: 30vw; */
+}
+.saveMenu:hover {
+  background-color: white;
+  border-color: #ff5a00;
+  color: #ff5a00;
 }
