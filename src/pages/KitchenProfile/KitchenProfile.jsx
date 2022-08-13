@@ -44,7 +44,7 @@ export default function KitchenProfile() {
     axiosInstance
       .get(`/kitchen/${params.kitchenId}`)
       .then((res) => {
-        console.log("hiiiiiiiii", res.data.kitchenName);
+        // console.log("hiiiiiiiii", res.data.kitchenName);
         setKitchen(res.data);
         setItem(res.data.menuId.menuItems);
         setIsLoad(false);
@@ -66,12 +66,12 @@ export default function KitchenProfile() {
         console.log(err);
       });
   }, [edit,deleteFlag]);
-  console.log("5555", kitchenEdit);
+  // console.log("5555", kitchenEdit);
   const kitchenArray = { ...kitchen };
   const handleKitchenChange = (event) => {
     const { name, value } = event.target;
     if (event.target.type == "file") {
-      console.log("my current file", event.target.files[0]);
+      // console.log("my current file", event.target.files[0]);
       setSelectedFile(event.target.files[0]);
       setIsFilePicked(true);
     } else {
@@ -101,7 +101,7 @@ export default function KitchenProfile() {
         return res;
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.log(err);

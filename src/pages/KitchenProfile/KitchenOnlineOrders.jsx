@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 export default function KitchenOnlineOrders() {
   const params = useParams();
   let kitchenId = Number(params.kitchenId);
-  console.log(kitchenId);
+  // console.log(kitchenId);
 
   const [kitchenOrder, setKitchenOrder] = useState([]);
   let [isload, setIsLoad] = useState(true);
@@ -30,12 +30,12 @@ export default function KitchenOnlineOrders() {
   // console.log("orders", userOrders.userOrder);
   // accept order
   const changeStatus = (e) => {
-    console.log("event value===>", e.target.value);
+    // console.log("event value===>", e.target.value);
     let currentOrder = Number(e.target.id);
     axiosInstance
       .put(`/order/${currentOrder}`, { kitchenOrderStatus: "accepted" })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (isOrder) {
           setIsOrder(false);
         } else {
@@ -52,7 +52,7 @@ export default function KitchenOnlineOrders() {
     axiosInstance
       .put(`/order/${currentOrder}`, { kitchenOrderStatus: "rejected" })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (isOrder) {
           setIsOrder(false);
         } else {
@@ -63,8 +63,8 @@ export default function KitchenOnlineOrders() {
         console.log(err);
       });
   }
-  console.log("hhhhhh", kitchenOrder);
-  console.log("hhhhhh", kitchenOrder.length);
+  // console.log("hhhhhh", kitchenOrder);
+  // console.log("hhhhhh", kitchenOrder.length);
   return (
     <div className="my-3">
       <h2 className="top-header">Requested Orders</h2>

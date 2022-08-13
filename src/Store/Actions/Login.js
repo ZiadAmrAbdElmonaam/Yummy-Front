@@ -10,10 +10,10 @@ export const LoginThunk = (object) => (dispatch) => {
      .post("/login" , object)
 
     .then((res) => {
-        console.log( "response is",res)
+        // console.log( "response is",res)
         //  token = localStorage.getItem('token');
         // console.log("token is ====>", token)
-         console.log("res object is ====>", object)
+        //  console.log("res object is ====>", object)
 
         dispatch({
             type: "GET_LOGIN_TOKEN",
@@ -25,7 +25,7 @@ export const LoginThunk = (object) => (dispatch) => {
     // .then()
     .catch((error) => {
       if (error.res && error.res.status >= 400 && error.res.status <= 500) {
-        console.log("error from login thunk Actions");
+        // console.log("error from login thunk Actions");
         // setUserError("erroR", error.res.user.message);
       }
     });

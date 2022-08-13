@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import { useState } from "react";
@@ -13,7 +13,7 @@ import axiosInstance from "../../Network/Config";
 
 export default function NavBar() {
   const [isActive, setIsActive] = useState(false);
-
+  const history = useHistory()
   const [order, setOrder] = useState({
     totalPrice: 0,
     orderItems: [],
@@ -27,11 +27,11 @@ export default function NavBar() {
   let pilotId = useSelector((state) => state.login.PilotId);
 
   let loginrole = useSelector((state) => state.role.role);
-console.log(  "loginrole is ==================>"   ,kitchenId);
+  // console.log("loginrole is ==================>", kitchenId);
 
   let allItems = useSelector((state) => state.orders.userCart);
- 
-  
+
+
 
 
   let obj = {
@@ -43,16 +43,16 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
   /////////////////////// onClick handel////////////////////////////////////////////
   let clicked = true;
   function checkOut(allItems) {
-    console.log(allItems);
+    // console.log(allItems);
     let orderarr = [];
     let totalprices = 0;
     allItems.allItems.forEach((obj) => {
-      console.log(obj._id);
-      console.log(obj.itemPrice);
+      // console.log(obj._id);
+      // console.log(obj.itemPrice);
       orderarr.push(obj._id);
       totalprices += obj.itemPrice;
     });
-    console.log(allItems);
+    // console.log(allItems);
 
     setOrder({
       ...order,
@@ -67,13 +67,13 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
 
   //////////////////////////// create order on backend DB ////////////////////////////
   function createOrder() {
-    console.log(obj);
+    // console.log(obj);
 
     axiosInstance
       .post("/orders", obj)
 
       .then((res) => {
-        console.log(res.data.data._id);
+        // console.log(res.data.data._id);
         let updateKitchenByOrderId = { kitchenOrders: [res.data.data._id] };
         let updateUserByOrderId = { userOrder: [res.data.data._id] };
 
@@ -81,14 +81,15 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
           .put(`kitchen/${kitchenId}`, updateKitchenByOrderId)
 
           .then((res) => {
-            console.log(res);
+            // console.log(res);
           });
 
         axiosInstance
           .put(`user/${userId}`, updateUserByOrderId)
 
           .then((res) => {
-            console.log(res);
+            // console.log(res);
+            history.push(`/user/${userId}`)
           });
         return res;
       })
@@ -98,24 +99,17 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
 
         throw Error("invalid process", error);
       });
-    console.log(obj);
+    // console.log(obj);
     clicked = true;
   }
-  console.log(order);
-  console.log(obj);
+  // console.log(order);
+  // console.log(obj);
 
   return (
     <>
       {/* <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><IoCartOutline className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"/></button> */}
 
-      <IoCartOutline
-        className="basket"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
-      />
-      {basketLength ? <span> {basketLength} </span> : ""}
+   
       <div
         className="offcanvas offcanvas-end"
         tabIndex="-1"
@@ -131,9 +125,9 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
             aria-label="Close"
           ></button>
         </div>
-        <div className="offcanvas-body sidebarbody">
+        <div className="offcanvas-body sidebarbody ">
           <h1>ALL ITEMS </h1>
-          <div className="row g-0 ">
+          <div className=" row g-0 ">
             {items.map((item, index) => {
               return (
                 <div className="col-12" key={index}>
@@ -144,24 +138,24 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
               );
             })}
           </div>
-          <div id="cashDetails" className={`${isActive ? "dblock" : "dnone"}` }>
+          <div id="cashDetails" className={`${isActive ? "dblock" : "dnone"}`}>
             <p>Subtotal : {order.totalPrice} EGP </p>
             <p>Delivery fee : 20 EGP</p>
 
             <p>Totall-Price : {order.totalPrice + 20} EGP</p>
           </div>
-        
-          {loginrole == "user" ?  
-          <button className={`${basketLength ? "dblock cash" : "dnone"}`}
-            id="cash"
-            onClick={(e) => checkOut({ allItems })}
-          >
-            ADD ORDER
-          </button> :  <Link className="dblock cash addorder" to="/login">  ADD ORDER </Link> }
+
+          {loginrole == "user" ?
+            <button className={`${basketLength ? "dblock cash" : "dnone"}`}
+              id="cash"
+              onClick={(e) => checkOut({ allItems })}
+            >
+              ADD ORDER
+            </button> : <Link className="dblock cash addorder" to="/login">  ADD ORDER </Link>}
           <br />
           <br />
           <button
-            className={`${isActive ? "dblock cash" : "dnone"}` }
+            className={`${isActive ? "dblock cash" : "dnone"}`}
             onClick={(e) => createOrder()}
           >
             {" "}
@@ -171,7 +165,7 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+      <nav className="navbar navbar-expand-lg navbar-light  ">
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
         <div className="container-fluid ">
           <Link className="navbar-brand yummy" to="/home">
@@ -190,8 +184,8 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
           </button>
           <div className="collapse navbar-collapse mynav" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-            
-              <li   className= {`${loginrole == "pilot" ||  loginrole == "kitchen" ? " dnone" : "nav-item dblock navli"}`} >
+
+              <li className={`${loginrole == "pilot" || loginrole == "kitchen" ? " dnone" : "nav-item dblock navli"}`} >
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -201,32 +195,32 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
                 </Link>
               </li>
 
-               {/* userId  kitchenId  pilotId */}
+              {/* userId  kitchenId  pilotId */}
 
-              <li className="nav-item navli">   
-         
+              <li className="nav-item navli">
 
-        { loginrole == "pilot"  ? 
 
-              <Link className="nav-link active" aria-current="page" to= {`/pilot/${pilotId}`} >  Profile </Link>
-               
-                : loginrole == "kitchen"  ? 
+                {loginrole == "pilot" ?
 
-                <Link className="nav-link active" aria-current="page" to= {`/kitchen/${kitchenId}`} >  Profile </Link>
-                
-                :  loginrole == "user"  ? 
+                  <Link className="nav-link active" aria-current="page" to={`/pilot/${pilotId}`} >  Profile </Link>
 
-               <Link className="nav-link active" aria-current="page" to= {`/user/${userId}`} >  Profile </Link>
-               
-          
-                : 
-                 <Link className="nav-link active" aria-current="page" to= "/login" >  Profile </Link>
-              
-                
-                } 
+                  : loginrole == "kitchen" ?
+
+                    <Link className="nav-link active" aria-current="page" to={`/kitchen/${kitchenId}`} >  Profile </Link>
+
+                    : loginrole == "user" ?
+
+                      <Link className="nav-link active" aria-current="page" to={`/user/${userId}`} >  Profile </Link>
+
+
+                      :
+                      <Link className="nav-link active" aria-current="page" to="/login" >  Profile </Link>
+
+
+                }
 
               </li>
-            
+
 
 
 
@@ -252,22 +246,29 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
                 </Link>
               </li>
             </ul>
-
+            <IoCartOutline
+        className="basket"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+      />
+      {basketLength ? <span className="cartNumber"> {basketLength} </span> : ""}
             <div className="d-flex ">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
 
-              <li className="navli">
+                <li className="navli">
 
-             { loginrole == ""  ? 
+                  {loginrole === "" ?
 
-               <Link className="nav-link active" aria-current="page" to= "/login" >  Login </Link>
- 
-                 : 
+                    <Link className="nav-link active" aria-current="page" to="/login" >  Login </Link>
 
-              <a className="nav-link active" aria-current="page" href= "/login" >  Logout </a>
-  
-             } 
-              </li>
+                    :
+
+                    <a className="nav-link active" aria-current="page" href="/login" >  Logout </a>
+
+                  }
+                </li>
 
 
 
@@ -307,19 +308,9 @@ console.log(  "loginrole is ==================>"   ,kitchenId);
                 </li>
               </ul>
 
-              <form className="d-flex ">
-                <input
-                  className="form-control me-2"
-                  type="text"
-                  name="query"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-
-                <button className="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
+              {/* <form className="d-flex ">
+              
+              </form> */}
             </div>
           </div>
         </div>

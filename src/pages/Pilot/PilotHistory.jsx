@@ -6,7 +6,7 @@ import axiosInstance from "../../Network/Config";
 import { useParams, Link } from "react-router-dom";
 export default function PilotHistory() {
   const params = useParams();
-  console.log(params.id);
+  // console.log(params.id);
   const [pilotOnlineOrders, setPilotOnlineOrders] = useState([]);
 
   let [isload, setIsLoad] = useState(true);
@@ -15,7 +15,7 @@ export default function PilotHistory() {
       .get(`/pilotHistoryOrders/${params.id}`)
       .then((res) => {
         setPilotOnlineOrders(res.data);
-        console.log("response>>>>", res.data);
+        // console.log("response>>>>", res.data);
         setIsLoad(false);
       })
       .catch((err) => {

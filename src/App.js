@@ -26,7 +26,7 @@ import ContactUS from "./components/ContactUS/ContactUS";
 // import EditForm from "./pages/KitchenProfile/editForm";
 function App() {
   let auth = useSelector((state) => {
-    console.log("state is => ", state);
+    // console.log("state is => ", state);
     return state.login.auth;
   });
   if (auth) {

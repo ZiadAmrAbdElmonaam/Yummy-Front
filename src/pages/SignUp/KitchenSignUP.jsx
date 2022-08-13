@@ -52,7 +52,7 @@ export default function JoinUS() {
         },
       });
     } else if (event.target.type == "file") {
-      console.log("my current file", event.target.files[0]);
+      // console.log("my current file", event.target.files[0]);
       setSelectedFile(event.target.files[0]);
       setIsFilePicked(true);
       // console.log("selected now", selectedFile);
@@ -175,7 +175,7 @@ export default function JoinUS() {
         return res;
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // window.location = "/login";
         history.push("/login")
       })

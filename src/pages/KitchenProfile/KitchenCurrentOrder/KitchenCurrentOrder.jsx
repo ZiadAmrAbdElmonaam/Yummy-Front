@@ -8,7 +8,7 @@ import Loader from "../../../components/Loader/Loader";
 export default function KitchenCurrentOrders() {
   const params = useParams();
   let kitchenId = Number(params.kitchenId);
-  console.log(kitchenId);
+  // console.log(kitchenId);
 
   const [kitchenCurrentOrder, setKitchenCurrentOrder] = useState([]);
   let [isload, setIsLoad] = useState(true);
@@ -24,8 +24,8 @@ export default function KitchenCurrentOrders() {
         setIsOrder(true);
         setIsLoad(false);
         // setKitchenEdit(res.data);
-        console.log("res>>>", res.data);
-        console.log("current order>>>>>", kitchenCurrentOrder);
+        // console.log("res>>>", res.data);
+        // console.log("current order>>>>>", kitchenCurrentOrder);
       })
       .catch((err) => {
         setIsLoad(false);
@@ -35,10 +35,10 @@ export default function KitchenCurrentOrders() {
   // console.log("orders", userOrders.userOrder);
   // delete order
   const inProgresStatus = (e) => {
-    console.log("event value===>", e.target.value);
+    // console.log("event value===>", e.target.value);
 
     let currentOrder = Number(e.target.id);
-    console.log("order id==> ", currentOrder);
+    // console.log("order id==> ", currentOrder);
 
     axiosInstance
       .put(`/order/${currentOrder}`, {
@@ -51,24 +51,24 @@ export default function KitchenCurrentOrders() {
         } else {
           setCompleted(true);
         }
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
   const completedStatus = (e) => {
-    console.log("event value===>", e.target.value);
+    // console.log("event value===>", e.target.value);
 
     let currentOrder = Number(e.target.id);
-    console.log("order id==> ", currentOrder);
+    // console.log("order id==> ", currentOrder);
 
     axiosInstance
       .put(`/order/${currentOrder}`, {
         kitchenOrderStatus: "completed",
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (compelted) {
           setCompleted(false);
         } else {

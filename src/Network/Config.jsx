@@ -20,18 +20,18 @@ axiosInstance.interceptors.request.use(
     // console.log("in the interceptor" )
     if(req.url == "/login"){
       
-      console.log( "token is not found yet you still in page",req.url )
+      // console.log( "token is not found yet you still in page",req.url )
     }else  if(req.url == "pilot/signUp"){
-      console.log( "token is not found yet you still in page",req.url )
+      // console.log( "token is not found yet you still in page",req.url )
       
     }else { 
       // console.log(req.url , 55555)
-      console.log(req )
+      // console.log(req )
       
-      console.log(Store.getState() )
+      // console.log(Store.getState() )
       
       //  let token = Store.getState().login.token;
-      console.log(Store.getState() ,)
+      // console.log(Store.getState() ,)
       
       
       req.headers.Authorization = `Bearer` + " " + Store.getState().login.token;   

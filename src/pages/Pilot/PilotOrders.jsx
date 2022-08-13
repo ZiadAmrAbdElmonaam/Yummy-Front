@@ -11,7 +11,7 @@ export default function PilotOrders() {
   });
 
   const params = useParams();
-  console.log(params.id);
+  // console.log(params.id);
   const [pilotOnlineOrders, setPilotOnlineOrders] = useState([]);
   let [isload, setIsLoad] = useState(true);
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function PilotOrders() {
       .get(`/pilotOnlineOrders/${params.id}`)
       .then((res) => {
         setPilotOnlineOrders(res.data);
-        console.log("response>>>>", res.data);
+        // console.log("response>>>>", res.data);
         setIsLoad(false);
       })
       .catch((err) => {
@@ -31,24 +31,24 @@ export default function PilotOrders() {
   const deleteOrder = (index) => {
     const order = [...pilotOnlineOrders];
     order.splice(index, 1);
-    console.log("index====>", index);
+    // console.log("index====>", index);
     setPilotOnlineOrders(order);
   };
 
   function changeToDelivered(e, index) {
     // console.log(index);
-    console.log("clicked");
-    console.log("type of ", e.target.id);
+    // console.log("clicked");
+    // console.log("type of ", e.target.id);
     let orderId = Number(e.target.id);
-    console.log(Number(e.target.id))
-    console.log("state", pilotOnlineOrders);
+    // console.log(Number(e.target.id))
+    // console.log("state", pilotOnlineOrders);
 
     axiosInstance
       .put(`/order/${orderId}`, dileveredStatus)
       .then((res) => {
         // setOnlineOrder(res.data);
-        console.log(res.data);
-        console.log("index in func", index);
+        // console.log(res.data);
+        // console.log("index in func", index);
         deleteOrder(index);
       })
       .catch((err) => {

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {FlagThunk} from "../../Store/Actions/Flag"
 
 export default function UpdateUser(props) {
-  console.log("new propse", props.userObj._id);
+  // console.log("new propse", props.userObj._id);
   const history = useHistory();
   const [user, setUser] = useState({
     userFullName: props.userObj.userFullName,
@@ -31,7 +31,7 @@ export default function UpdateUser(props) {
 
   const handelUserChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     setUser({
       ...user,
       [name]: value,
@@ -93,6 +93,7 @@ export default function UpdateUser(props) {
           userAddressError: value.length === 0 ? "this field is required" : "",
         });
         break;
+       
     }
   };
 
@@ -100,7 +101,7 @@ export default function UpdateUser(props) {
   let flag = useSelector(state => state.flag.flag)
   function HandelSubmit(event) {
     event.preventDefault();
-    console.log("user now", user);
+    // console.log("user now", user);
     // if (
     //   userError.userEmailError === "" &&
     //   userError.userNameError === "" &&
@@ -122,7 +123,7 @@ export default function UpdateUser(props) {
         return res;
       })
       .then((data) => {
-        console.log("updated data is", data);
+        // console.log("updated data is", data);
 
       })
       .catch((error) => {

@@ -11,7 +11,7 @@ export const SignUPThunk = (object) => (dispatch) => {
     })
     .catch((error) => {
       if (error.res && error.res.status >= 400 && error.res.status <= 500) {
-        console.log("error from sign up thunk Actions");
+        // console.log("error from sign up thunk Actions");
         // setUserError("erroR", error.res.user.message);
       }
     });

@@ -33,12 +33,12 @@ export default function UserProfile() {
         console.log(err);
       });
   }, [isEdit, flag]);
-  console.log("user  ", user);
+  // console.log("user  ", user);
   function showEdit() {
     setIsOrder(false);
     setIsHitoryOrder(false);
     setIsEdit(true);
-    console.log("clicked");
+    // console.log("clicked");
   }
   function showOrders() {
     setIsEdit(false);

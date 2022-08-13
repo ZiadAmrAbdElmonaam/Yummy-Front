@@ -35,7 +35,7 @@ export default function AddKitchenItem() {
     if (event.target.type == "file") {
       setSelectedFile(event.target.files[0]);
       setIsFilePicked(true);
-      console.log(selectedFile);
+      // console.log(selectedFile);
     } else {
       setItem({
         ...item,
@@ -71,7 +71,7 @@ export default function AddKitchenItem() {
 
     try {
       const res = await axiosInstance.post("/item", formData);
-      console.log("res", res.data.data);
+      // console.log("res", res.data.data);
       itemData = res.data.data;
       setItem(itemData);
       setMenu({
@@ -84,8 +84,8 @@ export default function AddKitchenItem() {
       console.log(error);
     }
 
-    console.log("set item", item);
-    console.log("set menu", menu);
+    // console.log("set item", item);
+    // console.log("set menu", menu);
   }
   async function addItemToMenu() {
     if (kitchen.menuId === null) {
@@ -93,7 +93,7 @@ export default function AddKitchenItem() {
         const res = await axiosInstance.post("/menu", menu);
         setKitchenMenu({ menuId: res.data.data._id });
         setShowbutton(true);
-        console.log("res menu", res.data.data);
+        // console.log("res menu", res.data.data);
         // setShowItem(false)
       } catch (error) {
         console.log(error);
@@ -105,13 +105,13 @@ export default function AddKitchenItem() {
           menuUpdate
         );
         // setKitchenMenu({ menuId: res.data.data._id });
-        console.log("res menu", res.data.data);
+        // console.log("res menu", res.data.data);
         setShowItem(false);
       } catch (error) {
         console.log(error);
       }
     }
-    console.log("menu", menu);
+    // console.log("menu", menu);
   }
   async function updateKitchen() {
     try {
@@ -121,7 +121,7 @@ export default function AddKitchenItem() {
       );
       setShowItem(false);
       setShowbutton(false);
-      console.log("kitchen res", res.data);
+      // console.log("kitchen res", res.data);
     } catch (error) {
       console.log(error);
     }

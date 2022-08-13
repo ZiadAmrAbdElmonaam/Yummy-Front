@@ -38,7 +38,7 @@ export default function PilotSignUP() {
       setIsFilePicked(true);
       // console.log("selected now", selectedFile);
     } else {
-      console.log(event.target.name, event.target.value);
+      // console.log(event.target.name, event.target.value);
       // console.log("event", event.target);
       setPilot({
         ...pilot,
@@ -46,7 +46,7 @@ export default function PilotSignUP() {
       });
     }
   };
-  console.log("select", selectedFile);
+  // console.log("select", selectedFile);
   // validation
   const handelValidationError = (field, value) => {
     switch (field) {
@@ -129,12 +129,12 @@ export default function PilotSignUP() {
           return res;
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           // window.location = "/login";
           history.push("/login")
         });
     } else {
-      console.log("error validation");
+      // console.log("error validation");
       setPilotError({
         ...pilotError,
         formValidationError: "complete ur data",

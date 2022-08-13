@@ -33,14 +33,14 @@ function Login() {
   useEffect(() => {
     if (userLoggedIn && currentToken) {
       if (user.role === "pilot") {
-        console.log(
-          "before pilot ==================>",
-          localStorage.getItem("token")
-        );
+        // console.log(
+        //   "before pilot ==================>",
+        //   localStorage.getItem("token")
+        // );
 
         history.push(`/pilot/${user.email}`);
         // window.location = `/pilot/${user.email}`;
-        console.log(userId);
+        // console.log(userId);
         dispatch(PilotIdThunk(userId));
       } else if (user.role === "user") {
         dispatch(UserIdThunk(userId));
@@ -61,7 +61,7 @@ function Login() {
 
   // handel user change
   const handelUserChange = (event) => {
-    console.log(event.target.name, event.target.value);
+    // console.log(event.target.name, event.target.value);
     setUser({
       ...user,
       [event.target.name]: event.target.value,
@@ -116,12 +116,12 @@ function Login() {
       .then((res) => {
         // console.log(res.data.token)
         localStorage.setItem("token", res.data.token);
-        console.log(res);
+        // console.log(res);
         return res;
       })
 
       .then((data) => {
-        console.log(data.data.data);
+        // console.log(data.data.data);
 
         if (data.data.token === undefined) {
           throw new Error();

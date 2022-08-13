@@ -9,16 +9,16 @@ import { useSelector } from "react-redux";
 
 export default function Pilot() {
 let toke =   useSelector(state => state.login.token)
-console.log("now token is =>>" , toke)
+// console.log("now token is =>>" , toke)
   const history = useHistory();
   const [pilot, setPilot] = useState({});
   // const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
   const [showUpdate,setShowUpdate]=useState(false)
  const [pilotEdit,setPilotEdit]=useState({ })
-console.log("pilotEdit",pilotEdit)
+// console.log("pilotEdit",pilotEdit)
   let params = useParams();
-  console.log("params", params);
+  // console.log("params", params);
   useEffect(() => {
     // if(toke)
     // {
@@ -27,7 +27,7 @@ console.log("pilotEdit",pilotEdit)
       .then((res) => {
         setPilot(res.data);
         setIsLoad(false);
-        console.log("res.data>>>>",res.data.pilotName)
+        // console.log("res.data>>>>",res.data.pilotName)
         // console.log("res.data>>>>",res.data)
         //   setItem(res.data.menuId.menuItems);
         setPilotEdit({
@@ -44,9 +44,9 @@ console.log("pilotEdit",pilotEdit)
     // }
   }, [showUpdate]); 
   // toke
-  console.log("piiiiiiiiiiilot",pilot)
+  // console.log("piiiiiiiiiiilot",pilot)
   function onlineOrders() {
-    console.log("params", params);
+    // console.log("params", params);
     // console.log("hhhhhhh")
     history.push(`/onlineOrders/${params.id}`);
   }
@@ -62,7 +62,7 @@ console.log("pilotEdit",pilotEdit)
   
   const handlePilotChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     setPilotEdit({
       ...pilotEdit,
       [name]: value,
@@ -85,18 +85,18 @@ console.log("pilotEdit",pilotEdit)
       }else{
         setShowUpdate(true)
       }
-      console.log(res)
+      // console.log(res)
       return res;
     })
     .then((data) => {
-      console.log(data);
-      console.log(pilotEdit)
+      // console.log(data);
+      // console.log(pilotEdit)
     })
     .catch((err) => {
       console.log(err);
     });
   };
-  console.log(pilotEdit)
+  // console.log(pilotEdit)
   return (
     <>
       {isload ? (

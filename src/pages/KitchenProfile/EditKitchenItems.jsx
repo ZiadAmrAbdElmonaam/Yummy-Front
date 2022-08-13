@@ -15,7 +15,7 @@ function EditKitchenItems(props) {
   const dispatch = useDispatch();
   let deleteFlag = useSelector((state) => state.deleteFlag.deleteflag);
 
-  console.log("flag>>>>",deleteFlag);
+  // console.log("flag>>>>",deleteFlag);
   const params = useParams();
   const [edit, setShow] = useState(false);
   const [deleteitem, setDeleteItem] = useState(true);
@@ -36,7 +36,7 @@ function EditKitchenItems(props) {
 
   const handleKitchenItemChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     setKitchenItemEdit({
       ...kitchenItemEdit,
       [name]: value,
@@ -45,7 +45,7 @@ function EditKitchenItems(props) {
   };
   const HandelSubmit = (event) => {
     event.preventDefault();
-    console.log(props.item._id);
+    // console.log(props.item._id);
     setShow(false);
 
     axiosInstance
@@ -67,7 +67,7 @@ function EditKitchenItems(props) {
     axiosInstance
       .delete(`/menuItem/${props.item._id}/${params.kitchenId}`)
       .then((res) => {
-        console.log("first res", res.data);
+        // console.log("first res", res.data);
         if (deleteFlag) {
           dispatch(DeleteFlagThunk(false))
         } else {
@@ -78,7 +78,7 @@ function EditKitchenItems(props) {
     axiosInstance
       .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
       .then((res) => {
-        console.log("sec res", res.data);
+        // console.log("sec res", res.data);
         if (deleteFlag) {
           dispatch(DeleteFlagThunk(false))
         } else {

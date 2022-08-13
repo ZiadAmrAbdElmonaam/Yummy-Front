@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 export default function HistoryOrder() {
   const params = useParams();
   let kitchenId = Number(params.kitchenId);
-  console.log(kitchenId);
+  // console.log(kitchenId);
 
   const [historyOrder, setHistoryOrder] = useState([]);
   let [isload, setIsLoad] = useState(true);
@@ -20,8 +20,8 @@ export default function HistoryOrder() {
         setHistoryOrder(res.data);
         //  setIsLoad(false);
         // setKitchenEdit(res.data);
-        console.log("res>>>", res.data);
-        console.log("history order>>>>>", historyOrder);
+        // console.log("res>>>", res.data);
+        // console.log("history order>>>>>", historyOrder);
       })
       .catch((err) => {
         setIsLoad(false);

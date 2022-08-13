@@ -42,7 +42,7 @@ export default function SignUp() {
   // handel user change
   const handelUserChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     if (
       name == "street" ||
       name == "zone" ||
@@ -171,7 +171,7 @@ export default function SignUp() {
       // userError.userAddressError.building === ""&&
       // userError.userAddressError.zone === ""
     ) {
-      console.log("error Validation");
+      // console.log("error Validation");
 
       axiosInstance
         .post("/user", user)
@@ -181,12 +181,12 @@ export default function SignUp() {
         })
 
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           // window.location = "/login";
           history.push("/login")
         });
     } else {
-      console.log("error validation");
+      // console.log("error validation");
       setUserError({
         ...userError,
         formValidationError: "complete ur data",

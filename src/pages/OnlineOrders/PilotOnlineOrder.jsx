@@ -48,7 +48,7 @@ function PilotOnlineOrder() {
       // pilotOrderUpdate.orders.push(orderId)
     });
 
-    console.log("order id", pilotOrderUpdate.orders);
+    // console.log("order id", pilotOrderUpdate.orders);
     axiosInstance
       .put(`/order/${orderId}`, orderUpdate)
       .then((res) => {

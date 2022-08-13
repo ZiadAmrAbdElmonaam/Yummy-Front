@@ -24,7 +24,7 @@ export default function SearchBar() {
   };
   const hanldeOnChange = (e) => {
     setSearchTerm(e.target.value);
-    console.log("search kitchen",kitchensSearch)
+    // console.log("search kitchen",kitchensSearch)
   };
   return (
     <>

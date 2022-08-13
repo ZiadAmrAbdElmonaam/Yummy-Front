@@ -23,7 +23,7 @@ export default function HistoryOrders(props) {
         setIsOrder(true);
         setIsLoad(false);
         // setKitchenEdit(res.data);
-        console.log("res>>>", res.data);
+        // console.log("res>>>", res.data);
       })
       .catch((err) => {
         setIsLoad(false);
@@ -44,7 +44,7 @@ export default function HistoryOrders(props) {
               <td>kitchen Address</td>
               <td>Items</td>
               <td>Total Price</td>
-              <td>Pilot status</td>
+              <td>Order status</td>
             </tr>
           </thead>
           <tbody>

@@ -24,7 +24,7 @@ export default function CurrentOrders(props) {
         setIsOrder(true);
         setIsLoad(false);
         // setKitchenEdit(res.data);
-        console.log("res>>>", res.data);
+        // console.log("res>>>", res.data);
       })
       .catch((err) => {
         setIsLoad(false);
@@ -34,17 +34,17 @@ export default function CurrentOrders(props) {
   // console.log("orders", userOrders.userOrder);
   // delete order
   const deletOrder = async (e, i) => {
-    console.log("user id===>", Number(e.target.id));
+    // console.log("user id===>", Number(e.target.id));
     let userID = Number(params.id);
     // console.log(userID);
     // console.log("clicked index", i);
     let currentOrder = Number(e.target.id);
-    console.log("order id==> ", currentOrder);
+    // console.log("order id==> ", currentOrder);
 
     axiosInstance
       .delete(`/order/${currentOrder}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setIsdeleted(false);
       })
       .catch((err) => {

@@ -24,11 +24,11 @@ export default function KitchenDetails() {
  
   function addOrder(item) {
   
-     console.log("e===================>", item);
+    //  console.log("e===================>", item);
    
     dispatch(OrderThunk(item ))
 
-    console.log("item ===>", item);
+    // console.log("item ===>", item);
     
   }
 
@@ -39,7 +39,7 @@ export default function KitchenDetails() {
       .then((res) => {
         setUserD(res.data);
         setIsLoad(false);
-        console.log(params.id);
+        // console.log(params.id);
     dispatch(KetchenIdThunk(Number(params.id) ))
       
         setItem(res.data.menuId.menuItems);
@@ -50,7 +50,7 @@ export default function KitchenDetails() {
       });
 
   }, []);
-  console.log("kitchen data", userD);
+  // console.log("kitchen data", userD);
 
   return (
     <div>

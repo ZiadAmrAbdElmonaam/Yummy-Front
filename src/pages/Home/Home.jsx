@@ -74,9 +74,9 @@ export default function Home() {
               alt="..."
             />
             <div className="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
+              <h5>Healthy Food</h5>
               <p>
-                Some representative placeholder content for the first slide.
+                You Can Enjoy Healthy Food
               </p>
             </div>
           </div>
@@ -87,9 +87,9 @@ export default function Home() {
               alt="..."
             />
             <div className="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
+              <h5>Frozen Food</h5>
               <p>
-                Some representative placeholder content for the second slide.
+                Best Frozen Food Ever
               </p>
             </div>
           </div>
@@ -100,10 +100,10 @@ export default function Home() {
               alt="..."
             />
             <div className="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
+              <h5>Vegiterian  Food</h5>
               <p>
-                Some representative placeholder content for the third slide.
-              </p>
+Best Vegiterian Food Ever    
+          </p>
             </div>
           </div>
         </div>
