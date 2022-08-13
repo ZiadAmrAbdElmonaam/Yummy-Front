@@ -13,7 +13,7 @@ import axiosInstance from "../../Network/Config";
 
 export default function NavBar() {
   const [isActive, setIsActive] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
   const [order, setOrder] = useState({
     totalPrice: 0,
     orderItems: [],
@@ -30,9 +30,6 @@ export default function NavBar() {
   // console.log("loginrole is ==================>", kitchenId);
 
   let allItems = useSelector((state) => state.orders.userCart);
-
-
-
 
   let obj = {
     totalPrice: order.totalPrice + 20,
@@ -89,7 +86,7 @@ export default function NavBar() {
 
           .then((res) => {
             // console.log(res);
-            history.push(`/user/${userId}`)
+            history.push(`/user/${userId}`);
           });
         return res;
       })
@@ -109,7 +106,6 @@ export default function NavBar() {
     <>
       {/* <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><IoCartOutline className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"/></button> */}
 
-   
       <div
         className="offcanvas offcanvas-end"
         tabIndex="-1"
@@ -145,13 +141,20 @@ export default function NavBar() {
             <p>Totall-Price : {order.totalPrice + 20} EGP</p>
           </div>
 
-          {loginrole == "user" ?
-            <button className={`${basketLength ? "dblock cash" : "dnone"}`}
+          {loginrole == "user" ? (
+            <button
+              className={`${basketLength ? "dblock cash" : "dnone"}`}
               id="cash"
               onClick={(e) => checkOut({ allItems })}
             >
               ADD ORDER
-            </button> : <Link className="dblock cash addorder" to="/login">  ADD ORDER </Link>}
+            </button>
+          ) : (
+            <Link className="dblock cash btn sub-btn addBtn" to="/login">
+              {" "}
+              ADD ORDER{" "}
+            </Link>
+          )}
           <br />
           <br />
           <button
@@ -182,10 +185,18 @@ export default function NavBar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse mynav" id="navbarSupportedContent">
+          <div
+            className="collapse navbar-collapse mynav"
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-
-              <li className={`${loginrole == "pilot" || loginrole == "kitchen" ? " dnone" : "nav-item dblock navli"}`} >
+              <li
+                className={`${
+                  loginrole == "pilot" || loginrole == "kitchen"
+                    ? " dnone"
+                    : "nav-item dblock navli"
+                }`}
+              >
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -198,34 +209,44 @@ export default function NavBar() {
               {/* userId  kitchenId  pilotId */}
 
               <li className="nav-item navli">
-
-
-                {loginrole == "pilot" ?
-
-                  <Link className="nav-link active" aria-current="page" to={`/pilot/${pilotId}`} >  Profile </Link>
-
-                  : loginrole == "kitchen" ?
-
-                    <Link className="nav-link active" aria-current="page" to={`/kitchen/${kitchenId}`} >  Profile </Link>
-
-                    : loginrole == "user" ?
-
-                      <Link className="nav-link active" aria-current="page" to={`/user/${userId}`} >  Profile </Link>
-
-
-                      :
-                      <Link className="nav-link active" aria-current="page" to="/login" >  Profile </Link>
-
-
-                }
-
+                {loginrole == "pilot" ? (
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={`/pilot/${pilotId}`}
+                  >
+                    {" "}
+                    Profile{" "}
+                  </Link>
+                ) : loginrole == "kitchen" ? (
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={`/kitchen/${kitchenId}`}
+                  >
+                    {" "}
+                    Profile{" "}
+                  </Link>
+                ) : loginrole == "user" ? (
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={`/user/${userId}`}
+                  >
+                    {" "}
+                    Profile{" "}
+                  </Link>
+                ) : (
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/login"
+                  >
+                    {" "}
+                    Profile{" "}
+                  </Link>
+                )}
               </li>
-
-
-
-
-
-
 
               <li className="nav-item navli">
                 <Link
@@ -247,33 +268,19 @@ export default function NavBar() {
               </li>
             </ul>
             <IoCartOutline
-        className="basket"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
-      />
-      {basketLength ? <span className="cartNumber"> {basketLength} </span> : ""}
+              className="basket"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+            />
+            {basketLength ? (
+              <span className="cartNumber"> {basketLength} </span>
+            ) : (
+              ""
+            )}
             <div className="d-flex ">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-
-                <li className="navli">
-
-                  {loginrole === "" ?
-
-                    <Link className="nav-link active" aria-current="page" to="/login" >  Login </Link>
-
-                    :
-
-                    <a className="nav-link active" aria-current="page" href="/login" >  Logout </a>
-
-                  }
-                </li>
-
-
-
-
-
                 <li className="nav-item dropdown navli">
                   <a
                     className="nav-link dropdown-toggle"
@@ -291,20 +298,41 @@ export default function NavBar() {
                   >
                     <li className="navli">
                       <Link className="dropdown-item" to="/userSignUp">
-                        As User
+                        User
                       </Link>
                     </li>
                     <li className="navli">
                       <Link className="dropdown-item" to="/kitchenSignUP">
-                        As Kitchen
+                        Kitchen
                       </Link>
                     </li>
                     <li className="navli">
                       <Link className="dropdown-item" to="/PilotSignUp">
-                        As Pilot
+                        Pilot
                       </Link>
                     </li>
                   </ul>
+                </li>
+                <li className="navli">
+                  {loginrole === "" ? (
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/login"
+                    >
+                      {" "}
+                      Login{" "}
+                    </Link>
+                  ) : (
+                    <a
+                      className="nav-link active"
+                      aria-current="page"
+                      href="/login"
+                    >
+                      {" "}
+                      Logout{" "}
+                    </a>
+                  )}
                 </li>
               </ul>
 
