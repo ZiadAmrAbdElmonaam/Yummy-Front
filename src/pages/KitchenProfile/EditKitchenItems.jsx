@@ -5,14 +5,21 @@ import {
   AiFillCloseSquare,
   AiFillEdit,
 } from "react-icons/ai";
+import { useDispatch,useSelector } from "react-redux";
 import axiosInstance from "../../Network/Config";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import {DeleteFlagThunk} from "../../Store/Actions/DeleteFlag";
+
 function EditKitchenItems(props) {
+  const dispatch = useDispatch();
+  let deleteFlag = useSelector((state) => state.deleteFlag.deleteflag);
+
+  console.log("flag>>>>",deleteFlag);
   const params = useParams();
   const [edit, setShow] = useState(false);
   const [deleteitem, setDeleteItem] = useState(true);
-const [deleteFlag,setDeleteFlag]= useState(false)
+ 
   const [menuitems, setmenuitems] = useState({
     menuItems: Number(props.item._id),
   });
@@ -23,7 +30,7 @@ const [deleteFlag,setDeleteFlag]= useState(false)
     itemDescription: props.item.itemDescription,
     itemPrice: props.item.itemPrice,
     itemImage: props.item.itemImage,
-    kitchenId: params.kitchenId,
+    // kitchenId: params.kitchenId,
     itemId: props.item._id,
   });
 
@@ -42,9 +49,8 @@ const [deleteFlag,setDeleteFlag]= useState(false)
     setShow(false);
 
     axiosInstance
-      .put(`/menuItem/${props.item._id}`, kitchenItemEdit)
+      .put(`/menuItem/${props.item._id}/${params.kitchenId}`, kitchenItemEdit)
       .then((res) => {
-      
         return res;
       })
       .then((data) => {
@@ -58,22 +64,26 @@ const [deleteFlag,setDeleteFlag]= useState(false)
       });
   };
   const deleteItem = (event) => {
-
     axiosInstance
       .delete(`/menuItem/${props.item._id}/${params.kitchenId}`)
       .then((res) => {
-        console.log("first res",res.data)
-        if(deleteFlag){
-          setDeleteFlag(false)
-        }else{
-          setDeleteFlag(true)
+        console.log("first res", res.data);
+        if (deleteFlag) {
+          dispatch(DeleteFlagThunk(false))
+        } else {
+          dispatch(DeleteFlagThunk(true))
         }
         return res;
-      })
-      axiosInstance
+      });
+    axiosInstance
       .delete(`/menu/item/${params.kitchenId}/${props.item._id}`)
       .then((res) => {
-        console.log("sec res",res.data)
+        console.log("sec res", res.data);
+        if (deleteFlag) {
+          dispatch(DeleteFlagThunk(false))
+        } else {
+          dispatch(DeleteFlagThunk(true))
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -83,7 +93,7 @@ const [deleteFlag,setDeleteFlag]= useState(false)
     <>
       <div className="row">
         <p className="icons-container">
-          <span>
+          <button className="btn">
             <AiFillEdit
               hidden={edit ? true : false}
               onClick={() => {
@@ -92,17 +102,20 @@ const [deleteFlag,setDeleteFlag]= useState(false)
               className="icon text-success"
               size="27"
             />
-          </span>{" "}
+          </button>{" "}
           <span>
             <button
               onClick={(event) => {
                 deleteItem(event);
               }}
               id={kitchenItemEdit.itemId}
+              className="btn"
             >
-              {/* <AiFillCloseSquare 
-       className="icon text-danger" hidden={edit ? true : false} size="27" /> */}
-              Delete
+              <AiFillCloseSquare
+                className="icon text-danger"
+                hidden={edit ? true : false}
+                size="27"
+              />
             </button>
           </span>
         </p>
@@ -146,7 +159,7 @@ const [deleteFlag,setDeleteFlag]= useState(false)
             </div>
             <label htmlFor="exampleInputPassword1">Item Status</label>
             <select
-              class="form-select"
+              className="form-select"
               aria-label="Default select example"
               value={kitchenItemEdit.itemStatus}
               name="itemStatus"

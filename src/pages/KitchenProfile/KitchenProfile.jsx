@@ -18,9 +18,12 @@ import {
 import "./kitchenProfile.css";
 import KitchenCurrentOrders from "./KitchenCurrentOrder/KitchenCurrentOrder";
 import HistoryOrder from "./HistoryOrder";
+import { useDispatch,useSelector } from "react-redux";
+
 
 export default function KitchenProfile() {
   //   console.log("props", props);
+  let deleteFlag = useSelector((state) => state.deleteFlag.deleteflag);
 
   const [kitchen, setKitchen] = useState({});
   const [item, setItem] = useState([]);
@@ -62,7 +65,7 @@ export default function KitchenProfile() {
         setIsLoad(false);
         console.log(err);
       });
-  }, [edit]);
+  }, [edit,deleteFlag]);
   console.log("5555", kitchenEdit);
   const kitchenArray = { ...kitchen };
   const handleKitchenChange = (event) => {
