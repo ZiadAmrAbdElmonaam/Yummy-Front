@@ -1,7 +1,6 @@
 .side-bar {
   color: #ff5a00;
   background-image: linear-gradient(180deg, #ff5a00, #8a3508);
-  height: 93vh;
   color: #fff;
 }
 .side-bar-top {
@@ -44,39 +43,30 @@
 .activeLink {
   background-color: #ff5a00;
   border-left: 5px solid #ff5a00;
-} 
- .element:hover {
+}
+.element:hover {
   background-color: #ff5a00;
 }
 .profileData {
   padding: 4rem 2rem 2rem 2rem;
 }
-.body-user{
+.body-user {
   padding: 0;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .toggle-btn {
   width: 75% !important;
   margin-top: 5rem !important;
 }
 .exit {
-  margin: 1rem 1rem 0rem 1rem !important;
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  margin: 1rem 1rem 2rem 0rem !important;
+  background: none;
+  border: 2px solid;
+  font-size: 2rem;
+  padding: 0;
+  margin: 1rem;
+  border-radius: 15px;
+}
+.canv-body {
+  padding: 0 !important;
+}

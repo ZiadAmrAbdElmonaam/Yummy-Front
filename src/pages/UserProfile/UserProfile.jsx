@@ -8,7 +8,7 @@ import "./UserStyle.css";
 import CurrentOrders from "../../components/UserProfile/CurrentOrders";
 import UpdateUser from "../../components/UserProfile/UpdateUser";
 import HistoryOrders from "../../components/UserProfile/HistoryOrders";
-import {FlagThunk} from "../../Store/Actions/Flag"
+import { FlagThunk } from "../../Store/Actions/Flag";
 import { useSelector } from "react-redux";
 export default function UserProfile() {
   const [user, setUser] = useState({});
@@ -17,7 +17,7 @@ export default function UserProfile() {
   let [isOrder, setIsOrder] = useState(true);
   let [isHistoryOrder, setIsHitoryOrder] = useState(false);
   const params = useParams();
-let flag = useSelector(state => state.flag.flag)
+  let flag = useSelector((state) => state.flag.flag);
   useEffect(() => {
     axiosInstance
       .get(`/user/${params.id}`)
@@ -32,7 +32,7 @@ let flag = useSelector(state => state.flag.flag)
         setIsLoad(false);
         console.log(err);
       });
-  }, [isEdit , flag ]);
+  }, [isEdit, flag]);
   console.log("user  ", user);
   function showEdit() {
     setIsOrder(false);
@@ -75,22 +75,21 @@ let flag = useSelector(state => state.flag.flag)
                 id="offcanvasRight1"
                 aria-labelledby="offcanvasRightLabel"
               >
-                <div className="offcanvas-header">
-                  <button
-                    type="button"
-                    className="btn sub-btn up-btn exit"
-                    data-bs-dismiss="offcanvas"
-                  >
-                    <AiOutlineMenuFold />
-                  </button>
-                </div>
                 <div className="offcanvas-body body-user">
                   <div className="side-bar">
                     <div className="side-bar-top p-5">
-                      {/* <img
-                    src="../../../public/images/john.png"
-                    className="img-responsive"
-                  /> */}
+                      <button
+                        type="button"
+                        className="btn sub-btn up-btn exit"
+                        data-bs-dismiss="offcanvas"
+                      >
+                        <AiOutlineMenuFold />
+                      </button>
+                      <img
+                        src="http://localhost:8080/avatars/images/nagar.png"
+                        alt="userImg"
+                        className="img-responsive my-3"
+                      />
                       <div className="student-info">
                         <h1>{user.userFullName}</h1>
                         <h3>{user.userEmail}</h3>
@@ -99,15 +98,15 @@ let flag = useSelector(state => state.flag.flag)
                     </div>
                     <div className="side-bar-bottom pb-5">
                       <ul className="ul-group profile-list">
-                        <li className="element">
+                        <li className="element my-1">
                           <button onClick={showEdit}>Edit Profile</button>
                         </li>
-                        <li className="element">
+                        <li className="element my-1">
                           <button onClick={showOrders}>
                             My Current Orders
                           </button>
                         </li>
-                        <li className="element">
+                        <li className="element my-1">
                           <button onClick={showHistoryOrders}>
                             My Old Orders
                           </button>

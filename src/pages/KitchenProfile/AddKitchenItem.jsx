@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../../Network/Config";
 import "./kitchenProfile.css";
 import { AiFillPlusCircle, AiOutlineRollback } from "react-icons/ai";
-import {BiExit} from "react-icons/bi"
+import { BiExit } from "react-icons/bi";
 
 export default function AddKitchenItem() {
   const history = useHistory();
@@ -12,6 +12,8 @@ export default function AddKitchenItem() {
   const [kitchen, setKitchen] = useState({});
   const [kitchenMenu, setKitchenMenu] = useState();
   const [showItem, setShowItem] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const [showbutton, setShowbutton] = useState(false);
   const [menu, setMenu] = useState({
     kitchen: Number(params.kitchenId),
@@ -29,12 +31,16 @@ export default function AddKitchenItem() {
   });
   const handleKitchenChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
-    setItem({
-      ...item,
-      [name]: value,
-    });
-    // }
+    if (event.target.type == "file") {
+      setSelectedFile(event.target.files[0]);
+      setIsFilePicked(true);
+      console.log(selectedFile);
+    } else {
+      setItem({
+        ...item,
+        [name]: value,
+      });
+    }
   };
   // console.log(params.kitchenId);
   useEffect(() => {
@@ -53,8 +59,17 @@ export default function AddKitchenItem() {
     event.preventDefault();
     // console.log(kitchen.menuId === null);
     let itemData;
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("itemName", item.itemName);
+    formData.append("itemDescription", item.itemDescription);
+    formData.append("itemPrice", item.itemPrice);
+    formData.append("itemCatogery", item.itemCatogery);
+    formData.append("itemStatus", item.itemStatus);
+    formData.append("kitchenId", item.kitchenId);
+
     try {
-      const res = await axiosInstance.post("/item", item);
+      const res = await axiosInstance.post("/item", formData);
       console.log("res", res.data.data);
       itemData = res.data.data;
       setItem(itemData);
@@ -115,7 +130,6 @@ export default function AddKitchenItem() {
   }
   return (
     <>
-
       <button
         className="btn"
         onClick={() => {
@@ -123,7 +137,7 @@ export default function AddKitchenItem() {
         }}
         type="button"
       >
-        <BiExit size="30" className="text-danger"/>
+        <BiExit size="30" className="text-danger" />
       </button>
       <h2 className="text-center head">Add New Dish To Your Menu</h2>
       <div className="container">
@@ -210,7 +224,20 @@ export default function AddKitchenItem() {
                 value={item.itemPrice}
               />
             </div>
-
+            <div className="mb-3 ">
+              <label htmlFor="exampleInputImage" className="form-label">
+                item image :
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                id="exampleInputImage"
+                onChange={(e) => {
+                  handleKitchenChange(e);
+                }}
+                name="itemImage"
+              />
+            </div>
             <div className="addItem">
               <button
                 type="submit"

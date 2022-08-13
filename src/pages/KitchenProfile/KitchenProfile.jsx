@@ -25,7 +25,7 @@ export default function KitchenProfile() {
   const [kitchen, setKitchen] = useState({});
   const [item, setItem] = useState([]);
   let [isload, setIsLoad] = useState(true);
-  const [edit, setShow] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [onlineFlag, setOnlineFlag] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(false);
   const [home, setHome] = useState(true);
@@ -34,55 +34,66 @@ export default function KitchenProfile() {
   let params = useParams();
   //   console.log(params);
   const [kitchenEdit, setKitchenEdit] = useState({});
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
   useEffect(() => {
     axiosInstance
       .get(`/kitchen/${params.kitchenId}`)
       .then((res) => {
+        console.log("hiiiiiiiii", res.data.kitchenName);
         setKitchen(res.data);
         setItem(res.data.menuId.menuItems);
-        console.log(res.data.menuId.menuItems);
         setIsLoad(false);
         setKitchenEdit({
-          // ...kitchen,
-          kitchenName: kitchen.kitchenName,
-          kitchenEmail: kitchen.kitchenEmail,
-          kitchenPhone: kitchen.kitchenPhone,
-          kitchenCategeory: kitchen.kitchenCategeory,
-          kitchenStatus: kitchen.kitchenStatus,
-          ...kitchen.kitchenAddress,
-          zone: kitchen.kitchenAddress.zone,
-          street: kitchen.kitchenAddress.street,
-          buildingNumber: kitchen.kitchenAddress.buildingNumber,
+          ...kitchenEdit,
+          kitchenName: res.data.kitchenName,
+          kitchenEmail: res.data.kitchenEmail,
+          kitchenPhone: res.data.kitchenPhone,
+          kitchenCategeory: res.data.kitchenCategeory,
+          kitchenStatus: res.data.kitchenStatus,
+          ...res.data.kitchenAddress,
+          zone: res.data.kitchenAddress.zone,
+          street: res.data.kitchenAddress.street,
+          buildingNumber: res.data.kitchenAddress.buildingNumber,
         });
-        // console.log("res>>>", res.data);
       })
       .catch((err) => {
         setIsLoad(false);
         console.log(err);
       });
   }, [edit]);
-  // console.log("kitchen=====>", kitchen.kitchenName);
+  console.log("5555", kitchenEdit);
   const kitchenArray = { ...kitchen };
-  // console.log("kitchen Array", kitchenArray);
-
-  // console.log("Kitchen Edit===>>>", kitchenEdit);
-
   const handleKitchenChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
-    setKitchenEdit({
-      ...kitchenEdit,
-      [name]: value,
-    });
-    // }
+    if (event.target.type == "file") {
+      console.log("my current file", event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+      setIsFilePicked(true);
+    } else {
+      setKitchenEdit({
+        ...kitchenEdit,
+        [name]: value,
+      });
+    }
   };
 
   //  on Submit
   const HandelSubmit = (event) => {
-    console.log(params.kitchenId);
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("kitchenName", kitchenEdit.kitchenName);
+    formData.append("kitchenEmail", kitchenEdit.kitchenEmail);
+    formData.append("kitchenPhone", kitchenEdit.kitchenPhone);
+    formData.append("kitchenCategeory", kitchenEdit.kitchenCategeory);
+    formData.append("kitchenStatus", kitchenEdit.kitchenStatus);
+    formData.append("zone", kitchenEdit.zone);
+    formData.append("street", kitchenEdit.street);
+    formData.append("buildingNumber", kitchenEdit.buildingNumber);
     axiosInstance
-      .put(`/kitchen/${params.kitchenId}`, kitchenEdit)
+      .put(`/kitchen/${params.kitchenId}`, formData)
       .then((res) => {
         return res;
       })
@@ -93,6 +104,7 @@ export default function KitchenProfile() {
         console.log(err);
       });
   };
+
   function onlineOrders() {
     setHome(false);
     setCurrentOrder(false);
@@ -116,6 +128,11 @@ export default function KitchenProfile() {
     setCurrentOrder(false);
     setShowHistory(false);
     setHome(true);
+    if (edit) {
+      setEdit(false);
+    } else {
+      setEdit(true);
+    }
   }
   return (
     <div>
@@ -123,145 +140,7 @@ export default function KitchenProfile() {
         <Loader />
       ) : (
         <div className="App">
-{/* <<<<<<< HEAD
-          <div>
-            <button
-              onClick={() => {
-                onlineOrders();
-              }}
-            >
-              online orders
-            </button>
-            {onlineFlag ? (
-              <KitchenOnlineOrders />
-            ) : (
-              <> */}
-                {/* <div
-                  className="modal fade"
-                  id="staticBackdrop"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabIndex="-1"
-                  aria-labelledby="staticBackdropLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h3
-                          className="modal-title text-warning "
-                          id="staticBackdropLabel"
-                        >
-                          Edit Profile
-                        </h3>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div className="modal-body">
-                        <form
-                          onSubmit={(event) => {
-                            HandelSubmit(event);
-                          }}
-                        >
-                          <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">
-                              {" "}
-                              Kitchen Name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control  "
-                              //  id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              value={kitchenEdit.kitchenName}
-                              name="kitchenName"
-                              onChange={(e) => handleKitchenChange(e)}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">
-                              Kitchen status
-                            </label>
-                            <br />
-                            <select
-                              value={kitchenEdit.kitchenStatus}
-                              name="kitchenStatus"
-                              onChange={(e) => handleKitchenChange(e)}
-                            >
-                              <option>open</option>
-                              <option>closed</option>
-                            </select>{" "}
-                          </div>
-                          <div className="form-group">
-                            <div>{"  "}</div>
-                            <label htmlFor="exampleInputPassword1">
-                              kitchenCategeory
-                            </label>
-                            <br />
-                            <select
-                              value={kitchenEdit.kitchenCategeory}
-                              name="kitchenCategeory"
-                              onChange={(e) => handleKitchenChange(e)}
-                            >
-                              <option>all</option>
-                              <option>vegetarian</option>
-                              <option>non-vegetarian</option>
-                              <option>frozen</option>
-                            </select>
-                          </div>
-                          <br />
-                          <div>
-                            <label htmlFor="exampleInputPassword1">
-                              Kitchen zone
-                            </label>
-                            <br />
-                            <input
-                              type="text"
-                              value={kitchenEdit.zone}
-                              name="zone"
-                              onChange={(e) => handleKitchenChange(e)}
-                            />
-                            <br />
-                          </div>
-                          <div>
-                            <label htmlFor="exampleInputPassword1">
-                              Kitchen street
-                            </label>
-                            <br />
-                            <input
-                              type="text"
-                              value={kitchenEdit.street}
-                              name="street"
-                              onChange={(e) => handleKitchenChange(e)}
-                            />
-                            <br />
-                          </div>
-                          <label htmlFor="exampleInputPassword1">
-                            {" "}
-                            buildingNumber
-                          </label>
-                          <br />
-                          <input
-                            type="number"
-                            value={kitchenEdit.buildingNumber}
-                            name="buildingNumber"
-                            onChange={(e) => handleKitchenChange(e)}
-                          />
-                          <br />
-                          <br />{" "}
-                          <input
-                            type="file"
-                            className="form-control-file"
-                            id="exampleFormControlFile1"
-                          ></input>
-                          <br />
-                          <br />
-======= */}
-          <div className="row">
+          <div className="row g-0">
             <div className="col-md-2">
               {/* side bar */}
               <button
@@ -279,22 +158,16 @@ export default function KitchenProfile() {
                 id="offcanvasRight2"
                 aria-labelledby="offcanvasRightLabel"
               >
-                <div className="offcanvas-header">
-                  <button
-                    type="button"
-                    className="btn sub-btn up-btn exit"
-                    data-bs-dismiss="offcanvas"
-                  >
-                    <AiOutlineMenuFold />
-                  </button>
-                </div>
-                <div className="offcanvas-body body-user">
+                <div className="offcanvas-body canv-body">
                   <div className="side-bar">
                     <div className="side-bar-top p-5">
-                      {/* <img
-                    src="../../../public/images/john.png"
-                    className="img-responsive"
-                  /> */}
+                      <button
+                        type="button"
+                        className="btn sub-btn up-btn exit"
+                        data-bs-dismiss="offcanvas"
+                      >
+                        <AiOutlineMenuFold />
+                      </button>
                       <img
                         src={kitchen.kitchenImage}
                         alt={kitchen.kitchenName}
@@ -312,7 +185,6 @@ export default function KitchenProfile() {
                     <div className="side-bar-bottom pb-5">
                       <ul className="ul-group profile-list">
                         <li className="element">
-
                           <button
                             onClick={() => {
                               showHistoryOrder();
@@ -413,6 +285,29 @@ export default function KitchenProfile() {
                               />
                             </div>
                             <div className="form-group">
+                              <label htmlFor="exampleInputEmail1"> Email</label>
+                              <input
+                                type="text"
+                                className="form-control  "
+                                value={kitchenEdit.kitchenEmail}
+                                name="kitchenEmail"
+                                onChange={(e) => handleKitchenChange(e)}
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="exampleInputEmail1">
+                                {" "}
+                                Kitchen phone
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control  "
+                                value={kitchenEdit.kitchenPhone}
+                                name="kitchenPhone"
+                                onChange={(e) => handleKitchenChange(e)}
+                              />
+                            </div>
+                            <div className="form-group">
                               <label htmlFor="exampleInputPassword1">
                                 Kitchen status
                               </label>
@@ -487,7 +382,18 @@ export default function KitchenProfile() {
                               type="file"
                               className="form-control-file"
                               id="exampleFormControlFile1"
+                              name="kitchenimage"
+                              onChange={(e) => handleKitchenChange(e)}
                             ></input>
+                            {isFilePicked ? (
+                              <div>
+                                <p className="text-primary">Done</p>
+                              </div>
+                            ) : (
+                              <p className="text-danger">
+                                old image still not changed
+                              </p>
+                            )}
                             <br />
                             <br />
                             <button
