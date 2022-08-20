@@ -147,12 +147,12 @@ export default function NavBar() {
               id="cash"
               onClick={(e) => checkOut({ allItems })}
             >
-              ADD ORDER
+              Add Order
             </button>
           ) : (
             <Link className="dblock cash btn sub-btn addBtn" to="/login">
               {" "}
-              ADD ORDER{" "}
+              Add Order{" "}
             </Link>
           )}
           <br />
@@ -162,184 +162,190 @@ export default function NavBar() {
             onClick={(e) => createOrder()}
           >
             {" "}
-            CHECKOUT
+            CheckOut
           </button>
           {/* {clicked  ? <button onClick={(e)=>checkOut({allItems})}>ADD ORDER</button> : <button onClick={(e)=>createOrder()}>send CHECKOUT</button> } */}
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light  ">
+      <nav className="navbar navbar-expand-lg  yummy-nav fixed-top">
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
-        <div className="container-fluid ">
-          <Link className="navbar-brand yummy" to="/home">
-            <span className="charY">Y</span> UMMY
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse mynav"
-            id="navbarSupportedContent"
-          >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-              <li
-                className={`${
-                  loginrole == "pilot" || loginrole == "kitchen"
-                    ? " dnone"
-                    : "nav-item dblock navli"
-                }`}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          className="collapse navbar-collapse mynav"
+          id="navbarSupportedContent"
+        >
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <li className="nav-item navli nav-list">
+              <Link className="nav-link active" aria-current="page" to="/home">
+                YUMMY
+              </Link>
+            </li>
+            <li
+              className={`${
+                loginrole == "pilot" || loginrole == "kitchen"
+                  ? " dnone"
+                  : "nav-item dblock navli nav-list"
+              }`}
+            >
+              <Link
+                className="nav-link active text-light"
+                aria-current="page"
+                to="/home"
               >
+                Home
+              </Link>
+            </li>
+
+            {/* userId  kitchenId  pilotId */}
+
+            <li className="nav-item navli nav-list">
+              {loginrole == "pilot" ? (
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/home"
+                  to={`/pilot/${pilotId}`}
                 >
-                  Home
+                  {" "}
+                  Profile{" "}
                 </Link>
+              ) : loginrole == "kitchen" ? (
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to={`/kitchen/${kitchenId}`}
+                >
+                  {" "}
+                  Profile{" "}
+                </Link>
+              ) : loginrole == "user" ? (
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to={`/user/${userId}`}
+                >
+                  {" "}
+                  Profile{" "}
+                </Link>
+              ) : (
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/login"
+                >
+                  {" "}
+                  Profile{" "}
+                </Link>
+              )}
+            </li>
+
+            <li className="nav-item navli nav-list">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/aboutUs"
+              >
+                About Us
+              </Link>
+            </li>
+            <li className="nav-item navli nav-list">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/contactUs"
+              >
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+          <IoCartOutline
+            className="basket"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          />
+          {basketLength ? (
+            <span className="cartNumber"> {basketLength} </span>
+          ) : (
+            ""
+          )}
+          <div className="d-flex ">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0  sign-dropdown">
+              <li className="nav-item dropdown navli">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Sign Up
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbar Dropdown">
+                  <li className="navli">
+                    <Link
+                      className="dropdown-item sign-element"
+                      to="/userSignUp"
+                    >
+                      User
+                    </Link>
+                  </li>
+                  <li className="navli">
+                    <Link
+                      className="dropdown-item sign-element"
+                      to="/kitchenSignUP"
+                    >
+                      Kitchen
+                    </Link>
+                  </li>
+                  <li className="navli ">
+                    <Link
+                      className="dropdown-item sign-element"
+                      to="/PilotSignUp"
+                    >
+                      Pilot
+                    </Link>
+                  </li>
+                </ul>
               </li>
-
-              {/* userId  kitchenId  pilotId */}
-
-              <li className="nav-item navli">
-                {loginrole == "pilot" ? (
+              <li className="navli nav-list">
+                {loginrole === "" ? (
                   <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={`/pilot/${pilotId}`}
-                  >
-                    {" "}
-                    Profile{" "}
-                  </Link>
-                ) : loginrole == "kitchen" ? (
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={`/kitchen/${kitchenId}`}
-                  >
-                    {" "}
-                    Profile{" "}
-                  </Link>
-                ) : loginrole == "user" ? (
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={`/user/${userId}`}
-                  >
-                    {" "}
-                    Profile{" "}
-                  </Link>
-                ) : (
-                  <Link
-                    className="nav-link active"
+                    className="nav-link active text-light"
                     aria-current="page"
                     to="/login"
                   >
                     {" "}
-                    Profile{" "}
+                    Login{" "}
                   </Link>
+                ) : (
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/login"
+                  >
+                    {" "}
+                    Logout{" "}
+                  </a>
                 )}
               </li>
-
-              <li className="nav-item navli">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/aboutUs"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li className="nav-item navli">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/contactUs"
-                >
-                  Contact Us
-                </Link>
-              </li>
             </ul>
-            <IoCartOutline
-              className="basket"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-            />
-            {basketLength ? (
-              <span className="cartNumber"> {basketLength} </span>
-            ) : (
-              ""
-            )}
-            <div className="d-flex ">
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li className="nav-item dropdown navli">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Sign Up
-                  </a>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <li className="navli">
-                      <Link className="dropdown-item" to="/userSignUp">
-                        User
-                      </Link>
-                    </li>
-                    <li className="navli">
-                      <Link className="dropdown-item" to="/kitchenSignUP">
-                        Kitchen
-                      </Link>
-                    </li>
-                    <li className="navli">
-                      <Link className="dropdown-item" to="/PilotSignUp">
-                        Pilot
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className="navli">
-                  {loginrole === "" ? (
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to="/login"
-                    >
-                      {" "}
-                      Login{" "}
-                    </Link>
-                  ) : (
-                    <a
-                      className="nav-link active"
-                      aria-current="page"
-                      href="/login"
-                    >
-                      {" "}
-                      Logout{" "}
-                    </a>
-                  )}
-                </li>
-              </ul>
 
-              {/* <form className="d-flex ">
+            {/* <form className="d-flex ">
               
               </form> */}
-            </div>
           </div>
         </div>
       </nav>

@@ -44,7 +44,7 @@ function Login() {
         dispatch(PilotIdThunk(userId));
       } else if (user.role === "user") {
         dispatch(UserIdThunk(userId));
-        history.push("/home")
+        history.push("/home");
       } else if (user.role === "kitchen") {
         history.push(`/kitchen/${userId}`);
         dispatch(KetchenIdThunk(userId));
@@ -153,87 +153,89 @@ function Login() {
 
   return (
     <div className="container">
-      <Form
-        onSubmit={(event) => {
-          handelSubmit(event);
-        }}
-        className="form"
-      >
-        {/* choose yor role */}
-        <div className="dropdown mb-5">
-          <label className="mb-2">choose Role</label>
-          <br />
-          <select
-            name="role"
-            className="select-category"
-            value={user.role}
-            onChange={(e) => handelUserChange(e)}
-          >
-            <option value="select role">select role</option>
-            <option value="user">user</option>
-            <option value="kitchen">Kitchen</option>
-            <option value="pilot">Pilot</option>
-          </select>
-        </div>
-        {user.role !== "pilot" ? (
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={user.email}
-              name="email"
+      <div className="logIn">
+        <Form
+          onSubmit={(event) => {
+            handelSubmit(event);
+          }}
+          className="form"
+        >
+          {/* choose yor role */}
+          <div className="dropdown mb-5">
+            <label className="mb-2">choose Role</label>
+            <br />
+            <select
+              name="role"
+              className="select-category"
+              value={user.role}
               onChange={(e) => handelUserChange(e)}
-              className="inputField"
-            />
-            <Form.Text className="d-block text-danger mb-2">
-              {userError.emailError}
-            </Form.Text>
-          </Form.Group>
-        ) : (
-          ""
-        )}
-        {/* national id  */}
-        {user.role == "pilot" ? (
+            >
+              <option value="select role">select role</option>
+              <option value="user">user</option>
+              <option value="kitchen">Kitchen</option>
+              <option value="pilot">Pilot</option>
+            </select>
+          </div>
+          {user.role !== "pilot" ? (
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={user.email}
+                name="email"
+                onChange={(e) => handelUserChange(e)}
+                className="inputField"
+              />
+              <Form.Text className="d-block text-danger mb-2">
+                {userError.emailError}
+              </Form.Text>
+            </Form.Group>
+          ) : (
+            ""
+          )}
+          {/* national id  */}
+          {user.role == "pilot" ? (
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label> national ID </Form.Label>
+              <Form.Control
+                placeholder="pilot national ID"
+                type="text"
+                value={user.email}
+                name="email"
+                onChange={(e) => handelUserChange(e)}
+              />
+              <Form.Text className="d-block text-danger mb-2">
+                {/* {pilotError.nationalIDError} */}
+              </Form.Text>
+            </Form.Group>
+          ) : (
+            ""
+          )}
+          {/* password */}
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label> national ID </Form.Label>
+            <Form.Label className="d-block">Password</Form.Label>
             <Form.Control
-              placeholder="pilot national ID"
-              type="text"
-              value={user.email}
-              name="email"
+              type="password"
+              placeholder="Password"
+              value={user.password}
+              name="password"
               onChange={(e) => handelUserChange(e)}
+              className="d-inline inputField"
             />
-            <Form.Text className="d-block text-danger mb-2">
-              {/* {pilotError.nationalIDError} */}
-            </Form.Text>
           </Form.Group>
-        ) : (
-          ""
-        )}
-        {/* password */}
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label className="d-block">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={user.password}
-            name="password"
-            onChange={(e) => handelUserChange(e)}
-            className="d-inline inputField"
-          />
-        </Form.Group>
-        <Form.Text className="d-block text-danger mb-2">
-          {userError.passwordError}
-        </Form.Text>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-        <br />
-        <Form.Text className="d-block text-danger mb-2">
-          {userError.loginError}
-        </Form.Text>
-      </Form>
+          <Form.Text className="d-block text-danger mb-2">
+            {userError.passwordError}
+          </Form.Text>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+          <br />
+          <Form.Text className="d-block text-danger mb-2">
+            {userError.loginError}
+          </Form.Text>
+        </Form>
+      </div>
     </div>
   );
 }

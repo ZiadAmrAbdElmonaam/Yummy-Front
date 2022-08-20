@@ -59,75 +59,77 @@ export default function PilotOrders() {
   // console.log("props====>", props);
   // console.log("props.orders====>", props.pilot.orders);
   return (
-    <div className="container">
-      <Link className="btn btn-danger" to={`/pilot/${params.id}`}>
-        Back
-      </Link>
-      <h1 className="orders-head">My Orders</h1>
-      <div className="table-responsive">
-        <table className="table  table-hover my-5 ">
-          <thead className="table-warning ">
-            <tr>
-              <td>Orders No.</td>
-              <td>Kitchen Name</td>
-              <td>kitchen Address</td>
-              <td>Client Name</td>
-              <td>Client Address</td>
-              <td>Client Phone</td>
-              <td>Item</td>
-              <td>Pilot Order Status</td>
-              <td>Total Price</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {pilotOnlineOrders.map((order, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{order.kitchen.kitchenName}</td>
-                  <td>
-                    {order.kitchen.kitchenAddress.buildingNumber},{" "}
-                    {order.kitchen.kitchenAddress.street},{" "}
-                    {order.kitchen.kitchenAddress.zone}
-                  </td>
-                  <td>{order.userid.userFullName}</td>
-                  <td>
-                    {order.userid.userAddress.building},{" "}
-                    {order.userid.userAddress.street},{" "}
-                    {order.userid.userAddress.zone}
-                  </td>
-                  <td>{order.userid.userPhone}</td>
-                  <td>
-                    <ul>
-                      {order.orderItems.map((item, index) => {
-                        return (
-                          <li key={index}>
-                            {item.itemName} : {item.itemPrice} <span>LE</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </td>
-                  <td>{order.pilotOrderStatus}</td>
-                  <td>
-                    {order.totalPrice} <span>LE</span>
-                  </td>
-                  <td>
-                    <AiOutlineCheck
-                      id={order._id}
-                      size="30"
-                      color="green"
-                      className="checkMark"
-                      key={index}
-                      onClick={(e, key) => changeToDelivered(e, index)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <div className="contaier">
+      <div className="myOrders">
+        <Link className="btn btn-danger" to={`/pilot/${params.id}`}>
+          Back
+        </Link>
+        <h1 className="orders-head">My Orders</h1>
+        <div className="table-responsive">
+          <table className="table  table-hover my-5 ">
+            <thead className="table-warning ">
+              <tr>
+                <td>Orders No.</td>
+                <td>Kitchen Name</td>
+                <td>kitchen Address</td>
+                <td>Client Name</td>
+                <td>Client Address</td>
+                <td>Client Phone</td>
+                <td>Item</td>
+                <td>Pilot Order Status</td>
+                <td>Total Price</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {pilotOnlineOrders.map((order, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{order.kitchen.kitchenName}</td>
+                    <td>
+                      {order.kitchen.kitchenAddress.buildingNumber},{" "}
+                      {order.kitchen.kitchenAddress.street},{" "}
+                      {order.kitchen.kitchenAddress.zone}
+                    </td>
+                    <td>{order.userid.userFullName}</td>
+                    <td>
+                      {order.userid.userAddress.building},{" "}
+                      {order.userid.userAddress.street},{" "}
+                      {order.userid.userAddress.zone}
+                    </td>
+                    <td>{order.userid.userPhone}</td>
+                    <td>
+                      <ul>
+                        {order.orderItems.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              {item.itemName} : {item.itemPrice} <span>LE</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </td>
+                    <td>{order.pilotOrderStatus}</td>
+                    <td>
+                      {order.totalPrice} <span>LE</span>
+                    </td>
+                    <td>
+                      <AiOutlineCheck
+                        id={order._id}
+                        size="30"
+                        color="green"
+                        className="checkMark"
+                        key={index}
+                        onClick={(e, key) => changeToDelivered(e, index)}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

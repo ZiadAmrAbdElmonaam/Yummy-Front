@@ -27,10 +27,10 @@ export default function HistoryOrder() {
         setIsLoad(false);
         console.log(err);
       });
-  },[]);
+  }, []);
 
   return (
-    <div className="my-3">
+    <div className="history-order">
       <h2 className="top-header">History Orders</h2>
       {historyOrder.length !== 0 ? (
         <table className="table  table-hover my-5 ">

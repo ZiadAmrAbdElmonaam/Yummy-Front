@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import "./OrdersStyle.css";
 import { useDispatch, useSelector } from "react-redux";
-import {FlagThunk} from "../../Store/Actions/Flag"
+import { FlagThunk } from "../../Store/Actions/Flag";
 
 export default function UpdateUser(props) {
   // console.log("new propse", props.userObj._id);
@@ -93,12 +93,11 @@ export default function UpdateUser(props) {
           userAddressError: value.length === 0 ? "this field is required" : "",
         });
         break;
-       
     }
   };
 
-  let dispatch = useDispatch()
-  let flag = useSelector(state => state.flag.flag)
+  let dispatch = useDispatch();
+  let flag = useSelector((state) => state.flag.flag);
   function HandelSubmit(event) {
     event.preventDefault();
     // console.log("user now", user);
@@ -114,17 +113,15 @@ export default function UpdateUser(props) {
     axiosInstance
       .put(`/user/${props.userObj._id}`, user)
       .then((res) => {
-        if(flag){
-        dispatch(FlagThunk(false))
-        }else{
-        dispatch(FlagThunk(true))
-
+        if (flag) {
+          dispatch(FlagThunk(false));
+        } else {
+          dispatch(FlagThunk(true));
         }
         return res;
       })
       .then((data) => {
         // console.log("updated data is", data);
-
       })
       .catch((error) => {
         console.log(error);
@@ -134,7 +131,7 @@ export default function UpdateUser(props) {
     // }
   }
   return (
-    <div className="updateUser my-3">
+    <div className="updateUser">
       <h2 className="top-header mb-5">Update Your Profile</h2>
       <Form
         onSubmit={(event) => {
@@ -246,7 +243,6 @@ export default function UpdateUser(props) {
           {/* </div> */}
         </div>
       </Form>
-      <hr />
     </div>
   );
 }

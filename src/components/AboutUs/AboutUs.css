@@ -15,7 +15,7 @@
 .top {
   position: absolute;
   top: 50%;
-  color: #edf4f5;
+  color: #edf4f5 !important;
 }
 .top p {
   width: 50%;

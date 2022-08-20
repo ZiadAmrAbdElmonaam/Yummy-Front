@@ -33,7 +33,7 @@ export default function HistoryOrders(props) {
   // console.log("orders", userOrders.userOrder);
   // delete order
   return (
-    <div className="my-3">
+    <div className="historyProfile">
       <h2 className="top-header">History Orders</h2>
       {isOrder ? (
         <table className="table  table-hover my-5 ">

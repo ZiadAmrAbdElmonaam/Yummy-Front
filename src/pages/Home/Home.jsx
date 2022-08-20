@@ -69,16 +69,14 @@ export default function Home() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="http://localhost:8080/avatars/images/slider1.jpg"
+              src="http://localhost:8080/avatars/images/slider2.jpg"
               className="d-block w-100 sliderImg"
               alt="..."
             />
-            <div className="carousel-caption d-none d-md-block">
+            {/* <div className="carousel-caption d-none d-md-block">
               <h5>Healthy Food</h5>
-              <p>
-                You Can Enjoy Healthy Food
-              </p>
-            </div>
+              <p>You Can Enjoy Healthy Food</p>
+            </div> */}
           </div>
           <div className="carousel-item">
             <img
@@ -86,25 +84,21 @@ export default function Home() {
               className="d-block w-100 sliderImg"
               alt="..."
             />
-            <div className="carousel-caption d-none d-md-block">
+            {/* <div className="carousel-caption d-none d-md-block">
               <h5>Frozen Food</h5>
-              <p>
-                Best Frozen Food Ever
-              </p>
-            </div>
+              <p>Best Frozen Food Ever</p>
+            </div> */}
           </div>
           <div className="carousel-item">
             <img
-              src="http://localhost:8080/avatars/images/slider2.jpg"
+              src="http://localhost:8080/avatars/images/slider1.jpg"
               className="d-block w-100 sliderImg"
               alt="..."
             />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Vegiterian  Food</h5>
-              <p>
-Best Vegiterian Food Ever    
-          </p>
-            </div>
+            {/* <div className="carousel-caption d-none d-md-block">
+              <h5>Vegiterian Food</h5>
+              <p>Best Vegiterian Food Ever</p>
+            </div> */}
           </div>
         </div>
         <button
@@ -134,7 +128,7 @@ Best Vegiterian Food Ever
       </div>
 
       <div className="contain-menu">
-        <h6 className="my-3"> Kitchens Menu</h6>
+        <h6 className="my-4"> Kitchens Menu</h6>
         <div className="row row-cols-1 row-cols-md-4 g-0 ">
           {kitchens.map((kitchen) => {
             return (

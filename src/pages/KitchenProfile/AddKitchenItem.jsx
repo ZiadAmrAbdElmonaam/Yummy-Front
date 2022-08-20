@@ -5,7 +5,7 @@ import axiosInstance from "../../Network/Config";
 import "./kitchenProfile.css";
 import { AiFillPlusCircle, AiOutlineRollback } from "react-icons/ai";
 import { BiExit } from "react-icons/bi";
-import {SiOneplus} from "react-icons/si"
+import { SiOneplus } from "react-icons/si";
 
 export default function AddKitchenItem() {
   const history = useHistory();
@@ -130,7 +130,7 @@ export default function AddKitchenItem() {
     history.push(`/kitchen/${params.kitchenId}`);
   }
   return (
-    <>
+    <div className="addItems">
       <button
         className="btn"
         onClick={() => {
@@ -300,6 +300,6 @@ export default function AddKitchenItem() {
           ""
         )}
       </div>
-    </>
+    </div>
   );
 }

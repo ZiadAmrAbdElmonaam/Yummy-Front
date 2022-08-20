@@ -66,7 +66,7 @@ export default function KitchenOnlineOrders() {
   // console.log("hhhhhh", kitchenOrder);
   // console.log("hhhhhh", kitchenOrder.length);
   return (
-    <div className="my-3">
+    <div className="online-orders">
       <h2 className="top-header">Requested Orders</h2>
       {kitchenOrder.length !== 0 ? (
         <table className="table  table-hover my-5 ">
@@ -83,54 +83,51 @@ export default function KitchenOnlineOrders() {
             {kitchenOrder.map((order, index) => {
               return (
                 <tr key={index}>
-                
-                    <>
-                      <td>{index + 1}</td>
+                  <>
+                    <td>{index + 1}</td>
 
-                      <td>{order.kitchenOrderStatus}</td>
+                    <td>{order.kitchenOrderStatus}</td>
 
-                      <td>
-                        <ul>
-                          {order.orderItems.map((item, index) => {
-                            return (
-                              <li key={index}>
-                                {item.itemName} : {item.itemPrice}{" "}
-                                <span>LE</span>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </td>
-                      <td>{order.totalPrice}</td>
-                      <td>
-                        <button
-                          value="accepted"
-                          id={order._id}
-                          key={index}
-                          className="btn btn-success mx-1"
-                          onClick={(e) => changeStatus(e)}
-                        >
-                          Accept
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={(e) => rejectStatus(e)}
-                          value="rejected"
-                          id={order._id}
-                        >
-                          Reject
-                        </button>
-                      </td>
-                    </>
-                 
+                    <td>
+                      <ul>
+                        {order.orderItems.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              {item.itemName} : {item.itemPrice} <span>LE</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </td>
+                    <td>{order.totalPrice}</td>
+                    <td>
+                      <button
+                        value="accepted"
+                        id={order._id}
+                        key={index}
+                        className="btn btn-success mx-1"
+                        onClick={(e) => changeStatus(e)}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={(e) => rejectStatus(e)}
+                        value="rejected"
+                        id={order._id}
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </>
                 </tr>
               );
             })}
           </tbody>
         </table>
-       ) : (
+      ) : (
         "no order added yet"
-               )}
+      )}
     </div>
   );
 }

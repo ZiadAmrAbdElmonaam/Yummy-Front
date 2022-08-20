@@ -6,13 +6,11 @@ import Loader from "../../components/Loader/Loader";
 import axiosInstance from "../../Network/Config";
 import Menu from "../../components/Menu/Menu";
 import ItemCard from "../../components/ItemCard/ItemCard";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { OrderThunk } from "../../Store/Actions/Orders";
 import NavBar from "../../components/NavBar/NavBar";
 
 import { KetchenIdThunk } from "../../Store/Actions/KetchenId";
-
-
 
 export default function KitchenDetails() {
   const [userD, setUserD] = useState({});
@@ -21,34 +19,30 @@ export default function KitchenDetails() {
   let [isload, setIsLoad] = useState(true);
   let params = useParams();
   const dispatch = useDispatch();
- 
+
   function addOrder(item) {
-  
     //  console.log("e===================>", item);
-   
-    dispatch(OrderThunk(item ))
+
+    dispatch(OrderThunk(item));
 
     // console.log("item ===>", item);
-    
   }
 
   useEffect(() => {
-
     axiosInstance
       .get(`/kitchen/${params.id}`)
       .then((res) => {
         setUserD(res.data);
         setIsLoad(false);
         // console.log(params.id);
-    dispatch(KetchenIdThunk(Number(params.id) ))
-      
+        dispatch(KetchenIdThunk(Number(params.id)));
+
         setItem(res.data.menuId.menuItems);
       })
-      
+
       .catch((err) => {
         setIsLoad(false);
       });
-
   }, []);
   // console.log("kitchen data", userD);
 
@@ -57,7 +51,7 @@ export default function KitchenDetails() {
       {isload ? (
         <Loader />
       ) : (
-        <div className="container py-5">
+        <div className="container kitchen-details">
           <div className="kitchen">
             <div className="row g-0">
               <div className="col-md-2">
@@ -116,4 +110,3 @@ export default function KitchenDetails() {
     </div>
   );
 }
-

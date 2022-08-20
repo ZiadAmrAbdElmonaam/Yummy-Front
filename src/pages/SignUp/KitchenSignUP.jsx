@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 export default function JoinUS() {
   // start of states
-  const history= useHistory()
+  const history = useHistory();
   const [kitchen, setKitchen] = useState({
     kitchenName: "",
     kitchenEmail: "",
@@ -177,7 +177,7 @@ export default function JoinUS() {
       .then((data) => {
         // console.log(data);
         // window.location = "/login";
-        history.push("/login")
+        history.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -190,8 +190,8 @@ export default function JoinUS() {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="container">
+      <div className="kitchen-signUp">
         <h6>Welcome kitchen</h6>
         <Form
           onSubmit={(event) => {
@@ -346,6 +346,6 @@ export default function JoinUS() {
           </button>
         </Form>
       </div>
-    </>
+    </div>
   );
 }

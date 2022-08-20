@@ -53,7 +53,7 @@ export default function CurrentOrders(props) {
   };
 
   return (
-    <div className="my-3">
+    <div className="currentOrder">
       <h2 className="top-header">Current Orders</h2>
       {isOrder ? (
         <table className="table  table-hover my-5 ">

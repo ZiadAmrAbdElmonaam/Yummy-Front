@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 export default function PilotSignUP() {
   // start of states
   const ref = useRef();
-  const history =useHistory()
+  const history = useHistory();
   // console.log("ref current", ref.current);
   const [pilot, setPilot] = useState({
     pilotName: "",
@@ -131,7 +131,7 @@ export default function PilotSignUP() {
         .then((data) => {
           // console.log(data);
           // window.location = "/login";
-          history.push("/login")
+          history.push("/login");
         });
     } else {
       // console.log("error validation");
@@ -143,8 +143,8 @@ export default function PilotSignUP() {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="container">
+      <div className="pilot-signUp">
         <h6>Welcome pilot</h6>
         <Form
           onSubmit={(event) => {
@@ -241,6 +241,6 @@ export default function PilotSignUP() {
           </button>
         </Form>
       </div>
-    </>
+    </div>
   );
 }

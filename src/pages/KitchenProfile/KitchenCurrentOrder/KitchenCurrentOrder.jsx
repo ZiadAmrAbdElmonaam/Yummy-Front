@@ -81,7 +81,7 @@ export default function KitchenCurrentOrders() {
   };
 
   return (
-    <div className="my-3">
+    <div className="current-orders">
       <h2 className="top-header">Current Orders</h2>
       {kitchenCurrentOrder.length !== 0 ? (
         <table className="table  table-hover my-5 ">

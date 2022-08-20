@@ -1,3 +1,6 @@
+.user-profile {
+  margin: 2rem auto;
+}
 .side-bar {
   color: #ff5a00;
   background-image: linear-gradient(180deg, #ff5a00, #8a3508);

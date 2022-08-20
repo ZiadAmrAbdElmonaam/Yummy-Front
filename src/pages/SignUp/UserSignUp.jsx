@@ -183,7 +183,7 @@ export default function SignUp() {
         .then((data) => {
           // console.log(data);
           // window.location = "/login";
-          history.push("/login")
+          history.push("/login");
         });
     } else {
       // console.log("error validation");
@@ -195,8 +195,8 @@ export default function SignUp() {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="container">
+      <div className="user-signUp">
         <h6>Welcome user</h6>
         <Form
           onSubmit={(event) => {
@@ -346,6 +346,6 @@ export default function SignUp() {
           </button>
         </Form>
       </div>
-    </>
+    </div>
   );
 }

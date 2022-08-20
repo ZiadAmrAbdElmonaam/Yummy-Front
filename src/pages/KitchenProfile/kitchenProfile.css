@@ -2,6 +2,9 @@
    
     margin-left: 47%;
 } */
+.App {
+  margin-top: 5rem !important;
+}
 .icon:hover {
   cursor: pointer;
   transform: scale(1.1);
@@ -65,4 +68,17 @@
   background-color: white;
   border-color: #ff5a00;
   color: #ff5a00;
+}
+.history-order,
+.addItems,
+.online-orders,
+.current-orders {
+  margin: 6rem 0;
+}
+.editProfile {
+  text-align: left;
+  padding: 1rem;
+}
+.editProfile select {
+  width: 90%;
 }

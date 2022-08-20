@@ -1,0 +1,12 @@
+.contain-search {
+  margin: 5rem auto;
+}
+.contain-search input {
+  color: #ff5a00;
+  width: 30%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ff5a00;
+  border-left: none;
+  background-color: #fff;
+  border-radius: 1rem;
+}

@@ -6,7 +6,7 @@ h6 {
   text-align: center;
   color: orange;
   font-size: 2rem;
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 .select-category {
   padding: 0.5rem 1rem;
@@ -21,7 +21,7 @@ h6 {
 
   padding: 0.5rem 2rem;
   font-size: 1.3rem;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   width: 40%;
   display: block;
 }
@@ -29,4 +29,9 @@ h6 {
   background-color: #fff;
   border: 1px solid #ff5a00;
   color: #ff5a00;
+}
+.kitchen-signUp,
+.pilot-signUp,
+.user-signUp {
+  margin: 4.5rem auto;
 }
